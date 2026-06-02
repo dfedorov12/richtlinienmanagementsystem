@@ -68,7 +68,7 @@ Interne Spaltennamen müssen **exakt** so heißen (beim Anlegen ohne Leerzeichen
 | `DokumentName` | Einzelne Textzeile | |
 | `DokumentDriveId` | Einzelne Textzeile | Graph driveId |
 | `DokumentItemId` | Einzelne Textzeile | Graph itemId |
-| `Version` | Einzelne Textzeile | z. B. „1.0" |
+| `Version1` | Einzelne Textzeile | z. B. „1.0" — **Achtung:** „Version" ist in SharePoint reserviert, daher Spaltenname `Version1` |
 | `Status` | Auswahl | Werte **exakt**: `Entwurf`, `InReview`, `Veröffentlicht`, `Archiviert` |
 | `Pflicht` | Ja/Nein | |
 | `QuizErforderlich` | Ja/Nein | |
