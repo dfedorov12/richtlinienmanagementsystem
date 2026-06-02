@@ -77,6 +77,8 @@ Interne Spaltennamen müssen **exakt** so heißen (beim Anlegen ohne Leerzeichen
 | `VeroeffentlichtAm` | Datum und Uhrzeit | |
 | `FreigegebenVon` | Einzelne Textzeile | UPN des Genehmigers |
 | `Zielgruppen` | Mehrere Zeilen Text (Nur-Text) | JSON-Array von Rollen; leer/`[]` = für alle |
+| `WiederholungMonate` | Zahl | 0 = keine; sonst erneute Pflicht nach X Monaten |
+| `NaechsteReview` | Datum und Uhrzeit | interner Review-Termin der Richtlinie |
 
 ### 3b. Liste „Bestaetigungen"
 
