@@ -76,6 +76,7 @@ Interne Spaltennamen müssen **exakt** so heißen (beim Anlegen ohne Leerzeichen
 | `QuizJson` | Mehrere Zeilen Text (Nur-Text) | Fragen als JSON |
 | `VeroeffentlichtAm` | Datum und Uhrzeit | |
 | `FreigegebenVon` | Einzelne Textzeile | UPN des Genehmigers |
+| `Zielgruppen` | Mehrere Zeilen Text (Nur-Text) | JSON-Array von Rollen; leer/`[]` = für alle |
 
 ### 3b. Liste „Bestaetigungen"
 
@@ -99,9 +100,26 @@ Interne Spaltennamen müssen **exakt** so heißen (beim Anlegen ohne Leerzeichen
 Wird beim ersten Speichern über **Einstellungen** automatisch angelegt:
 `Dokumente/Richtlinienmanagement/access-config.json`
 ```json
-{ "admins": ["fedorov@dihag.com"], "genehmiger": ["..."] }
+{
+  "admins":     ["administrator@dihag.com"],
+  "genehmiger": ["administrator@dihag.com"],
+  "roles":      ["Geschäftsführung", "IT", "Produktion", "Qualitätsmanagement"],
+  "userRoles":  { "max.muster@dihag.com": ["IT", "Qualitätsmanagement"] }
+}
 ```
-Bis dahin gilt der Default aus `js/access.js` (`fedorov@dihag.com` als Admin & Genehmiger).
+Bis die Datei existiert, gilt der Default aus `js/access.js` (`administrator@dihag.com` +
+`fedorov@dihag.com` als Admin & Genehmiger; gängige Rollen vordefiniert).
+
+### 3d. Rollen & Zielgruppen (zielgruppenspezifische Richtlinien)
+- **Unternehmensrollen/Abteilungen** werden in den *Einstellungen* gepflegt (`roles`).
+- Die **effektive Rolle** eines Mitarbeiters = seine **Azure-AD-Abteilung** (`department`,
+  via Graph `/me`) **+** optionale **manuelle Zuordnung** (`userRoles`).
+- Jede **Richtlinie** hat eine **Zielgruppe**: *Alle* (Default) oder bestimmte Rollen.
+- Unter *Meine Richtlinien* sieht ein Mitarbeiter Richtlinien für **Alle** sowie alle, deren
+  Zielgruppe eine seiner Rollen enthält. Das **Compliance-Soll** je Richtlinie zählt nur die
+  Mitarbeiter der jeweiligen Zielgruppe.
+> Tipp: Rollen-Namen am besten exakt wie die AD-Abteilungen benennen, dann greift die
+> automatische Zuordnung ohne manuelle Pflege.
 
 ---
 
