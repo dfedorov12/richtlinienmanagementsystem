@@ -45,6 +45,7 @@ Redirect-URI: `https://dfedorov12.github.io/richtlinienmanagementsystem/`
 | `Sites.ReadWrite.All` | Listen lesen/schreiben | **ja** |
 | `Files.ReadWrite.All` | ISMS-Dokumente lesen/einbetten + `access-config.json` | **ja** |
 | `User.Read.All` | Mitarbeiterliste fürs Compliance-Dashboard | **ja** |
+| `Mail.Send` | Zertifikat-/Erinnerungs-Mails (#8, #4) — Versand nur an eigene Firmendomain | **ja** |
 
 Anschließend **„Admin-Consent erteilen"** klicken.
 
@@ -97,6 +98,17 @@ Interne Spaltennamen müssen **exakt** so heißen (beim Anlegen ohne Leerzeichen
 
 > Die App schreibt nur Spalten, die in der Richtlinien-Liste tatsächlich existieren
 > (verhindert 400-Fehler bei fehlenden Spalten). Leere Datumsfelder werden weggelassen.
+
+### 3b-2. Liste „Kurse" (optional, Beta für #10)
+Nur nötig, wenn der Kurse-Reiter genutzt werden soll. Fehlt die Liste, zeigt der Reiter
+einen Setup-Hinweis (kein Fehler).
+
+| Spalte | SP-Typ |
+|--------|--------|
+| `Title` | (vorhanden) — Kursname |
+| `Beschreibung` | Mehrere Zeilen Text |
+| `RichtlinienIds` | Mehrere Zeilen Text (JSON-Array der Richtlinien-IDs) |
+| `Status` | Auswahl (`Entwurf` / `Veröffentlicht`) |
 
 ### 3c. Rollen-Datei
 Wird beim ersten Speichern über **Einstellungen** automatisch angelegt:
