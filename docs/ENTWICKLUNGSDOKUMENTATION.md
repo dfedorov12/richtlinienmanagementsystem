@@ -197,20 +197,37 @@ registrierte SPA-Redirect-URI — daher entweder direkt über GitHub Pages teste
 `pruefer` + `geschaeftsleitung` (UPN-Listen), `konformSchwelle`/`freigabeSchwelle`
 (`alle`|`einer`), `eskalationMail`.
 
-### 7d. Power-Automate-Flow „Prüf-Erinnerung & Eskalation"
-Die App sendet nur die **Erst-Benachrichtigung**. Die wiederkehrenden Erinnerungen + Eskalation
-laufen serverseitig über einen **geplanten Flow** (echte Zeitsteuerung):
+### 7d. Zeitgesteuerte Erinnerungen & Eskalation (GitHub Actions, gewählter Weg)
+Die App sendet nur die **Erst-Benachrichtigung** (beim Einreichen). Die wiederkehrenden
+Erinnerungen + Eskalation laufen **serverseitig unbeaufsichtigt** – die Browser-App kann das
+nicht, weil ihr Code nur läuft, solange jemand die Seite offen hat. Umgesetzt als
+**GitHub-Action-Cron** + App-only-Skript: **`.github/workflows/erinnerungen.yml`** ruft täglich
+**`scripts/erinnerungen.mjs`** auf (abhängigkeitsfreies Node 20). Vollständige Einrichtung:
+**`docs/ERINNERUNGEN-GITHUB-ACTIONS.md`**.
 
-1. **Trigger:** Wiederkehrend, **täglich** (z. B. 08:00).
-2. **access-config lesen:** Datei `Dokumente/Richtlinienmanagement/access-config.json` abrufen,
-   JSON parsen → `pruefer`, `eskalationMail`.
-3. **Richtlinien abrufen:** Liste „Richtlinien", Filter `Status eq 'Konformitätsprüfung'`.
-4. **Pro Richtlinie:**
-   - `tage = differenceInDays(PruefungSeit, utcNow())`
-   - **Erinnerung fällig?** `(tage < 7 && mod(tage,7)=0) || (tage >= 7 && mod(tage-7,3)=0)`
-     → 1. Woche **wöchentlich**, ab 2. Woche **alle 3 Tage**.
-   - **Offene Prüfer:** `pruefer` minus die, die in `KonformitaetJson` mit `entscheidung=konform` stehen.
-   - Wenn fällig & offene Prüfer → Mail „Erinnerung – bitte Richtlinie sichten" an die offenen Prüfer.
-   - **Eskalation:** wenn `tage >= 14` und noch nicht konform → zusätzlich Mail an `eskalationMail`
-     (Weitergabe an andere Konformitätsprüfung).
+Ablauf des Skripts:
+1. **App-only-Token** (Client-Credentials) holen.
+2. **access-config.json** + Liste **„Richtlinien"** über Graph lesen.
+3. Pro Richtlinie mit Status `Konformitätsprüfung`/`InReview` (→ `pruefer`) bzw.
+   `Freigabe` (→ `geschaeftsleitung`):
+   - `tage = differenceInDays(PruefungSeit, now)`
+   - **Erinnerung fällig?** `(tage < 7 && tage%7==0) || (tage >= 7 && (tage-7)%3==0)`
+     → Tag 7, 10, 13, … (Woche 1 eine Erinnerung, ab Woche 2 alle 3 Tage; Tag 0 entfällt).
+   - **Offene Empfänger:** Rolle minus die, die in `KonformitaetJson` / `FreigabeJson` schon abgestimmt haben.
+   - Wenn fällig & offen → Mail an die offenen Empfänger (nur eigene Firmendomain).
+   - **Eskalation:** `tage >= ESKALATION_AB_TAGEN` (Default 14) → zusätzlich `eskalationMail`.
+
+**Benötigt** (siehe Detail-Doku): Graph-**APPLICATION**-Rechte `Sites.Read.All` + `Mail.Send`
+(Admin-Consent) und ein **Client-Secret** an derselben App-Registrierung; GitHub-Secrets
+`AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `MAIL_SENDER`. **Sicherheit:**
+`Mail.Send` als App darf als *jedes* Postfach senden → per **Application Access Policy** auf ein
+einziges Absender-Postfach einschränken (PowerShell in der Detail-Doku). Workflow läuft nur per
+`schedule`/`workflow_dispatch`, nie bei Fork-PRs → Secrets bleiben geschützt.
+
 > `KonformitaetJson`-Format: `[{ "upn": "...", "name": "...", "entscheidung": "konform|nicht_konform", "anmerkung": "...", "datum": "ISO" }]`
+> `FreigabeJson`-Format: `[{ "upn": "...", "name": "...", "datum": "ISO" }]`
+
+> **Alternative (ohne GitHub Actions):** derselbe Ablauf lässt sich als geplanter **Power-Automate**-
+> Flow (Wiederkehrend täglich → access-config lesen → Richtlinien filtern → Mail) oder als
+> **Azure Function/Logic App (Timer)** bauen. GitHub Actions wurde gewählt, weil das Repo ohnehin
+> dort liegt und kein zusätzlicher Dienst nötig ist.
