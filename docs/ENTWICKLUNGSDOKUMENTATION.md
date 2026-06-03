@@ -174,3 +174,43 @@ Fristen/Erinnerungen, Zielgruppen je Richtlinie über M365-Gruppen.
 Reiner Static-Host genügt (z. B. VS Code „Live Server"). MSAL-Login erfordert eine in Azure
 registrierte SPA-Redirect-URI — daher entweder direkt über GitHub Pages testen oder
 `localhost` als zusätzliche Redirect-URI hinterlegen.
+
+---
+
+## 7. Genehmigungsverfahren & Power Automate
+
+### 7a. Workflow
+**Entwurf → Konformitätsprüfung → Freigabe → Veröffentlicht.**
+- „Zur Konformitätsprüfung" setzt Status, `PruefungSeit` und sendet eine Mail an die Prüfer.
+- Prüfer markieren **konform / nicht konform** (mit Anmerkung). Bei Konformität gemäß
+  Schwelle (`alle` / `einer`) → Status **Freigabe** + Mail an die Geschäftsleitung.
+- GL gibt frei (Schwelle `alle` / `einer`) → Status **Veröffentlicht**.
+- „Nicht konform" → bleibt in Konformitätsprüfung (Votes/Anmerkungen sichtbar).
+
+### 7b. SharePoint-Vorbereitung
+- **Status-Auswahl** um die Werte **`Konformitätsprüfung`** und **`Freigabe`** erweitern.
+- Neue Spalten: `KonformitaetJson` (Mehrere Zeilen Text), `FreigabeJson` (Mehrere Zeilen Text),
+  `PruefungSeit` (Datum und Uhrzeit).
+- Importierte Dokumente landen in der App-Bibliothek im Ordner `Richtlinien-Import/`.
+
+### 7c. Rollen (Einstellungen → `access-config.json`)
+`pruefer` + `geschaeftsleitung` (UPN-Listen), `konformSchwelle`/`freigabeSchwelle`
+(`alle`|`einer`), `eskalationMail`.
+
+### 7d. Power-Automate-Flow „Prüf-Erinnerung & Eskalation"
+Die App sendet nur die **Erst-Benachrichtigung**. Die wiederkehrenden Erinnerungen + Eskalation
+laufen serverseitig über einen **geplanten Flow** (echte Zeitsteuerung):
+
+1. **Trigger:** Wiederkehrend, **täglich** (z. B. 08:00).
+2. **access-config lesen:** Datei `Dokumente/Richtlinienmanagement/access-config.json` abrufen,
+   JSON parsen → `pruefer`, `eskalationMail`.
+3. **Richtlinien abrufen:** Liste „Richtlinien", Filter `Status eq 'Konformitätsprüfung'`.
+4. **Pro Richtlinie:**
+   - `tage = differenceInDays(PruefungSeit, utcNow())`
+   - **Erinnerung fällig?** `(tage < 7 && mod(tage,7)=0) || (tage >= 7 && mod(tage-7,3)=0)`
+     → 1. Woche **wöchentlich**, ab 2. Woche **alle 3 Tage**.
+   - **Offene Prüfer:** `pruefer` minus die, die in `KonformitaetJson` mit `entscheidung=konform` stehen.
+   - Wenn fällig & offene Prüfer → Mail „Erinnerung – bitte Richtlinie sichten" an die offenen Prüfer.
+   - **Eskalation:** wenn `tage >= 14` und noch nicht konform → zusätzlich Mail an `eskalationMail`
+     (Weitergabe an andere Konformitätsprüfung).
+> `KonformitaetJson`-Format: `[{ "upn": "...", "name": "...", "entscheidung": "konform|nicht_konform", "anmerkung": "...", "datum": "ISO" }]`
