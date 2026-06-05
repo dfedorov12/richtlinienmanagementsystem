@@ -16,10 +16,11 @@ Einstellungen). Empfänger werden **immer** auf die eigene Firmendomain beschrä
 
 ## Schritt 1 – Azure: Application-Rechte + Client-Secret
 
-Im **Azure-Portal → App-Registrierungen → deine App** (`46c63ab1-1bd7-4774-b702-ed73a3f57072`):
+Im **Azure-Portal → App-Registrierungen → „DIHAG Cron-Job"** (`089bf9ad-2d9a-4cbc-b85d-88b4484af0bb`):
 
-> Du kannst dieselbe App-Registrierung wie die Web-App nutzen. Wichtig: Der Cron braucht
-> **Anwendungsberechtigungen** (nicht delegiert) und ein **Geheimnis**.
+> Eigene, von der Web-App getrennte App-Registrierung für unbeaufsichtigte Cron-Jobs (für
+> mehrere Themen wiederverwendbar). Sie braucht **Anwendungsberechtigungen** (nicht delegiert)
+> und ein **Geheimnis**.
 
 1. **API-Berechtigungen → Berechtigung hinzufügen → Microsoft Graph → _Anwendungsberechtigungen_:**
    - `Sites.Read.All`  (Liste „Richtlinien" + `access-config.json` lesen)
@@ -47,13 +48,13 @@ New-DistributionGroup -Name "RMS-Mailsender" -Type Security `
   -Members "richtlinien@dihag.com" -PrimarySmtpAddress "rms-mailsender@dihag.com"
 
 # App auf diese Gruppe einschränken (AppId = Client-ID der App-Registrierung):
-New-ApplicationAccessPolicy -AppId "46c63ab1-1bd7-4774-b702-ed73a3f57072" `
+New-ApplicationAccessPolicy -AppId "089bf9ad-2d9a-4cbc-b85d-88b4484af0bb" `
   -PolicyScopeGroupId "rms-mailsender@dihag.com" -AccessRight RestrictAccess `
   -Description "RMS-Erinnerungen darf nur als richtlinien@dihag.com senden"
 
 # Test:
 Test-ApplicationAccessPolicy -Identity "richtlinien@dihag.com" `
-  -AppId "46c63ab1-1bd7-4774-b702-ed73a3f57072"   # → AccessCheckResult: Granted
+  -AppId "089bf9ad-2d9a-4cbc-b85d-88b4484af0bb"   # → AccessCheckResult: Granted
 ```
 
 Das so gewählte Postfach ist `MAIL_SENDER` (Schritt 3). Die Firmendomain dieses Postfachs
@@ -67,8 +68,8 @@ New repository secret** – vier Stück:
 | Secret | Wert |
 |---|---|
 | `AZURE_TENANT_ID` | `fdb70646-023a-403b-a4b9-1f474a935123` |
-| `AZURE_CLIENT_ID` | `46c63ab1-1bd7-4774-b702-ed73a3f57072` |
-| `AZURE_CLIENT_SECRET` | der in Schritt 1 kopierte Geheimnis-**Wert** |
+| `AZURE_CLIENT_ID` | `089bf9ad-2d9a-4cbc-b85d-88b4484af0bb` (App „DIHAG Cron-Job") |
+| `AZURE_CLIENT_SECRET` | der in Schritt 1 kopierte Geheimnis-**Wert** (steht in keiner Datei!) |
 | `MAIL_SENDER` | das Absender-Postfach, z. B. `richtlinien@dihag.com` |
 
 > Secrets sind verschlüsselt und werden Fork-Pull-Requests **nicht** zugänglich gemacht. Der
