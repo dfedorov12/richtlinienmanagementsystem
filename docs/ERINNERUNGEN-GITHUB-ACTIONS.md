@@ -93,24 +93,31 @@ Erinnerungstag ist (Tag 7/10/13/…), und sendet nur dann.
 
 ## Voraussetzungen aus der App-Konfiguration
 
-Das Skript liest dieselbe `access-config.json` wie die App. Damit Erinnerungen sinnvoll greifen:
+Das Verhalten steuerst du direkt in der App: **Einstellungen → „Erinnerungen & Eskalation"**
+(gespeichert in `access-config.json`, die der Cron liest):
 
-- **Prüfer** und **Geschäftsleitung** in den App-**Einstellungen** pflegen.
-- Optional **Ersatz-Empfänger** (`eskalationMail`) setzen (für die Eskalation ab 14 Tagen).
-- Richtlinien müssen die Spalten `Status`, `PruefungSeit`, `KonformitaetJson`, `FreigabeJson`
-  haben (siehe Hauptdoku Abschnitt 7b).
+| Einstellung | Default | Zweck |
+|---|---|---|
+| **Erinnerungen aktiv** | Ja | Versand pausieren/aktivieren |
+| **Absender-Postfach** (`mailSender`) | – | Absender; leer → Fallback auf Secret `MAIL_SENDER` |
+| **Erste Erinnerung nach (Tagen)** | 7 | erste Erinnerung |
+| **Danach alle (Tagen)** | 3 | Folge-Takt |
+| **Eskalation ab (Tagen)** | 14 | ab wann zusätzlich an die Eskalations-Mail |
+| **Eskalations-Mail** (`eskalationMail`) | – | Ersatz-Empfänger |
 
-## Optionale Feineinstellungen (Workflow-`env`)
+Außerdem dort pflegen: **Prüfer** und **Geschäftsleitung** (sonst keine Empfänger). Richtlinien
+brauchen die Spalten `Status`, `PruefungSeit`, `KonformitaetJson`, `FreigabeJson` (Hauptdoku 7b).
 
-Im Skript per Umgebungsvariable überschreibbar (Defaults in Klammern):
+### Optionale Umgebungsvariablen (Workflow-`env`)
+Nur Fallbacks/Infrastruktur – die App-Einstellungen haben Vorrang:
 
 | Variable | Default | Zweck |
 |---|---|---|
-| `ESKALATION_AB_TAGEN` | `14` | ab wann zusätzlich an `eskalationMail` |
 | `SITE_HOST` | `dihag.sharepoint.com:/sites/IT` | SharePoint-Site der App-Listen |
 | `POLICY_LIST` | `Richtlinien` | Listenname |
 | `CONFIG_FOLDER` | `Richtlinienmanagement` | Ordner der `access-config.json` |
 | `APP_URL` | `https://dfedorov12.github.io/richtlinienmanagementsystem/` | Link in der Mail |
+| `ESKALATION_AB_TAGEN` | `14` | nur falls in der App nicht gesetzt |
 
 Cron-Zeit ändern: in `erinnerungen.yml` den `cron`-Ausdruck anpassen (UTC!).
 
