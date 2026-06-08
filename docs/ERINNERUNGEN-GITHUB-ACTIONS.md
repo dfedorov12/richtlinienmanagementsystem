@@ -37,23 +37,28 @@ Im **Azure-Portal → App-Registrierungen → „DIHAG Cron-Job"** (`089bf9ad-2d
 `Mail.Send` als Anwendung erlaubt sonst den Versand **als jedes Postfach** im Tenant. Mit einer
 **Application Access Policy** wird die App auf genau ein Absender-Postfach begrenzt (empfohlen).
 
-Lege ein Absender-Postfach fest (z. B. eine Funktions-/Shared-Mailbox `richtlinien@dihag.com`,
-alternativ ein vorhandenes Postfach). Dann in **Exchange Online PowerShell**:
+Gewähltes Absender-Postfach: **`administrator@dihag.com`**.
+
+> ⚠️ **Voraussetzung:** Dieses Konto braucht ein **lizenziertes Exchange-Online-Postfach**. Manche
+> „administrator@"-Konten haben keines — dann scheitert der Versand mit `MailboxNotEnabledForRESTAPI`,
+> und du nimmst stattdessen ein lizenziertes oder Shared-Postfach.
+
+In **Exchange Online PowerShell**:
 
 ```powershell
 Connect-ExchangeOnline
 
 # (einmalig) eine Mail-aktivierte Sicherheitsgruppe mit dem erlaubten Absender-Postfach:
 New-DistributionGroup -Name "RMS-Mailsender" -Type Security `
-  -Members "richtlinien@dihag.com" -PrimarySmtpAddress "rms-mailsender@dihag.com"
+  -Members "administrator@dihag.com" -PrimarySmtpAddress "rms-mailsender@dihag.com"
 
 # App auf diese Gruppe einschränken (AppId = Client-ID der App-Registrierung):
 New-ApplicationAccessPolicy -AppId "089bf9ad-2d9a-4cbc-b85d-88b4484af0bb" `
   -PolicyScopeGroupId "rms-mailsender@dihag.com" -AccessRight RestrictAccess `
-  -Description "RMS-Erinnerungen darf nur als richtlinien@dihag.com senden"
+  -Description "RMS-Erinnerungen darf nur als administrator@dihag.com senden"
 
 # Test:
-Test-ApplicationAccessPolicy -Identity "richtlinien@dihag.com" `
+Test-ApplicationAccessPolicy -Identity "administrator@dihag.com" `
   -AppId "089bf9ad-2d9a-4cbc-b85d-88b4484af0bb"   # → AccessCheckResult: Granted
 ```
 
@@ -70,7 +75,7 @@ New repository secret** – vier Stück:
 | `AZURE_TENANT_ID` | `fdb70646-023a-403b-a4b9-1f474a935123` |
 | `AZURE_CLIENT_ID` | `089bf9ad-2d9a-4cbc-b85d-88b4484af0bb` (App „DIHAG Cron-Job") |
 | `AZURE_CLIENT_SECRET` | der in Schritt 1 kopierte Geheimnis-**Wert** (steht in keiner Datei!) |
-| `MAIL_SENDER` | das Absender-Postfach, z. B. `richtlinien@dihag.com` |
+| `MAIL_SENDER` | das Absender-Postfach, z. B. `administrator@dihag.com` |
 
 > Secrets sind verschlüsselt und werden Fork-Pull-Requests **nicht** zugänglich gemacht. Der
 > Workflow startet ohnehin nur per Zeitplan oder manuell – nie durch fremde PRs.
