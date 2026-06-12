@@ -89,10 +89,11 @@ automatisch (Freigaben-/Compliance-Reiter).
 ---
 
 ## 4. Damit keine doppelten Mails kommen
-Die App verschickt beim Einreichen aktuell **selbst** eine Hinweis-Mail an die Prüfer/GL
-(`notifyPruefer`/`notifyGL`). Wenn Power Automate die Genehmigungs-Mail übernimmt, willst du diese
-App-Mail vermutlich abschalten. → **Sag mir Bescheid, dann baue ich in den Einstellungen einen
-Schalter „Genehmigung per Power Automate (App-Mails aus)" ein** (eine Zeile pro Mail-Funktion).
+Die App verschickt beim Einreichen sonst **selbst** eine Hinweis-Mail an die Prüfer/GL
+(`notifyPruefer`/`notifyGL`). Der Schalter dafür existiert bereits:
+**Einstellungen → „Genehmigungsverfahren – Schwellen" → Genehmigungs-Mails →
+„Über Power Automate (App-Mails aus)"** wählen und speichern — dann verschickt die App keine
+eigenen Prüf-/Freigabe-Mails mehr und Power Automate übernimmt vollständig.
 
 Den **GitHub-Cron für Erinnerungen** kannst du parallel weiterlaufen lassen (er erinnert nur an
 offene Schritte) – oder abschalten, da Power-Automate-Genehmigungen eigene Erinnerungen/Eskalation
