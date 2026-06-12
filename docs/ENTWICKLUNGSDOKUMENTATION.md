@@ -231,3 +231,54 @@ einziges Absender-Postfach einschränken (PowerShell in der Detail-Doku). Workfl
 > Flow (Wiederkehrend täglich → access-config lesen → Richtlinien filtern → Mail) oder als
 > **Azure Function/Logic App (Timer)** bauen. GitHub Actions wurde gewählt, weil das Repo ohnehin
 > dort liegt und kein zusätzlicher Dienst nötig ist.
+
+---
+
+## KI-Dashboard-Integration unter `/ki/` (Stand 2026-06-11)
+
+Das KI-Dashboard (KI-Antragsworkflow, Lizenzen, KI-Register) läuft als Unterseite
+**https://richtlinienmanagement.dihag-extern.com/ki/** in diesem Repo (`ki/`).
+Die alten Deployments (`ki-dashboard`/`ki-dashboard-test`, ki-dashboard.dihag-extern.com)
+sind nur noch Weiterleitungsseiten (inkl. `?antrag=…`-Deep-Link-Übernahme) und archiviert.
+
+**Architektur**
+- `ki/index.html` nutzt die RMS-Shell (Sidebar/Topbar/Boot) aus `css/style.css`;
+  `ki/style.css` enthält nur KI-Komponenten.
+- Auth über `js/auth.js` (gleiche App-Registrierung `46c63ab1`, sessionStorage → SSO).
+  Redirect-URI ist die App-Wurzel; `auth.js` leitet per MSAL-`state` zur Unterseite zurück.
+- Scopes: `Sites.ReadWrite.All`, `Files.ReadWrite.All`, `User.Read.All`, `Mail.Send`
+  (alle bereits konsentiert — kein zusätzlicher Azure-Consent nötig).
+
+**Berechtigungen & Einstellungen (zentral in `access-config.json`)**
+- `admins` → KI-Admin (Einstellungen-Tab) · `kiGenehmiger` → KI-Gremium
+  (ist `kiGenehmiger` leer, gilt die allgemeine `genehmiger`-Liste).
+  Pflege: RMS → Einstellungen → Karte „KI-Gremium".
+- KI-Einstellungen ebenfalls zentral: `kiGenehmigungsmodus` (einstimmig/einer),
+  `kiMailBeiEinreichung`, `kiMailBeiEntscheidung`, `kiMailDomains`
+  (Empfänger-Whitelist, Default `dihag.com`). Speichern = read-modify-write,
+  RMS-Felder bleiben erhalten (access.js schleift unbekannte Felder durch).
+
+**Anhänge**: Graph-Dokumentbibliothek, Ordner `KI-Antraege-Anhaenge/{Antrag-ID}/`
+(Upload-Session für Dateien >4 MB). **Alt-Anhänge** alter Anträge liegen als
+SP-Listenanhänge und sind unter `/ki/` nur sichtbar, wenn der App-Registrierung
+die delegierte SharePoint-Berechtigung (z. B. `AllSites.FullControl`) erteilt wird —
+alternativ einmalig manuell in die neuen Ordner kopieren.
+
+**Demo-Modus**: `…/ki/?demo=1` blendet die KI-Vorschläge-Sidebar ein (vorbefüllte Beispiele).
+
+**CI/Workflows**
+- `cache-bust.yml`: ersetzt `?v=…` nach jedem Push durch den Commit-SHA
+  ([skip ci]-Loop-Schutz) — manuelles Hochzählen entfällt.
+- `syntax-check.yml`: `node --check` über alle JS-Dateien bei jedem Push.
+
+**Offene manuelle Punkte (M365-Admin)**
+1. *Application Access Policy* für die Cron-App `089bf9ad` (Mail.Send einschränken):
+   ```powershell
+   Connect-ExchangeOnline
+   New-ApplicationAccessPolicy -AppId 089bf9ad-2d9a-4cbc-b85d-88b4484af0bb `
+     -PolicyScopeGroupId absender-postfach@dihag.com -AccessRight RestrictAccess `
+     -Description "Cron darf nur als dieses Postfach senden"
+   Test-ApplicationAccessPolicy -AppId 089bf9ad-2d9a-4cbc-b85d-88b4484af0bb -Identity absender-postfach@dihag.com
+   ```
+2. Spalten/Status-Choices der Liste „Richtlinien" (siehe Banner in „Richtlinien verwalten").
+3. Optional: SharePoint-Delegated-Consent für Alt-Anhänge (siehe oben).
