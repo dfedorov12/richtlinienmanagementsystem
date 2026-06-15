@@ -5,10 +5,14 @@ Graph/SharePoint. Echte End-to-End-Tests brauchen daher einen angemeldeten
 Benutzer und Live-Daten und lassen sich nicht headless automatisieren. Wir
 fahren deshalb zweigleisig:
 
-1. **Automatische statische Smoketests** (`scripts/smoketest.mjs`) – laufen bei
-   jedem Push über GitHub Actions und lokal in Sekunden.
-2. **Manuelle Smoke-Checkliste** – die wenigen Auth-/SharePoint-abhängigen
-   Flows, einmal nach jedem größeren Deploy durchklicken.
+1. **Statische Smoketests** (`scripts/smoketest.mjs`) – Code-Verdrahtung,
+   bei jedem Push (CI) und lokal in Sekunden.
+2. **Deployment-Smoke** (`scripts/deploy-smoke.mjs`) – das ausgelieferte
+   Live-System per HTTP, täglich (CI) und lokal.
+3. **E2E-Tests** (Playwright, `e2e/`) – authentifizierte, read-only Rendering-
+   Checks; lokal mit einer selbst erzeugten Login-Session.
+4. **Manuelle Smoke-Checkliste** – die Schreib-/Mail-Flows, die nicht
+   automatisiert werden (kein echter Login durch Tooling, keine Produktivdaten).
 
 ---
 
@@ -40,12 +44,62 @@ ignoriert.
 
 ### Was NICHT geprüft wird
 
-Alles, was einen echten Login + SharePoint braucht: Anmeldung/SSO, Graph-Reads,
-Speichern, Mailversand, Datei-Upload. → Manuelle Checkliste unten.
+Statische Codeprüfung sagt nichts über das ausgelieferte System oder die
+Laufzeit aus. Dafür gibt es Abschnitt 2 (Deployment) und 3 (E2E).
 
 ---
 
-## 2. Manuelle Smoke-Checkliste (nach größerem Deploy)
+## 2. Deployment-Smoke (Live, read-only)
+
+Prüft das **ausgelieferte** System über HTTP – ohne Login, ohne Schreibzugriff
+(reine GET-Requests, verändert nichts).
+
+```bash
+npm run smoke:deploy          # = node scripts/deploy-smoke.mjs
+BASE=https://… npm run smoke:deploy   # andere Basis-URL
+```
+
+Fängt: kaputtes Deploy, **404-Assets** (z. B. falsches `?v=`), tote
+Weiterleitung der alten KI-URL, fehlende Verdrahtung im HTML. Lädt jede Seite
+(`/`, `/ki/`, alte KI-URL) **und** alle darin referenzierten Skripte/CSS und
+prüft HTTP 200 + erwartete Marker. Läuft außerdem täglich über
+`.github/workflows/deploy-smoke.yml`.
+
+---
+
+## 3. E2E-Tests (Playwright, authentifiziert & read-only)
+
+Deckt die Login-abhängige Sicht ab, die fetch/Static nicht kann: lädt die App
+mit echter Session und prüft das Rendering pro Rolle. **Bewusst nur lesend** –
+keine Anträge, Entscheidungen oder Mails (läuft gegen Live; Schreib-Flows stehen
+in der manuellen Checkliste, Abschnitt 4).
+
+### Einrichten (einmalig)
+```bash
+npm install                   # zieht @playwright/test
+npx playwright install chromium
+npm run e2e:login             # öffnet sichtbaren Browser → manuell anmelden
+```
+`e2e:login` speichert die Session nach `e2e/.auth/state.json` (in `.gitignore`,
+enthält Tokens – nie committen). Melde dich mit dem Konto an, dessen Rolle du
+testen willst (Gremium/Admin zeigt mehr).
+
+### Ausführen
+```bash
+npm run e2e                   # authentifizierte read-only Checks
+npx playwright test e2e/preauth.spec.js   # alte-URL-Redirect, ohne Login
+```
+
+Geprüft wird u. a.: App-Shell lädt ohne Boot-Fehler, Benutzer geladen,
+„Meine Richtlinien" ohne Rechte-/Ladefehler, `/ki/` unter derselben Session
+(SSO), Gremium-Badge ⇒ Einstellungen-Tab, Demo-Modus zeigt die KI-Vorschläge.
+
+> Hinweis: Der MSAL-Login (inkl. MFA) ist interaktiv und kann nicht headless in
+> CI laufen – diese Suite ist für den lokalen Lauf gedacht, nicht für den Push-CI.
+
+---
+
+## 4. Manuelle Smoke-Checkliste (nach größerem Deploy)
 
 Kurz durchklicken; ~5 Minuten. Voraussetzung: angemeldet als Admin **und**
 einmal als normaler Mitarbeiter (oder zweites Konto).
