@@ -86,13 +86,36 @@ testen willst (Gremium/Admin zeigt mehr).
 
 ### Ausführen
 ```bash
-npm run e2e                   # authentifizierte read-only Checks
-npx playwright test e2e/preauth.spec.js   # alte-URL-Redirect, ohne Login
+npm run e2e                   # authentifiziert: Lese-Checks + Schreib-Validierung
+npm run e2e:preauth           # alte-URL-Redirect, ohne Login
 ```
 
 Geprüft wird u. a.: App-Shell lädt ohne Boot-Fehler, Benutzer geladen,
 „Meine Richtlinien" ohne Rechte-/Ladefehler, `/ki/` unter derselben Session
 (SSO), Gremium-Badge ⇒ Einstellungen-Tab, Demo-Modus zeigt die KI-Vorschläge.
+
+**Schreib-Validierung (sicher).** `e2e/mutations.spec.js` Teil A klickt echte
+Schreib-Buttons, die die App **blockiert** – Ablehnen/Rückfrage ohne Kommentar
+(KI) und „nicht konform" ohne Begründung (RMS). Es wird **nichts gespeichert und
+keine Mail ausgelöst**; genau diese Pflicht-Kommentar-Regeln werden so
+abgesichert. Tests überspringen sich automatisch, wenn die Rolle/Datenlage
+keinen passenden Datensatz hergibt.
+
+**Echte Mutation (opt-in).** Teil B legt einen Antrag mit Präfix `[E2E-TEST]`
+an. Nur mit gesetzter Umgebungsvariable:
+```powershell
+# PowerShell (Windows)
+$env:E2E_WRITE = "1"; npm run e2e
+```
+```bash
+# bash
+E2E_WRITE=1 npm run e2e
+```
+> ⚠️ **Mailversand:** Das Einreichen löst – wie im echten Betrieb – Genehmiger-
+> Mails an `@dihag.com` aus, sofern die E-Mail-Benachrichtigung in den
+> KI-Einstellungen aktiv ist. Vor dem Lauf ggf. dort abschalten. Test-Anträge
+> tragen das Präfix `[E2E-TEST]` und lassen sich in SharePoint gesammelt löschen
+> (das Dashboard hat keine UI-Löschung für Anträge).
 
 > Hinweis: Der MSAL-Login (inkl. MFA) ist interaktiv und kann nicht headless in
 > CI laufen – diese Suite ist für den lokalen Lauf gedacht, nicht für den Push-CI.
