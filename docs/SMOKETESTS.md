@@ -135,6 +135,11 @@ einmal als normaler Mitarbeiter (oder zweites Konto).
 - [ ] **Freigaben** (als Prüfer): „Nicht konform“ **ohne** Kommentar → wird
       blockiert (rotes Feld); mit Kommentar → gespeichert, Anmerkung im Verlauf
 - [ ] **Freigaben** (als GL): „Freigeben“ (optional Kommentar) → Status wandert
+- [ ] **ISMS-Dokumente** (Admin): Reiter lädt die Dateien der ISMS-Bibliothek
+      (Name, Ordner, Version, Größe, geändert); Suche + Ordnerfilter funktionieren
+- [ ] ISMS-Dokument öffnen → Metadaten ändern + speichern (braucht Schreibrechte
+      auf sites/ISMS); neue Version hochladen; Versionsverlauf; „Als Richtlinie
+      übernehmen“ öffnet den Editor mit vorbefülltem Dokument
 - [ ] Karten per Tastatur erreichbar (Tab → Enter öffnet)
 
 ### KI-Dashboard – <https://richtlinienmanagement.dihag-extern.com/ki/>

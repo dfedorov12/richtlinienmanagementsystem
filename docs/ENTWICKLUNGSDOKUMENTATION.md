@@ -282,3 +282,32 @@ alternativ einmalig manuell in die neuen Ordner kopieren.
    ```
 2. Spalten/Status-Choices der Liste „Richtlinien" (siehe Banner in „Richtlinien verwalten").
 3. Optional: SharePoint-Delegated-Consent für Alt-Anhänge (siehe oben).
+
+---
+
+## Reiter „ISMS-Dokumente" (Admin, Stand 2026-06-15)
+
+Eigener Sidebar-Reiter (admin-only) der **alle Dateien der ISMS-Bibliothek**
+(`sites/ISMS` → „ISMS Dokumente") anzeigt und bearbeitbar macht.
+
+**Dateien:** `js/ismsdocs.js` (View/Editor), Datenschicht in `js/sharepoint.js`,
+View `#view-ismsdocs` + Nav `#nav-ismsdocs` in `index.html`, Dispatch in
+`app.js` (`switchView`/`PAGE_TITLES`) und `access.js` (`initRoleNav`).
+
+**Datenschicht (sharepoint.js):**
+- `spGetIsmsDocs()` – alle Dateien via `/drives/{id}/list/items?expand=fields,driveItem`
+  (Metadaten + Datei-Infos, mit Paging); Ordner werden übersprungen.
+- `spGetIsmsColumns()` – bearbeitbare Bibliotheks-Spalten dynamisch (ReadOnly/Hidden/
+  System raus); Person/Lookup werden nur angezeigt.
+- `spSaveIsmsItemFields(itemId, fields)` – Metadaten-PATCH auf das Listenelement.
+- `spIsmsUploadVersion(driveItemId, bytes, type)` – Datei-Inhalt ersetzen = neue Version.
+- Vorschau/Versionen über bestehende `spGetPreviewUrl` / `spGetDocVersions`.
+
+**Funktionen im UI:** Tabelle (Name, Ordner, Version, Größe, geändert von/am) mit
+Suche + Ordnerfilter; Editor-Modal mit dynamischem Metadaten-Formular, Datei-Aktionen
+(in SharePoint öffnen, Vorschau, neue Version, Versionsverlauf) und
+„Als Richtlinie übernehmen" (legt eine neue Richtlinie mit vorverknüpftem Dokument an).
+
+**Voraussetzung Schreiben:** Das Bearbeiten von Metadaten/Datei läuft im delegierten
+Flow – das angemeldete Konto braucht **Schreibrechte auf `sites/ISMS`**. Ohne sie
+funktioniert die Anzeige, das Speichern scheitert mit klarer Fehlermeldung.
