@@ -311,3 +311,23 @@ Suche + Ordnerfilter; Editor-Modal mit dynamischem Metadaten-Formular, Datei-Akt
 **Voraussetzung Schreiben:** Das Bearbeiten von Metadaten/Datei läuft im delegierten
 Flow – das angemeldete Konto braucht **Schreibrechte auf `sites/ISMS`**. Ohne sie
 funktioniert die Anzeige, das Speichern scheitert mit klarer Fehlermeldung.
+
+### ISMS-Reiter: ISO-Fokus, Versionierung, Änderungsvorschläge (2026-06)
+
+- **ISO-27001-Fokus:** Ordnerfilter steht standardmäßig auf dem obersten
+  `ISO27001`-Ordner (Präfix-Match inkl. Unterordner; umschaltbar auf „Alle Ordner").
+- **Performance:** Liste lädt schlank (`$select` nur Title/_UIVersionString +
+  nötige driveItem-Felder, `$top=500`, Fallback ohne select); volle Metadaten lazy
+  beim Öffnen (`spGetIsmsItemFields`).
+- **Versionierung mit Pflicht-Notiz:** „⬆ Neue Version" → Modal mit Datei +
+  Pflicht-Änderungsnotiz. `spIsmsUploadVersion` nutzt Check-out → Upload →
+  Check-in(comment) (Notiz als SP-Versionskommentar), mit `finally`-Wieder-Einchecken
+  gegen hängende Auscheckung; Bibliotheken ohne Check-out fallen auf einfachen
+  Upload zurück. Hinweis: Graph liefert Versionskommentare nicht zurück → der
+  Versions-Dialog verlinkt auf den SharePoint-Versionsverlauf.
+- **Änderungsvorschläge per Mail:** „✏️ Änderung vorschlagen" für JEDEN
+  angemeldeten Mitarbeiter im Detail-Reader (`proposePolicyChange`) und für Admins
+  im ISMS-Editor (`proposeIsmsChange`). Modal → `spSendMail` an Dokument-
+  Verantwortliche (Metadaten-Spalte /verantwort|owner|ansprech/) + ISMS-
+  Verantwortliche (Einstellungen, Feld `ismsVerantwortlich`) + Admin-Fallback.
+  Versand respektiert die interne Domain-Whitelist von spSendMail.
