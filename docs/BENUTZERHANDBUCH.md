@@ -88,8 +88,8 @@ Reiter **„ISMS-Dokumente"** zeigt die ISO-27001-Dokumente direkt aus SharePoin
 - **Zeile anklicken** öffnet die Detailansicht: Metadaten (inkl. **Owner**) bearbeiten,
   Vorschau, Versionsverlauf.
 - **Dokument anpassen / neue Version:**
-  - **„✏️ Dokument bearbeiten"** öffnet die Datei in Office – beim Speichern entsteht automatisch
-    eine neue Version.
+  - **„✏️ In Office bearbeiten"** (Desktop-Office) oder **„🌐 Im Browser bearbeiten"** (Office für
+    das Web, auch ohne installiertes Office) – beim Speichern entsteht automatisch eine neue Version.
   - oder **„⬆ Neue Version"** → geänderte Datei hochladen, mit Pflicht-**Änderungsnotiz**.
 - **„＋ Als Richtlinie übernehmen"** macht aus einem ISMS-Dokument eine Richtlinie im
   Schulungs-/Freigabe-Workflow.
