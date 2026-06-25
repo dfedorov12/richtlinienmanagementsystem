@@ -83,11 +83,16 @@ Der Freigabe-Ablauf einer Richtlinie ist mehrstufig:
 ### ISMS-Dokumente (ISO 27001)
 Reiter **„ISMS-Dokumente"** zeigt die ISO-27001-Dokumente direkt aus SharePoint:
 - **Spalten** Bearbeitungsstand, Vertraulichkeit, Auf Konformität geprüft von,
-  Freigabe Geschäftsleitung, Zuletzt angefasst. Auswahl-Spalten lassen sich **direkt in der Liste
-  umstellen** (Auswahl speichert sofort); Personen-/Textspalten in der Detailansicht. Oben nach
-  **Bearbeitungsstand filtern**.
-- **Zeile anklicken** öffnet die Detailansicht: Metadaten (inkl. **Owner**) bearbeiten,
-  Vorschau, Versionsverlauf.
+  Freigabe Geschäftsleitung, Zuletzt angefasst. **Vertraulichkeit** ist direkt in der Liste umstellbar;
+  oben nach **Bearbeitungsstand filtern**.
+- **Status & Freigabe (automatisch):** Bearbeitungsstand, Auf Konformität geprüft von,
+  Freigabe Geschäftsleitung und Unterschrieben von werden **nicht manuell getippt**, sondern in der
+  Detailansicht per Knopf gesetzt:
+  - **Prüfer** → „✓ Konformität bestätigen" (trägt sich selbst als Prüfer ein, Stand → geprüft),
+  - **Geschäftsleitung** → „✓ Freigeben" (Freigabe + Unterschrift, Stand → freigegeben),
+  - **Admins/Prüfer** → „↩ Zurücksetzen" (Status zurück auf „in Bearbeitung").
+- **Zeile anklicken** öffnet die Detailansicht: oben der **Status-Workflow**, darunter die übrigen
+  Metadaten (inkl. **Owner**) bearbeiten, Vorschau, Versionsverlauf.
 - **Dokument anpassen / neue Version:**
   - **„✏️ In Office bearbeiten"** (Desktop-Office) oder **„🌐 Im Browser bearbeiten"** (Office für
     das Web, auch ohne installiertes Office) – beim Speichern entsteht automatisch eine neue Version.
@@ -97,8 +102,8 @@ Reiter **„ISMS-Dokumente"** zeigt die ISO-27001-Dokumente direkt aus SharePoin
 
 ### Einstellungen
 Rollen pflegen: **Admins, Genehmiger, Prüfer, Geschäftsleitung, KI-Gremium** (mit Position
-Legal/Datenschutz/Compliance/IT) und **ISMS-Verantwortliche** (Empfänger der
-Änderungsvorschläge). Außerdem Genehmigungs-Schwellen und die automatischen
+Legal/Datenschutz/Compliance/IT), **ISMS-Verantwortliche** und **Vorschlags-Empfänger** – beide
+erhalten die Änderungsvorschläge. Außerdem Genehmigungs-Schwellen und die automatischen
 **Review-Erinnerungen**.
 
 ---
