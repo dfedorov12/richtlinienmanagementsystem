@@ -82,9 +82,10 @@ Der Freigabe-Ablauf einer Richtlinie ist mehrstufig:
 
 ### ISMS-Dokumente (ISO 27001)
 Reiter **„ISMS-Dokumente"** zeigt die ISO-27001-Dokumente direkt aus SharePoint:
-- **Spalten** Bearbeitungsstand, Vertraulichkeit, Unterschrieben von, Zuletzt angefasst.
-  Bearbeitungsstand und Vertraulichkeit lassen sich **direkt in der Liste umstellen** (Auswahl
-  speichert sofort). Oben nach **Bearbeitungsstand filtern**.
+- **Spalten** Bearbeitungsstand, Vertraulichkeit, Auf Konformität geprüft von,
+  Freigabe Geschäftsleitung, Zuletzt angefasst. Auswahl-Spalten lassen sich **direkt in der Liste
+  umstellen** (Auswahl speichert sofort); Personen-/Textspalten in der Detailansicht. Oben nach
+  **Bearbeitungsstand filtern**.
 - **Zeile anklicken** öffnet die Detailansicht: Metadaten (inkl. **Owner**) bearbeiten,
   Vorschau, Versionsverlauf.
 - **Dokument anpassen / neue Version:**
