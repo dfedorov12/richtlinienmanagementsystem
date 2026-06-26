@@ -87,13 +87,11 @@ Reiter **„ISMS-Dokumente"** zeigt die ISO-27001-Dokumente direkt aus SharePoin
 - **Spalten** Bearbeitungsstand, Vertraulichkeit, Auf Konformität geprüft von,
   Freigabe Geschäftsleitung, Zuletzt angefasst. **Vertraulichkeit** ist direkt in der Liste umstellbar;
   oben nach **Bearbeitungsstand filtern**.
-- **Status & Freigabe (automatisch):** Bearbeitungsstand, Auf Konformität geprüft von,
-  Freigabe Geschäftsleitung und Unterschrieben von werden **nicht manuell getippt**, sondern in der
-  Detailansicht per Knopf gesetzt:
-  - **Prüfer** → „✓ Konformität bestätigen" (trägt sich selbst als Prüfer ein, Stand → geprüft),
-  - **Geschäftsleitung** → „✓ Freigeben" (Freigabe + Unterschrift, Stand → freigegeben),
-  - **Admins/Prüfer** → „↩ Zurücksetzen" (Status zurück auf „in Bearbeitung").
-- **Zeile anklicken** öffnet die Detailansicht: oben der **Status-Workflow**, darunter die übrigen
+- **Status & Freigabe (nur Anzeige):** Bearbeitungsstand, Auf Konformität geprüft von,
+  Freigabe Geschäftsleitung und Unterschrieben von werden hier **nicht** gesetzt – das Panel zeigt nur
+  den aktuellen Stand und was noch offen ist. Der Ablauf läuft über den Freigabeprozess: Dokument per
+  **„＋ Als Richtlinie übernehmen"** einbinden und im Reiter **„Freigaben"** prüfen/freigeben.
+- **Zeile anklicken** öffnet die Detailansicht: oben der **Status (Anzeige)**, darunter die übrigen
   Metadaten (inkl. **Owner**) bearbeiten, Vorschau, Versionsverlauf.
 - **Dokument anpassen / neue Version:**
   - **„✏️ In Office bearbeiten"** (Desktop-Office) oder **„🌐 Im Browser bearbeiten"** (Office für
