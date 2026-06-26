@@ -33,7 +33,9 @@ nutzt dieselbe Anmeldung). Bei Problemen: „Erneut versuchen" klicken oder Seit
 ### Eine Änderung vorschlagen
 Du hast einen Fehler oder eine Verbesserung entdeckt? In der geöffneten Richtlinie oben rechts
 auf **„✏️ Änderung vorschlagen"** klicken, kurz beschreiben **was** geändert werden soll und
-**warum**, und absenden. Der Vorschlag geht per Mail an die Verantwortlichen.
+**warum**, und absenden. Der Vorschlag enthält einen **Direktlink zum Dokument**, geht per Mail an
+die Verantwortlichen (du erhältst eine **Kopie**) und landet im Reiter **„Vorschläge"** zur
+Nachverfolgung.
 
 ### Kurse (Beta)
 Unter **„Kurse"** sind mehrere Richtlinien zu Lernpaketen gebündelt. Optional.
@@ -99,6 +101,13 @@ Reiter **„ISMS-Dokumente"** zeigt die ISO-27001-Dokumente direkt aus SharePoin
   - oder **„⬆ Neue Version"** → geänderte Datei hochladen, mit Pflicht-**Änderungsnotiz**.
 - **„＋ Als Richtlinie übernehmen"** macht aus einem ISMS-Dokument eine Richtlinie im
   Schulungs-/Freigabe-Workflow.
+
+### Vorschläge bearbeiten
+Reiter **„Vorschläge"** sammelt alle eingereichten Änderungsvorschläge (gespeichert in der
+SharePoint-Liste *Aenderungsvorschlaege*, die beim ersten Vorschlag automatisch angelegt wird).
+Eine Zeile anklicken öffnet ein **Seitenpanel rechts**: Vorschlag + Dokument-Link lesen, **Status**
+setzen (Offen / In Bearbeitung / Erledigt / Abgelehnt) und einen **Bearbeiter-Kommentar** hinterlegen.
+Sichtbar für **Admins, ISMS-Verantwortliche und Vorschlags-Empfänger**.
 
 ### Einstellungen
 Rollen pflegen: **Admins, Genehmiger, Prüfer, Geschäftsleitung, KI-Gremium** (mit Position
