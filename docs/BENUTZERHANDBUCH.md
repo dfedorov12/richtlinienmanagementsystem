@@ -104,7 +104,9 @@ Reiter **„ISMS-Dokumente"** zeigt die ISO-27001-Dokumente direkt aus SharePoin
 
 ### Vorschläge bearbeiten
 Reiter **„Vorschläge"** sammelt alle eingereichten Änderungsvorschläge (gespeichert in der
-SharePoint-Liste *Aenderungsvorschlaege*, die beim ersten Vorschlag automatisch angelegt wird).
+SharePoint-Liste *Aenderungsvorschlaege*, die beim ersten Vorschlag automatisch angelegt wird –
+darf das Konto in SharePoint keine Listen anlegen, erklärt der Reiter das einmalige manuelle Anlegen;
+der Mailversand funktioniert unabhängig davon).
 Eine Zeile anklicken öffnet ein **Seitenpanel rechts**: Vorschlag + Dokument-Link lesen, **Status**
 setzen (Offen / In Bearbeitung / Erledigt / Abgelehnt) und einen **Bearbeiter-Kommentar** hinterlegen.
 Sichtbar für **Admins, ISMS-Verantwortliche und Vorschlags-Empfänger**.
