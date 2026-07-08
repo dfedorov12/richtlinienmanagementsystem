@@ -132,11 +132,17 @@ const _HC_HEADINGS = [
    Grundlage: Review-Korrekturen (alte CO-/OZB-Namen, EMH, CCO = A. Rauch …).
 ───────────────────────────────────────────────────────────── */
 const HC_TERMS = [
-  { re: /\bEMH\b/g,  sev: 'warn', text: 'Veraltete Bezeichnung „EMH"',
+  // Veralteter CCO-Name: „Steffen Kühn" → aktuell Alexandra Rauch (Chief Compliance Officer).
+  // Steht noch im Verhaltenskodex und in „Sicherheitsvorfälle".
+  { re: /Steffen\s+Kühn/g, sev: 'warn', text: 'Veralteter CCO-Name „Steffen Kühn"',
+    ersatz: 'aktueller Chief Compliance Officer ist Alexandra Rauch – Namen ersetzen' },
+  // Falsche Anrede: im Scopedokument steht „Herr Alexandra Rauch".
+  { re: /Herr(?:n)?\s+Alexandra\s+Rauch/gi, sev: 'warn', text: 'Falsche Anrede „Herr Alexandra Rauch"',
+    ersatz: 'richtig: „Frau Alexandra Rauch"' },
+  // „EMH" – veraltete Bezeichnung (soll raus); kommt aktuell in keinem ISMS-Dokument mehr vor.
+  { re: /\bEMH\b/g, sev: 'warn', text: 'Veraltete Bezeichnung „EMH"',
     ersatz: 'entfernen bzw. durch die aktuell gültige Bezeichnung ersetzen' },
-  { re: /\bCCO\b/g,  sev: 'warn', text: 'Rolle „CCO" genannt',
-    ersatz: 'Zuständigkeit liegt jetzt bei Alexandra Rauch – Rolle/Namen prüfen und aktualisieren' },
-  // Beispiele für weitere veraltete CO-/OZB-Namen (bei Bedarf aktivieren/ergänzen):
+  // Weitere veraltete Namen/Kürzel hier ergänzen (nach Bestätigung durch den ISB):
   // { re: /\bMustermann\b/gi, sev: 'warn', text: 'Veralteter Name „Mustermann"', ersatz: 'auf den aktuellen Rolleninhaber aktualisieren' },
 ];
 
@@ -384,7 +390,7 @@ function hcFindingAction(f) {
   if (/Titel im Dokument passt nicht/i.test(t)) return 'Falsches Dokument prüfen/austauschen – ' + t;
   if (/Komformit/i.test(t))                return 'Tippfehler korrigieren: „Komformitätsprüfung" → „Konformitätsprüfung".';
   if (/Version im Dokument .* weicht/i.test(t)) return 'Versionsangabe/Metadaten im Dokument mit der App-Version abgleichen – ' + t + '.';
-  if (/Veraltete Bezeichnung|Rolle „|liegt jetzt bei|aktualisieren/i.test(t)) return 'Veralteten Begriff/Namen aktualisieren – ' + t + '.';
+  if (/veraltet|falsche anrede|Chief Compliance|ersetzen|aktualisieren/i.test(t)) return 'Veralteten Begriff/Namen aktualisieren – ' + t + '.';
   if (/Platzhalter|XX\.XX/i.test(t))       return 'Freigabetabelle und Termine ausfüllen (Datums-Platzhalter ersetzen).';
   if (/\btbd\b/i.test(t))                  return 'Offene „tbd"-Stellen ergänzen.';
   if (/Kapitel .* ist leer/i.test(t))      return 'Leeres Pflichtkapitel befüllen oder ausdrücklich als „entfällt" kennzeichnen – ' + t + '.';
