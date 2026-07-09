@@ -89,7 +89,7 @@ und Rückfrage ist ein **Kommentar Pflicht**; der Antragsteller wird automatisch
 
 ## 5. Richtlinien anlegen & verwalten  ·  *Administration*
 
-Reiter **„Richtlinien verwalten"** → **„+ Neue Richtlinie"** oder bestehende anklicken. Mehrere
+Reiter **„Richtlinien Dashboard"** → **„+ Neue Richtlinie"** oder bestehende anklicken. Mehrere
 Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
 
 **Der Editor im Überblick:**
@@ -154,7 +154,7 @@ App und führt die Entscheidung nach kurzer Rückfrage aus (Anmeldung nötig).
 
 ## 7. Dokument-Health-Check  ·  *Administration*
 
-Reiter „Richtlinien verwalten" → Button **„🩺 Dokumente prüfen"**. Prüft die angehängten
+Reiter „Richtlinien Dashboard" → Button **„🩺 Dokumente prüfen"**. Prüft die angehängten
 Word-Dokumente **direkt im Browser, deterministisch und ohne KI**. Geprüft wird auf:
 
 - **Inhalts-Dubletten** – zwei Richtlinien mit identischem Dokumentinhalt (z. B. versehentlich
@@ -243,9 +243,9 @@ hinterlegen. Sichtbar für Admins, ISMS-Verantwortliche und Vorschlags-Empfänge
 
 ---
 
-## 12. Compliance-Nachweis  ·  *Administration*
+## 12. Audit Report (Compliance-Nachweis)  ·  *Administration*
 
-Reiter **„Compliance"** zeigt, wer welche Pflicht-Richtlinie erledigt hat – mit Filtern und
+Reiter **„Audit Report"** zeigt, wer welche Pflicht-Richtlinie erledigt hat – mit Filtern und
 **CSV-Export** als Nachweis.
 
 > **Normbezug:** ISO 27001 Klausel 7.3, 9.1 (Überwachung & Messung), A.6.3, A.5.36 (Einhaltung von
@@ -287,7 +287,7 @@ Reiter **„Compliance"** zeigt, wer welche Pflicht-Richtlinie erledigt hat – 
 |---|---|---|
 | Rollen & Einstellungen | 5.3, A.5.2 | Art. 20 |
 | Lesen & Kenntnisnahme, Compliance | 7.3, 9.1, A.6.3, A.5.36 | Art. 21(2g) |
-| Richtlinien verwalten | 7.5, 5.2, A.5.1 | — |
+| Richtlinien Dashboard | 7.5, 5.2, A.5.1 | — |
 | Konformitätsprüfung & Freigabe | A.5.1, 7.5.2, 5.3 | Art. 20 |
 | Dokument-Health-Check | 7.5.2/7.5.3, A.5.1 | — |
 | ISMS-Abdeckung (Heatmap) | 6.1.3, 4.3, Annex A | Art. 21(2) |
