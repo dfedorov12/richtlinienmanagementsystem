@@ -262,11 +262,11 @@ Reiter **„Audit Report"** zeigt, wer welche Pflicht-Richtlinie erledigt hat �
 - **Erinnerungen:** aktiv/aus, Absender-Postfach, Taktung, Eskalation, Ersatz-Empfänger.
 - **Power Automate:** Ist der Modus aktiv, verschickt die App keine Prüf-/Freigabe-Mails – die
   Genehmigung läuft über den Power-Automate-Flow.
-- **Reiter-Berechtigungen (Lesen/Schreiben):** zusätzlicher Zugriff auf einzelne Reiter (z. B.
-  Richtlinien Dashboard, Audit Report, Fälligkeiten) für E-Mail-Adressen und/oder Rollen –
-  **additiv** zu den Standardrechten, Admins haben immer Zugriff. „Nur Lesen" = Reiter sichtbar,
-  aber Anlegen/Bearbeiten gesperrt; „Schreiben" schließt Lesen ein. „Einstellungen" bleibt Admins
-  vorbehalten.
+- **Reiter-Berechtigungen (Lesen/Schreiben):** Benutzer per E-Mail hinzufügen, dann je Reiter
+  (z. B. Richtlinien Dashboard, Audit Report, Fälligkeiten) **Lesen/Schreiben per Häkchen**
+  vergeben – **additiv** zu den Standardrechten, Admins haben immer Zugriff. „Nur Lesen" = Reiter
+  sichtbar, aber Anlegen/Bearbeiten gesperrt; „Schreiben" schließt Lesen ein. „Einstellungen"
+  bleibt Admins vorbehalten.
 
 > **Normbezug:** ISO 27001 Klausel 5.3, 7.4 (Kommunikation), A.5.2.
 
