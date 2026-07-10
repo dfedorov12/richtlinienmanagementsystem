@@ -96,12 +96,15 @@ Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
 
 - **Titel, Beschreibung, Kategorie, Version** – neue Version ⇒ alle müssen erneut bestätigen.
 - **Dokument** aus der Bibliothek wählen oder hochladen (Zielordner-Wähler; Versionsverlauf bleibt
-  erhalten).
+  erhalten). Ist bereits ein Dokument zugeordnet, stehen **„✏️ In Office bearbeiten"** (On-Premise
+  Office) und **„🌐 Im Browser bearbeiten"** zur Verfügung – wie bei den ISMS-Dokumenten legt
+  SharePoint beim Speichern automatisch eine neue Version an.
 - **Zielgruppe** – wer die Richtlinie sehen/bestätigen muss (Rollen/Abteilungen oder „für alle").
 - **Pflichtlektüre**, **Wissenstest** (Fragen + Bestehensquote), **Wiederholungspflicht**.
-- **Nächste Überprüfung (Review)** – interner Wiedervorlage-Termin (siehe Abschnitt 10).
-- **Normbezug** – welche ISO-27001-/NIS2-Controls die Richtlinie abdeckt; „↩ Aus Review übernehmen"
-  befüllt bekannte Zuordnungen (siehe Abschnitt 9).
+- **Nächste Überprüfung (Review)** – interner Wiedervorlage-Termin (siehe Abschnitt 9).
+- **Normbezug** – erscheint nur bei Kategorie **„ISO 27001"** oder **„NIS2"**: welche Controls/
+  Artikel die Richtlinie abdeckt; „↩ Aus Review übernehmen" befüllt bekannte Zuordnungen (siehe
+  Abschnitt 8).
 - **Konformitätsprüfung – nur für diese Richtlinie** (optional): eigene Prüfer/Schwelle. Leer =
   globale Einstellung.
 - **Freigabe (Geschäftsleitung) – nur für diese Richtlinie** (optional): eigene Freigeber/Schwelle.
@@ -234,7 +237,26 @@ Reiter **„ISMS-Dokumente"** verwaltet die ISO-27001-Dokumente direkt auf der I
 
 ---
 
-## 11. Vorschläge bearbeiten  ·  *Administration / Verantwortliche*
+## 11. Governance-Board (Legal-Entwürfe)  ·  *Administration*
+
+Reiter **„Governance-Board"** zeigt die Entwürfe aus dem Legal-SharePoint (Corporate
+Governance-Board, sites/ArbeitsplatzLegal) – gleicher Zugriffsmechanismus wie bei den
+ISMS-Dokumenten.
+
+- Im Governance-Board liegen **alle Entwürfe** der Konzernregelungen. Sobald ein Entwurf die
+  interne **Konformitätsprüfung + Freigabe** hier im RMS durchlaufen hat, wird das Dokument dort
+  von Legal überschrieben/neu erstellt und veröffentlicht.
+- **„👁 Vorschau"**, **„✏️ In Office bearbeiten"** / **„🌐 Im Browser bearbeiten"** und
+  **„🕘 Versionsverlauf"** wie bei ISMS-Dokumenten; **„↗ SharePoint"** öffnet den Ordner direkt.
+- **„＋ Als Richtlinie übernehmen"** holt einen Entwurf in den Richtlinien-Workflow (Editor mit
+  vorbefülltem Dokument) – der Start der Konformitätsprüfung/Freigabe (Abschnitt 6).
+
+> **Normbezug:** ISO 27001 Klausel 7.5 (Dokumentierte Information), 5.2 (Politik) – gemeinsam mit
+> der Konformitätsprüfung/Freigabe im RMS.
+
+---
+
+## 12. Vorschläge bearbeiten  ·  *Administration / Verantwortliche*
 
 Reiter **„Vorschläge"** sammelt alle Änderungsvorschläge (auch die aus dem Health-Check, erkennbar
 am 🩺-Merkmal). Eine Zeile öffnet ein Seitenpanel: Vorschlag samt Dokument-Link lesen, **Status**
@@ -243,17 +265,26 @@ hinterlegen. Sichtbar für Admins, ISMS-Verantwortliche und Vorschlags-Empfänge
 
 ---
 
-## 12. Audit Report (Compliance-Nachweis)  ·  *Administration*
+## 13. Audit Report (Compliance-Nachweis)  ·  *Administration*
 
-Reiter **„Audit Report"** zeigt, wer welche Pflicht-Richtlinie erledigt hat – mit Filtern und
-**CSV-Export** als Nachweis.
+Reiter **„Audit Report"** hat drei Ansichten:
+
+- **Gesamtübersicht** – wer welche Pflicht-Richtlinie erledigt hat (Soll/Ist je Richtlinie und
+  Abteilung).
+- **Einzelne Richtlinie** – Detailliste je Mitarbeiter (Status, Datum, Quiz-Score).
+- **Freigabe-Audit** – lückenloser Nachweis **wer wann was** geprüft und freigegeben hat: jede
+  Konformitätsprüfung (konform/nicht konform, mit Anmerkung), jede Freigabe und jede
+  Veröffentlichung, über alle Richtlinien hinweg (auch archivierte), neueste zuerst.
+
+Alle drei Ansichten mit **CSV-Export**.
 
 > **Normbezug:** ISO 27001 Klausel 7.3, 9.1 (Überwachung & Messung), A.6.3, A.5.36 (Einhaltung von
-> Richtlinien).
+> Richtlinien); Freigabe-Audit zusätzlich A.5.1 (Genehmigung & Überprüfung), Klausel 9.2
+> (internes Audit).
 
 ---
 
-## 13. Einstellungen  ·  *Administration*
+## 14. Einstellungen  ·  *Administration*
 
 - **Rollen:** Admins, Genehmiger, Prüfer, Geschäftsleitung, KI-Gremium, ISMS-Verantwortliche und
   Vorschlags-Empfänger.
@@ -272,7 +303,7 @@ Reiter **„Audit Report"** zeigt, wer welche Pflicht-Richtlinie erledigt hat �
 
 ---
 
-## 14. Begriffe & Normbezug
+## 15. Begriffe & Normbezug
 
 - **Kenntnisnahme:** Bestätigung, dass eine Richtlinie gelesen und verstanden wurde.
 - **Konformitätsprüfung:** fachliche Prüfung, ob eine Richtlinie den Vorgaben (ISO 27001 / NIS2)
@@ -298,11 +329,12 @@ Reiter **„Audit Report"** zeigt, wer welche Pflicht-Richtlinie erledigt hat �
 | ISMS-Abdeckung (Heatmap) | 6.1.3, 4.3, Annex A | Art. 21(2) |
 | Fälligkeiten / Wiedervorlage | A.5.1, 9.3, 10.1 | — |
 | ISMS-Dokumente | 7.5, A.5.37, A.5.12/13 | — |
+| Governance-Board | 7.5, 5.2 | — |
 | KI-Dashboard | 5.3 | Art. 20 |
 
 ---
 
-## 15. Häufige Fragen & Hilfe
+## 16. Häufige Fragen & Hilfe
 
 - **Etwas wirkt nicht aktuell?** „↻ Aktualisieren" oben rechts.
 - **Eine Richtlinie ist nicht sichtbar?** Sie ist evtl. noch nicht veröffentlicht oder deiner
