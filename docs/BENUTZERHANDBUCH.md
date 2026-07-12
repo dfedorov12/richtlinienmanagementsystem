@@ -87,7 +87,20 @@ und Rückfrage ist ein **Kommentar Pflicht**; der Antragsteller wird automatisch
 
 ---
 
-## 5. Richtlinien anlegen & verwalten  ·  *Administration*
+## 5. Cockpit (Admin-Startseite)  ·  *Administration*
+
+Der Reiter **„Cockpit"** ist die Startseite für Berechtigte: alle ISMS-Kennzahlen auf einen Blick,
+jede Kachel führt per Klick in den passenden Reiter – Richtlinien-Status, Prüfung & Freigabe
+(inkl. Alter des ältesten Vorgangs), Fälligkeiten, ISMS-Abdeckung (Annex-A/NIS2-Quote),
+SoA-Stand, Risiko-Register (offen/hoch/überfällige Maßnahmen), Compliance-Erfüllungsquote und
+offene Vorschläge. Aufwendige Kennzahlen laden im Hintergrund nach.
+
+> **Normbezug:** ISO 27001 Klausel 9.1 (Überwachung & Messung), 9.3 (Managementbewertung –
+> Eingaben).
+
+---
+
+## 6. Richtlinien anlegen & verwalten  ·  *Administration*
 
 Reiter **„Richtlinien Dashboard"** → **„+ Neue Richtlinie"** oder bestehende anklicken. Mehrere
 Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
@@ -101,10 +114,10 @@ Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
   SharePoint beim Speichern automatisch eine neue Version an.
 - **Zielgruppe** – wer die Richtlinie sehen/bestätigen muss (Rollen/Abteilungen oder „für alle").
 - **Pflichtlektüre**, **Wissenstest** (Fragen + Bestehensquote), **Wiederholungspflicht**.
-- **Nächste Überprüfung (Review)** – interner Wiedervorlage-Termin (siehe Abschnitt 9).
+- **Nächste Überprüfung (Review)** – interner Wiedervorlage-Termin (siehe Abschnitt 10).
 - **Normbezug** – erscheint nur bei Kategorie **„ISO 27001"** oder **„NIS2"**: welche Controls/
   Artikel die Richtlinie abdeckt; „↩ Aus Review übernehmen" befüllt bekannte Zuordnungen (siehe
-  Abschnitt 8).
+  Abschnitt 9).
 - **Konformitätsprüfung – nur für diese Richtlinie** (optional): eigene Prüfer/Schwelle. Leer =
   globale Einstellung.
 - **Freigabe (Geschäftsleitung) – nur für diese Richtlinie** (optional): eigene Freigeber/Schwelle.
@@ -115,11 +128,11 @@ Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
 >
 > **Normbezug:** ISO 27001 Klausel 7.5 (Dokumentierte Information), 5.2 (Politik), A.5.1.
 
-**„Zur Konformitätsprüfung"** startet den Freigabe-Workflow (Abschnitt 6).
+**„Zur Konformitätsprüfung"** startet den Freigabe-Workflow (Abschnitt 7).
 
 ---
 
-## 6. Konformitätsprüfung & Freigabe  ·  *Prüfer & Geschäftsleitung*
+## 7. Konformitätsprüfung & Freigabe  ·  *Prüfer & Geschäftsleitung*
 
 Ablauf: **Entwurf → Konformitätsprüfung → Freigabe → Veröffentlicht.** Alles im Reiter
 **„Freigaben"**.
@@ -155,7 +168,7 @@ App und führt die Entscheidung nach kurzer Rückfrage aus (Anmeldung nötig).
 
 ---
 
-## 7. Dokument-Health-Check  ·  *Administration*
+## 8. Dokument-Health-Check  ·  *Administration*
 
 Reiter „Richtlinien Dashboard" → Button **„🩺 Dokumente prüfen"**. Prüft die angehängten
 Word-Dokumente **direkt im Browser, deterministisch und ohne KI**. Geprüft wird auf:
@@ -178,7 +191,7 @@ vorausgefüllten Änderungsvorschlag an die Verantwortlichen.
 
 ---
 
-## 8. ISMS-Abdeckung (Heatmap) & Export  ·  *Administration*
+## 9. ISMS-Abdeckung & SoA  ·  *Administration*
 
 Reiter **„ISMS-Abdeckung"** zeigt als Heatmap, welche ISO-27001-/NIS2-Controls durch mindestens
 eine Richtlinie abgedeckt sind.
@@ -197,12 +210,23 @@ eine Richtlinie abgedeckt sind.
   Konformitäts-/Freigabestatus und Normbezug sowie die vollständige Control-Abdeckung.
 - **⬇ CSV** – lädt die Abdeckungsmatrix als CSV-Datei (öffnet in Excel).
 
-> **Normbezug:** ISO 27001 Klausel 6.1.3 (Risikobehandlung / Erklärung zur Anwendbarkeit), 4.3
+### SoA – Erklärung zur Anwendbarkeit (zweiter Modus im Reiter)
+
+- Je Control: **anwendbar / ausgeschlossen**, **Umsetzungsstatus** (umgesetzt / teilweise /
+  geplant / nicht umgesetzt) und **Begründung** – für **ausgeschlossene Controls ist die
+  Begründung Pflicht**.
+- Die Richtlinien-Abdeckung wird je Control automatisch eingeblendet; **„⚡ Aus Abdeckung
+  vorbelegen"** setzt alle offenen Controls auf anwendbar und leitet den Status aus der Abdeckung
+  ab (gespeichert → umgesetzt, Review → geplant) – bereits Gepflegtes bleibt unangetastet.
+- Gespeichert wird versioniert (SoA-Version, wer, wann) in `soa-config.json`; Exporte:
+  **🖨 SoA-Report** (das klassische Audit-Dokument) und **⬇ CSV**.
+
+> **Normbezug:** ISO 27001 Klausel 6.1.3 d) (Erklärung zur Anwendbarkeit – Pflichtdokument), 4.3
 > (Anwendungsbereich), Annex A; NIS2 Art. 21(2).
 
 ---
 
-## 9. Fälligkeiten / Wiedervorlage  ·  *Administration*
+## 10. Fälligkeiten / Wiedervorlage  ·  *Administration*
 
 Reiter **„Fälligkeiten"** bündelt die interne Überprüfung der Richtlinien anhand des Termins
 **„Nächste Überprüfung"** – **ISO 27001 A.5.1** verlangt die regelmäßige Überprüfung.
@@ -219,7 +243,39 @@ Reiter **„Fälligkeiten"** bündelt die interne Überprüfung der Richtlinien 
 
 ---
 
-## 10. ISMS-Dokumente (ISO 27001)  ·  *Administration*
+## 11. Risiko-Register  ·  *Administration*
+
+Reiter **„Risiko-Register"**: vollständiges Informationssicherheits-Risikomanagement. Die
+SharePoint-Liste „Risiken" wird beim ersten Öffnen automatisch angelegt.
+
+**Bewertung:**
+
+- **Brutto** (vor Maßnahmen) und **Netto/Restrisiko** (nach Maßnahmen), je
+  **Eintrittswahrscheinlichkeit × Auswirkung (1–5)**. Stufen: Score **≥ 15 hoch**, **≥ 8 mittel**,
+  sonst niedrig.
+- **5×5-Risikomatrix** (umschaltbar Brutto/Netto) zeigt die offenen Risiken je Zelle; Zellen-Klick
+  filtert die Liste.
+- **Schutzziele** (Vertraulichkeit / Integrität / Verfügbarkeit) je Risiko markierbar.
+
+**Behandlung & Maßnahmen:**
+
+- Strategie **mitigieren / vermeiden / übertragen / akzeptieren** – bei **„akzeptieren" ist die
+  Begründung Pflicht** (Risikoakzeptanz, 6.1.3 f).
+- **Maßnahmenplan** je Risiko: Maßnahme, Verantwortlicher, Frist, Status (offen / in Umsetzung /
+  erledigt); überfällige Fristen werden rot markiert.
+- **Verknüpfungen** zu ISO-/NIS2-Controls (Normbezug-Katalog) und zu Richtlinien.
+- **Wiedervorlage-Termin** je Risiko + automatische **Historie** (wer hat wann angelegt/geändert).
+
+> Der Erinnerungs-Cron mailt **überfällige Maßnahmen und Risiko-Reviews** automatisch an die
+> Admins (mit Direktlink). Exporte: **🖨 Risikobericht** (Druck/PDF) und **⬇ CSV**. Tipp: statt
+> Löschen besser „Status: geschlossen" – so bleibt der Audit-Trail erhalten.
+>
+> **Normbezug:** ISO 27001 Klausel 6.1.2 (Risikobeurteilung), 6.1.3 (Risikobehandlung), 8.2/8.3
+> (Durchführung); NIS2 Art. 21(1) (Risikomanagementmaßnahmen).
+
+---
+
+## 12. ISMS-Dokumente (ISO 27001)  ·  *Administration*
 
 Reiter **„ISMS-Dokumente"** verwaltet die ISO-27001-Dokumente direkt auf der ISMS-Site.
 
@@ -237,7 +293,7 @@ Reiter **„ISMS-Dokumente"** verwaltet die ISO-27001-Dokumente direkt auf der I
 
 ---
 
-## 11. Governance-Board (Legal-Entwürfe)  ·  *Administration*
+## 13. Governance-Board (Legal-Entwürfe)  ·  *Administration*
 
 Reiter **„Governance-Board"** zeigt die Entwürfe aus dem Legal-SharePoint (Corporate
 Governance-Board, sites/ArbeitsplatzLegal) – gleicher Zugriffsmechanismus wie bei den
@@ -249,14 +305,14 @@ ISMS-Dokumenten.
 - **„👁 Vorschau"**, **„✏️ In Office bearbeiten"** / **„🌐 Im Browser bearbeiten"** und
   **„🕘 Versionsverlauf"** wie bei ISMS-Dokumenten; **„↗ SharePoint"** öffnet den Ordner direkt.
 - **„＋ Als Richtlinie übernehmen"** holt einen Entwurf in den Richtlinien-Workflow (Editor mit
-  vorbefülltem Dokument) – der Start der Konformitätsprüfung/Freigabe (Abschnitt 6).
+  vorbefülltem Dokument) – der Start der Konformitätsprüfung/Freigabe (Abschnitt 7).
 
 > **Normbezug:** ISO 27001 Klausel 7.5 (Dokumentierte Information), 5.2 (Politik) – gemeinsam mit
 > der Konformitätsprüfung/Freigabe im RMS.
 
 ---
 
-## 12. Vorschläge bearbeiten  ·  *Administration / Verantwortliche*
+## 14. Vorschläge bearbeiten  ·  *Administration / Verantwortliche*
 
 Reiter **„Vorschläge"** sammelt alle Änderungsvorschläge (auch die aus dem Health-Check, erkennbar
 am 🩺-Merkmal). Eine Zeile öffnet ein Seitenpanel: Vorschlag samt Dokument-Link lesen, **Status**
@@ -265,7 +321,7 @@ hinterlegen. Sichtbar für Admins, ISMS-Verantwortliche und Vorschlags-Empfänge
 
 ---
 
-## 13. Audit Report (Compliance-Nachweis)  ·  *Administration*
+## 15. Audit Report (Compliance-Nachweis)  ·  *Administration*
 
 Reiter **„Audit Report"** hat drei Ansichten:
 
@@ -284,7 +340,7 @@ Alle drei Ansichten mit **CSV-Export**.
 
 ---
 
-## 14. Einstellungen  ·  *Administration*
+## 16. Einstellungen  ·  *Administration*
 
 - **Rollen:** Admins, Genehmiger, Prüfer, Geschäftsleitung, KI-Gremium, ISMS-Verantwortliche und
   Vorschlags-Empfänger.
@@ -303,7 +359,7 @@ Alle drei Ansichten mit **CSV-Export**.
 
 ---
 
-## 15. Begriffe & Normbezug
+## 17. Begriffe & Normbezug
 
 - **Kenntnisnahme:** Bestätigung, dass eine Richtlinie gelesen und verstanden wurde.
 - **Konformitätsprüfung:** fachliche Prüfung, ob eine Richtlinie den Vorgaben (ISO 27001 / NIS2)
@@ -327,6 +383,9 @@ Alle drei Ansichten mit **CSV-Export**.
 | Konformitätsprüfung & Freigabe | A.5.1, 7.5.2, 5.3 | Art. 20 |
 | Dokument-Health-Check | 7.5.2/7.5.3, A.5.1 | — |
 | ISMS-Abdeckung (Heatmap) | 6.1.3, 4.3, Annex A | Art. 21(2) |
+| SoA (Erklärung zur Anwendbarkeit) | 6.1.3 d) | Art. 21(2) |
+| Cockpit | 9.1, 9.3 | — |
+| Risiko-Register | 6.1.2, 6.1.3, 8.2/8.3 | Art. 21(1) |
 | Fälligkeiten / Wiedervorlage | A.5.1, 9.3, 10.1 | — |
 | ISMS-Dokumente | 7.5, A.5.37, A.5.12/13 | — |
 | Governance-Board | 7.5, 5.2 | — |
@@ -334,7 +393,7 @@ Alle drei Ansichten mit **CSV-Export**.
 
 ---
 
-## 16. Häufige Fragen & Hilfe
+## 18. Häufige Fragen & Hilfe
 
 - **Etwas wirkt nicht aktuell?** „↻ Aktualisieren" oben rechts.
 - **Eine Richtlinie ist nicht sichtbar?** Sie ist evtl. noch nicht veröffentlicht oder deiner
