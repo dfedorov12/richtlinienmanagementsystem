@@ -71,6 +71,25 @@ Damit dieselben Freigeber wie in der App gelten:
 
 *(Einfacher Start: GL-Adressen direkt als Text mit `;` eintragen.)*
 
+### A4b. Richtliniendokument holen (für den Anhang)
+Damit die Genehmigungs-Mail die Richtlinie **als Anhang** enthält, vor der Genehmigung den
+Dateiinhalt laden. Die Liste liefert dazu `DokumentUrl` (Klartext-URL zur Datei) und `DokumentName`.
+
+**Aktion „Dateiinhalt mit Pfad abrufen" (SharePoint):**
+- **Websiteadresse** (Site aus der URL ableiten):
+  ```
+  @{concat('https://dihag.sharepoint.com/sites/', split(uriPath(triggerOutputs()?['body/DokumentUrl']), '/')[2])}
+  ```
+- **Dateipfad** (serverrelativer Pfad, dekodiert):
+  ```
+  @{decodeUriComponent(replace(uriPath(triggerOutputs()?['body/DokumentUrl']), concat('/sites/', split(uriPath(triggerOutputs()?['body/DokumentUrl']), '/')[2]), ''))}
+  ```
+
+> Liegen **alle** Richtliniendokumente auf **einer** Site (z. B. `…/sites/ISMS`), kannst du die
+> Websiteadresse einfach fest eintragen und beim Dateipfad nur den Teil nach `/sites/ISMS` verwenden.
+> Alternative ohne URL-Zerlegung (benötigt ggf. Premium/HTTP): **Microsoft Graph**
+> `GET https://graph.microsoft.com/v1.0/drives/@{triggerOutputs()?['body/DokumentDriveId']}/items/@{triggerOutputs()?['body/DokumentItemId']}/content`.
+
 ### A5. Freigabe holen
 **Aktion „Genehmigung starten und darauf warten":**
 - **Genehmigungstyp:** *Genehmigen/Ablehnen – Erste(r) reagiert* **(= Schwelle „eine GL-Person reicht")**
@@ -79,6 +98,9 @@ Damit dieselben Freigeber wie in der App gelten:
 - **Titel:** `Freigabe zur Veröffentlichung: ` + *Title*
 - **Zugewiesen an:** die GL-Adressen (aus A4 oder direkt)
 - **Details:** Link auf das Dokument (*DokumentUrl*) + „Bitte um Freigabe zur Veröffentlichung."
+- **Anlagen** (unter *Erweiterte Optionen anzeigen*): die Richtlinie anhängen –
+  - **Anlagenname – 1:** `DokumentName` *(aus dem Trigger)*
+  - **Anlageninhalt – 1:** *Dateiinhalt* aus Schritt **A4b** (`body('Dateiinhalt_mit_Pfad_abrufen')`).
 
 ### A6. Ergebnis zurückschreiben
 **Bedingung:** `Ergebnis` **ist gleich** `Approve`
