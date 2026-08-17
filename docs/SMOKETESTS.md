@@ -127,7 +127,7 @@ E2E_WRITE=1 npm run e2e
 Kurz durchklicken; ~5 Minuten. Voraussetzung: angemeldet als Admin **und**
 einmal als normaler Mitarbeiter (oder zweites Konto).
 
-### Richtlinienmanagement – <https://richtlinienmanagement.dihag-extern.com/>
+### Richtlinienmanagement – <https://rms.dihag.de/>
 - [ ] Login per Microsoft-Konto, App lädt ohne Boot-Fehler
 - [ ] „Meine Richtlinien“ zeigt Karten; Reiterwechsel lädt zügig (Cache greift)
 - [ ] „Aktualisieren“ erzwingt Neuladen
@@ -142,7 +142,7 @@ einmal als normaler Mitarbeiter (oder zweites Konto).
       übernehmen“ öffnet den Editor mit vorbefülltem Dokument
 - [ ] Karten per Tastatur erreichbar (Tab → Enter öffnet)
 
-### KI-Dashboard – <https://richtlinienmanagement.dihag-extern.com/ki/>
+### KI-Dashboard – <https://rms.dihag.de/ki/>
 - [ ] Aus dem RMS via Sidebar „KI-Dashboard“ erreichbar, **ohne** erneuten Login (SSO)
 - [ ] Als Gremiumsmitglied: „Gremium“-Badge + Einstellungen-Tab sichtbar
 - [ ] Antrag öffnen → **Ablehnen ohne Kommentar** wird blockiert; mit Kommentar

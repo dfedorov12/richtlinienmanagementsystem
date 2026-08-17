@@ -237,7 +237,7 @@ einziges Absender-Postfach einschränken (PowerShell in der Detail-Doku). Workfl
 ## KI-Dashboard-Integration unter `/ki/` (Stand 2026-06-11)
 
 Das KI-Dashboard (KI-Antragsworkflow, Lizenzen, KI-Register) läuft als Unterseite
-**https://richtlinienmanagement.dihag-extern.com/ki/** in diesem Repo (`ki/`).
+**https://rms.dihag.de/ki/** in diesem Repo (`ki/`).
 Die alten Deployments (`ki-dashboard`/`ki-dashboard-test`, ki-dashboard.dihag-extern.com)
 sind nur noch Weiterleitungsseiten (inkl. `?antrag=…`-Deep-Link-Übernahme) und archiviert.
 

@@ -5,7 +5,7 @@ Vollständige Bedienungsanleitung zum **Richtlinienmanagement** und zum integrie
 druck-/PDF-fähig) und **„Anleitung"** (3-Minuten-Schnellstart). Dieses Dokument ist die
 versionierte Fassung im Repository.
 
-- **Aufruf:** <https://richtlinienmanagement.dihag-extern.com/>
+- **Aufruf:** <https://rms.dihag.de/>
 - **Anmeldung:** mit dem gewohnten DIHAG-Microsoft-Konto (Single Sign-On). Einmal anmelden genügt –
   das KI-Dashboard nutzt dieselbe Anmeldung. Bei Problemen: Seite neu laden oder „Erneut versuchen".
 
