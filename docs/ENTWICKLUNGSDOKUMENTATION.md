@@ -331,3 +331,40 @@ funktioniert die Anzeige, das Speichern scheitert mit klarer Fehlermeldung.
   Verantwortliche (Metadaten-Spalte /verantwort|owner|ansprech/) + ISMS-
   Verantwortliche (Einstellungen, Feld `ismsVerantwortlich`) + Admin-Fallback.
   Versand respektiert die interne Domain-Whitelist von spSendMail.
+
+---
+
+## Ladezeit: Start und Dokument-Reiter (Stand 2026-08-18)
+
+Die App ist statisch – gefühlte Geschwindigkeit entsteht fast nur daraus, wie
+viele Graph-Anfragen **nacheinander** laufen müssen. Deshalb:
+
+**Start (`bootApp` → `spInit`)**
+- `spInit()` läuft genau **einmal**: alle Aufrufer teilen sich `_spInitLaeuft`.
+  Vorher riefen `spGetPolicies()` und `spGetAcknowledgements()` (parallel gestartet)
+  beide die volle Ermittlung auf, bevor `_sp.ready` stand – alles doppelt.
+- Site → dann **gemeinsam** beide Listen-IDs und die Dokumentbibliothek
+  (`Promise.all`), statt drei Anfragen hintereinander.
+- Die **Spalten** beider Listen (`_spSpaltenLaden`) laufen nebenher und halten den
+  Start nicht auf. Schreibpfade warten über `_spSpalten()` darauf, weil nur
+  vorhandene Felder gesendet werden dürfen; die „fehlende Spalten"-Warnung
+  schweigt, solange sie nichts weiß, und meldet sich per Event
+  `rms-spalten-geladen` nach (siehe `admin.js`).
+- Die ermittelten IDs liegen im `localStorage` (`rms_sp_ids_v1`, 7 Tage, an
+  `SP.appSiteHost` gebunden). Ein warmer Start spart die komplette Suche.
+  Wird eine Liste neu angelegt, antwortet Graph mit 404 → `_spNeuErmitteln()`
+  verwirft den Cache und versucht **einmal** neu.
+- Regelwerke, Bestätigungen und die eigene Abteilung hängen weder an
+  `access-config.json` noch an den Rollen → sie laden parallel dazu
+  (`reloadData({ rendern: false })`). Gerendert wird erst, wenn die Rollen da
+  sind – sonst zeigte „Meine Regelwerke" kurz zu wenig.
+
+**Dokument-Reiter (IMS, Governance-Board)**
+- Ordner werden mit `_parallel(..., 4)` gleichzeitig eingesammelt statt einer nach
+  dem anderen; vier ist die Grenze, ab der Graph mit 429 drosselt. Das Ergebnis
+  wird danach nach Ordner/Name sortiert, damit die Reihenfolge stabil bleibt.
+- Zwischenstände werden **gebündelt** gezeichnet (max. alle 250 ms). Jede geladene
+  Seite die ganze Tabelle samt Ordnerbaum neu aufzubauen kostete bei vielen
+  Ordnern mehr Zeit als das Laden selbst.
+
+Abgesichert in `tests/tempo.test.mjs`.
