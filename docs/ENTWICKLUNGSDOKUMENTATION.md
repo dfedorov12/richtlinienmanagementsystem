@@ -406,3 +406,38 @@ Oberfläche die eigenen Gruppen des Admins an und sonst die Eingabe der
 Objekt-ID (GUID-geprüft).
 
 Abgesichert in `tests/reiter-berechtigungen.test.mjs`.
+
+
+---
+
+## Lernvideos, Kenntnisnahme-Erinnerungen, Pflicht-Dokumentenart (Stand 2026-08-19)
+
+**Lernvideos.** `videoEinbettung()` in `js/util.js` deutet die Eingabe: ein ganzes
+`<iframe>`-Schnipsel (so kopiert man es aus Stream/SharePoint), eine embed.aspx-Adresse,
+YouTube oder Vimeo → `{art:'einbetten'}`; alles andere → `{art:'link'}`. Eingebettet wird
+nur, was sich nachweislich einbetten lässt – ein leerer Rahmen durch `X-Frame-Options`
+wäre schlechter als ein ehrlicher Link. Gespeichert werden die Videos als
+`videos: [{titel,url}]` im **Sammelfeld `DatenJson`** (`POLICY_EXT_FIELDS`), also **ohne
+neue SharePoint-Spalte**. Editor: `renderVideoEditorSection()` in `js/admin.js`, Anzeige:
+`renderLernvideos()` in `js/app.js` (unter der Dokumentvorschau, damit das Lese-Gate am
+Dokument hängt), Layout in `css/style.css` (`.lernvideo-*`, 16:9 über padding-top).
+
+**Kenntnisnahme-Erinnerungen** (`scripts/erinnerungen.mjs`). Neuer Block nach der
+Workflow-Schleife: veröffentlichte Pflicht-Regelwerke → Zielgruppe auflösen → offene
+Bestätigungen finden → **eine** Mail je Person über alle ihre offenen Regelwerke.
+Reine Helfer, einzeln testbar: `zielgruppeTrifft()`, `rollenVon()`, `kenntnisOffen()`
+(berücksichtigt Wiederholungspflicht wie `isExpired()` in der App). Taktung aus der
+Konfiguration: `kenntnisErinnerungAktiv`, `kenntnisErsteNachTagen` (7),
+`kenntnisDannAlleTage` (7), `kenntnisEskalationAbTagen` (21), `kenntnisEskalationMail`
+(leer = `eskalationMail`). Die Eskalation ist eine Sammelmeldung an eine Stelle, nicht an
+Vorgesetzte.
+
+Der Teil braucht zusätzlich das **Anwendungsrecht `User.Read.All`** (Zielgruppen über
+`department` auflösen). Fehlt es, wird nur dieser Block übersprungen und die Ursache ins
+Protokoll geschrieben – der übrige Lauf bleibt unberührt.
+
+**Dokumentenart ist Pflicht.** `savePolicy()` prüft `regelwerkTyp` direkt nach dem Titel;
+im Editor mit `*` gekennzeichnet. Vorher bewusst optional (Migration von Altbestand) –
+eingeführt war zu dem Zeitpunkt noch nichts, also fällt die Ausnahme weg.
+
+Abgesichert in `tests/lernvideos.test.mjs` und `tests/kenntnis-erinnerung.test.mjs`.

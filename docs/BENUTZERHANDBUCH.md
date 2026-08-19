@@ -70,6 +70,70 @@ bestätigen. Optional.
 
 ---
 
+## 3a. Wissenstest & Lernvideos  ·  *Für alle*
+
+Der Wissenstest weist nach, dass ein Regelwerk nicht nur geöffnet, sondern verstanden wurde.
+Ob es einen gibt, entscheidet die Administration je Regelwerk.
+
+**Ablauf**
+
+1. **Erst lesen, dann testen** – der Test startet erst nach bestätigter Kenntnisnahme.
+2. **Fragen und Antworten werden bei jedem Versuch neu gemischt.**
+3. Alle Fragen beantworten, absenden. Genau eine Antwort je Frage ist richtig.
+4. **Sofortige Auswertung:** richtige Antwort grün, falsch gewählte rot – der Test ist damit
+   auch Lernmittel.
+5. **Bestehensgrenze** je Regelwerk (Standard 80 % richtig).
+6. **Nicht bestanden?** Beliebig oft wiederholbar, ohne Sperrfrist.
+
+**Was gespeichert wird**
+
+| Feld | Bedeutung |
+|---|---|
+| Ergebnis | Das **beste** erreichte Ergebnis in Prozent – ein schlechterer Versuch verschlechtert es nicht. |
+| Bestanden | Einmal bestanden bleibt bestanden – bis zur nächsten Version oder Wiederholung. |
+| Versuche | Anzahl der Anläufe; Zweck ist der Nachweis, nicht die Bewertung von Personen. |
+| Abschluss | Erst mit bestandenem Test gilt das Regelwerk als erledigt. |
+
+**Lernvideos:** Zu jedem Regelwerk können Videos hinterlegt werden. Sie erscheinen direkt unter
+dem Dokument, vor dem Wissenstest. Videos aus Stream/SharePoint sowie YouTube und Vimeo laufen
+**in der Seite**, alles andere öffnet ein Knopf in einem neuen Tab. Die Rechte am Video vergibt
+SharePoint – wer es dort nicht sehen darf, sieht es auch hier nicht.
+
+*Für die Administration:* Im Regelwerk-Editor unter **„🎬 Lernvideos"** Titel und Adresse
+eintragen; am einfachsten in Stream/SharePoint auf **Teilen → Einbetten** klicken und den Code
+einfügen. Der Editor zeigt sofort, ob abgespielt oder verlinkt wird.
+
+> **Normbezug:** ISO 27001 Klausel 7.2, 7.3, A.6.3; NIS2 Art. 21(2g).
+
+---
+
+## 3b. Erinnerungen & Eskalation (automatisch)  ·  *Für alle*
+
+Ein zeitgesteuerter Lauf fasst offene Punkte werktäglich nach – ohne dass jemand die App
+geöffnet haben muss.
+
+| Erinnerung an | Inhalt |
+|---|---|
+| **Mitarbeitende** | Ein veröffentlichtes Pflicht-Regelwerk ist noch zu lesen und zu bestätigen (samt Wissenstest, falls gefordert). Jede Person bekommt **eine** Mail über **alle** ihre offenen Regelwerke. |
+| Geschäftsleitung | Eingereichtes Konzept wartet auf Entscheidung; Freigabe steht aus. |
+| Konformitätsprüfer | Noch kein Votum abgegeben. |
+| KBR / Betriebsräte | Mitbestimmung offen. |
+| Administration | Sammelmails zu fälligen Überprüfungen und überfälligen Risiko-Maßnahmen. |
+
+**Taktung:** Workflow-Schritte nach 7 Tagen, danach alle 3 Tage, ab 14 Tagen zusätzlich an den
+Ersatz-Empfänger. Kenntnisnahmen bewusst träger: nach 7 Tagen, danach wöchentlich; ab 21 Tagen
+geht eine **Sammelmeldung** an eine benannte Stelle (welches Regelwerk wie lange offen ist und
+wer noch fehlt) – nicht automatisch an Vorgesetzte. Alle Werte stehen in den Einstellungen,
+jede Erinnerungsart lässt sich einzeln pausieren.
+
+Erinnert wird nur, was **tatsächlich offen** ist; eine Bestätigung nimmt die Person sofort aus
+der Liste.
+
+> **Zweckbindung:** Nachweis der Unterweisung (ISO 27001 A.6.3), nicht Leistungs- oder
+> Verhaltenskontrolle.
+
+---
+
 ## 4. KI-Systeme beantragen (KI-Dashboard)  ·  *Für alle*
 
 Über **„KI-Dashboard"** (linke Leiste) in den KI-Governance-Bereich. Jede:r kann einen Antrag
