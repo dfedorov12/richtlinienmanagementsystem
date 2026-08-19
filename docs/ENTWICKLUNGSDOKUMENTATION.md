@@ -368,3 +368,41 @@ viele Graph-Anfragen **nacheinander** laufen müssen. Deshalb:
   Ordnern mehr Zeit als das Laden selbst.
 
 Abgesichert in `tests/tempo.test.mjs`.
+
+
+---
+
+## Reiter-Berechtigungen: eigener Bereich und Sicherheitsgruppen (Stand 2026-08-19)
+
+**Oberfläche** (`js/einstellungen.js`): Die Einstellungen haben zwei Bereiche
+(`_cfgBereich`: `rollen` | `reiter`), umschaltbar über eine Segmentleiste. Der
+Entwurf `_cfgEdit` überlebt den Wechsel – ungespeicherte Änderungen bleiben.
+Der Rechte-Bereich ist breiter (1100 statt 680 px), weil er eine Matrix trägt:
+Zeile = Träger, Spalte = Reiter (`GOVERNABLE_TABS[].kurz`), Zelle = `–` / `L` /
+`S`. `rrCycle()` schaltet eine Zelle weiter, `rrToggleOffen()` klappt die Zeile
+mit der ausführlichen Ansicht auf. `_rrEintraege()`, `_rrStufe()` und
+`_rrGefiltert()` rechnen ohne DOM und sind einzeln getestet.
+
+**Träger** sind Personen (E-Mail, wie bisher), Rollennamen (Altbestand) – und
+neu **Sicherheitsgruppen**. Sie stehen als `gruppe:<Objekt-ID>` in denselben
+Listen (`reiterRechte[view].lesen/schreiben`); der Anzeigename liegt getrennt
+unter `gruppenNamen` und wird beim Speichern auf die tatsächlich berechtigten
+Gruppen eingedampft. Gespeichert wird die ID, nicht der Name: Eine umbenannte
+Gruppe verlöre sonst still ihre Rechte.
+
+**Auswertung** (`js/access.js`): `_matchesUserOrRole()` prüft Gruppen-Einträge
+gegen `State.myGroups` – die Gruppen des angemeldeten Kontos, in `bootApp`
+parallel zum übrigen Laden geholt (`spGetMyGroups()`), fertig bevor
+`initRoleNav()` die Reiter berechnet. Die Auflösung passiert erst, wenn wirklich
+eine Gruppe in der Liste steht.
+
+**Berechtigungen:** `spGetMyGroups()` liest `/me/transitiveMemberOf` (Rückfall
+`/me/memberOf`) mit den bereits erteilten Scopes – **keine neue
+Zustimmungsabfrage** beim Anmelden. Klappt es doch nicht, merkt sich
+`spGruppenLesbar()` das, die Einstellungen zeigen einen Hinweis, und
+personenbezogene Freigaben arbeiten unverändert weiter. Die **Suche** im
+Verzeichnis (`spSearchGroups()`) braucht mehr Rechte; scheitert sie, bietet die
+Oberfläche die eigenen Gruppen des Admins an und sonst die Eingabe der
+Objekt-ID (GUID-geprüft).
+
+Abgesichert in `tests/reiter-berechtigungen.test.mjs`.
