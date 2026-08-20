@@ -400,13 +400,23 @@ Jede Regelung erscheint als **Kachel** mit Verantwortung und Stand – **gültig
 darauf filtert. Dazu Suche und ein Filter nach Verantwortlichen. Liegt eine Regelung schon als
 Regelwerk im RMS, führt **„→ im RMS"** direkt hin.
 
-**Bearbeiten:** Eine Kachel anklicken öffnet die Regelung – Titel, Kategorie, Dokumentenart,
-Verantwortung, Stand und optional Dokumentname, Version und Datum. Das **+** in einer Zelle legt
-dort eine neue Regelung an, Kategorie und Ebene sind schon vorbelegt; eine neue Kategorie
-einzutragen genügt, damit sie als Zeile erscheint. Gespeichert wird **sofort nach jeder Änderung**
-– es gibt keinen extra Speichern-Knopf. Hat jemand anderes zwischenzeitlich gespeichert, fragt die
-App nach, bevor sie überschreibt. **↺ Startbestand** stellt nach Rückfrage den Stand aus der
-CGB-Mappe wieder her.
+**Regelungen bearbeiten:** Eine Kachel anklicken öffnet die Regelung – Titel, Kategorie,
+Dokumentenart, Verantwortung, Stand und optional Dokumentname, Version und Datum. Das **+** in
+einer Zelle legt dort eine neue Regelung an, Kategorie und Ebene sind schon vorbelegt. Gespeichert
+wird **sofort nach jeder Änderung** – es gibt keinen extra Speichern-Knopf. Hat jemand anderes
+zwischenzeitlich gespeichert, fragt die App nach, bevor sie überschreibt. **↺ Startbestand** stellt
+nach Rückfrage den Stand aus der CGB-Mappe wieder her.
+
+**Zeilen und Spalten bearbeiten:** Auch die Beschriftungen sind Daten. Ein Klick auf einen
+**Zeilen- oder Spaltenkopf** benennt ihn um (bei Ebenen zusätzlich die Erklärung, die als Tooltip
+und in der Legende erscheint); die kleinen Pfeile daneben verschieben ihn. **+ Ebene** und
+**+ Kategorie** legen neue an. Beim Umbenennen ziehen alle Regelungen mit, die daran hängen — es
+bleibt nichts in einer Spalte stehen, die es nicht mehr gibt. Eine Zeile oder Spalte mit Inhalt
+wird nicht einfach gelöscht: Die App fragt, wohin die Regelungen umziehen sollen.
+
+> **Eigenes Recht:** Regelungen pflegen darf, wer Schreibrecht auf den Reiter hat. Den **Aufbau**
+> — Zeilen und Spalten — ändert nur, wer in den Einstellungen unter *„Governance-Struktur: Zeilen
+> & Spalten ändern"* eingetragen ist. Administratoren dürfen es immer.
 
 > **Quelle:** Zuständigkeiten-Mappe des Corporate-Governance-Boards. Die Matrix ist eine
 > **Momentaufnahme der Planung**, kein Live-Bestand; der Stand steht über der Tabelle.
@@ -447,8 +457,8 @@ Alle drei Ansichten mit **CSV-Export**.
 
 ## 16. Einstellungen  ·  *Administration*
 
-- **Rollen:** Admins, Genehmiger, Prüfer, Geschäftsleitung, KI-Gremium, ISMS-Verantwortliche und
-  Vorschlags-Empfänger.
+- **Rollen:** Admins, Genehmiger, Prüfer, Geschäftsleitung, KI-Gremium, ISMS-Verantwortliche,
+  Vorschlags-Empfänger und *Governance-Struktur: Zeilen & Spalten ändern*.
 - **Genehmigungs-Schwellen:** „konform/freigegeben, wenn alle zustimmen" oder „einer reicht"
   (global; je Richtlinie überschreibbar).
 - **Erinnerungen:** aktiv/aus, Absender-Postfach, Taktung, Eskalation, Ersatz-Empfänger.

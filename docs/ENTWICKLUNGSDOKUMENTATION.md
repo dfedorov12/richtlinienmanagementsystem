@@ -484,6 +484,22 @@ an, `gsLoeschen(i)` entfernt nach Rückfrage. Dieselbe Mechanik für die Einträ
 der Pyramide (`gsWeitere*`). Ohne Schreibrecht (`canWriteTab('govstruktur')`) rendert die
 Ansicht ohne Bedienelemente, und die Funktionen brechen zusätzlich selbst ab.
 
+**Zeilen und Spalten** sind ebenfalls gepflegte Daten (`_gsDaten.arten` als
+`[{key, erklaerung}]`, `_gsDaten.kategorien` als Namensliste) und stehen mit in der JSON.
+`gsArten()` / `gsKategorien()` liefern sie und ergänzen defensiv, was in Einträgen
+vorkommt, aber in keinem Kopf steht – sonst wären solche Regelungen unsichtbar. Ältere
+gespeicherte Fassungen ohne Köpfe fallen auf den Startbestand zurück. Umbenennen zieht
+alle betroffenen Einträge mit (`gsEbeneUebernehmen` / `gsKategorieUebernehmen`);
+Löschen einer belegten Zeile/Spalte führt über `gsUmziehenDialog()` zu einer Zielauswahl,
+statt Regelungen still mitzunehmen. Die letzte Zeile bzw. Spalte lässt sich nicht
+entfernen.
+
+**Zwei Rechte.** `gsDarfSchreiben()` (Schreibrecht auf den Reiter) erlaubt das Pflegen von
+Regelungen. Den **Aufbau** ändert nur, wer zusätzlich `darfGovStrukturKoepfe()` erfüllt –
+Admins oder die Liste `govStrukturKoepfe` aus der access-config, gepflegt in den
+Einstellungen über `roleCard`. Die Ansicht blendet die Kopf-Bedienelemente sonst aus, und
+jede Struktur-Funktion prüft zusätzlich selbst.
+
 **Anzeige.** `gsMatrixHtml()`: Zeile = Kategorie, Spalte = Art. Beim Bearbeiten werden
 **alle** Ebenen gezeigt (sonst käme man in eine leere Ebene nie hinein), beim reinen Lesen
 nur die belegten. Filter über `gsGefiltert()` (Suche, Stand, Verantwortung), Kennzahlen mit
@@ -495,4 +511,6 @@ Eine zweite Sicht „nach Verantwortung" gab es kurz; sie zeigte dieselben Daten
 und ist wieder entfernt. Wer nach einer Person sucht, filtert die Matrix.
 
 Abgesichert in `tests/govstruktur.test.mjs` (Datenintegrität, Stichproben gegen die Mappe,
-Filter, Anlegen/Ändern/Löschen samt Speichern, Gleichzeitigkeit, Nur-Lese-Zugriff).
+Filter, Anlegen/Ändern/Löschen samt Speichern, Umbenennen mit Mitziehen der Einträge,
+Umzug beim Löschen belegter Köpfe, Gleichzeitigkeit, Nur-Lese-Zugriff und das eigene
+Struktur-Recht).
