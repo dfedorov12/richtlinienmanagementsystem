@@ -376,6 +376,40 @@ ISMS-Dokumenten.
 
 ---
 
+## 13a. Governance-Struktur (Matrix)  ·  *Administration*
+
+Der Bauplan des **Konzernregelwerks** auf einer Seite: Welche Regelung gibt es in welcher
+Kategorie, auf welcher Verbindlichkeitsebene, wer verantwortet sie – und wie weit ist sie?
+
+- **Zeilen = Kategorien** des Konzernregelwerk-Fundaments (Allgemein, Recht/Steuern/Datenschutz/
+  Versicherungen, Compliance, Security/Cyber Security, Finanzen/ReWe/Controlling/Einkauf,
+  Nachhaltigkeit/Arbeitssicherheit & Gesundheitsschutz, HR/Corporate Transformation/IT).
+- **Spalten = Dokumentenart** (Verbindlichkeitsebene der Regelwerkspyramide):
+
+| Ebene | Bedeutung |
+|---|---|
+| Handbuch | In sich abgeschlossenes Themengebiet (z. B. Code of Conduct) |
+| Policy | Strategischer Rahmen: Was ist das Ziel, der Grundsatz? |
+| Konzernrichtlinie | Operativer Rahmen: Wie handeln wir? |
+| Konzernfachregelung | Fachgerechte Ausführung |
+| Arbeits-/Prozessanweisung | Handlungsanleitung, Schritt für Schritt |
+| Leitfaden | Handlungsempfehlungen |
+
+Jede Regelung erscheint als **Kachel** mit Verantwortung und Stand – **gültig** (grün),
+**in Arbeit** (gelb), **offen** (grau). Oben stehen Kennzahlen mit Fortschrittsbalken; ein Klick
+darauf filtert. Dazu Suche und ein Filter nach Verantwortlichen. Der Umschalter
+**„Nach Verantwortung"** zeigt dieselben Daten je Person: wer hat wie viel offen. Liegt eine
+Regelung schon als Regelwerk im RMS, führt **„→ im RMS"** direkt hin.
+
+> **Quelle:** Zuständigkeiten-Mappe des Corporate-Governance-Boards. Die Matrix ist eine
+> **Momentaufnahme der Planung**, kein Live-Bestand; der Stand steht über der Tabelle.
+> Leitbild, Unternehmenspolitik und die kollektivrechtlichen Regelungen (KBV/BV) stehen
+> aufklappbar darunter – gleiche Mappe, aber außerhalb der Regelwerkspyramide.
+
+> **Normbezug:** ISO 27001 Klausel 5.1, 5.3, A.5.1; DCGK.
+
+---
+
 ## 14. Vorschläge bearbeiten  ·  *Administration / Verantwortliche*
 
 Reiter **„Vorschläge"** sammelt alle Änderungsvorschläge (auch die aus dem Health-Check, erkennbar
