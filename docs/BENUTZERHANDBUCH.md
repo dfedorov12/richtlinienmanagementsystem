@@ -397,9 +397,16 @@ Kategorie, auf welcher Verbindlichkeitsebene, wer verantwortet sie – und wie w
 
 Jede Regelung erscheint als **Kachel** mit Verantwortung und Stand – **gültig** (grün),
 **in Arbeit** (gelb), **offen** (grau). Oben stehen Kennzahlen mit Fortschrittsbalken; ein Klick
-darauf filtert. Dazu Suche und ein Filter nach Verantwortlichen. Der Umschalter
-**„Nach Verantwortung"** zeigt dieselben Daten je Person: wer hat wie viel offen. Liegt eine
-Regelung schon als Regelwerk im RMS, führt **„→ im RMS"** direkt hin.
+darauf filtert. Dazu Suche und ein Filter nach Verantwortlichen. Liegt eine Regelung schon als
+Regelwerk im RMS, führt **„→ im RMS"** direkt hin.
+
+**Bearbeiten:** Eine Kachel anklicken öffnet die Regelung – Titel, Kategorie, Dokumentenart,
+Verantwortung, Stand und optional Dokumentname, Version und Datum. Das **+** in einer Zelle legt
+dort eine neue Regelung an, Kategorie und Ebene sind schon vorbelegt; eine neue Kategorie
+einzutragen genügt, damit sie als Zeile erscheint. Gespeichert wird **sofort nach jeder Änderung**
+– es gibt keinen extra Speichern-Knopf. Hat jemand anderes zwischenzeitlich gespeichert, fragt die
+App nach, bevor sie überschreibt. **↺ Startbestand** stellt nach Rückfrage den Stand aus der
+CGB-Mappe wieder her.
 
 > **Quelle:** Zuständigkeiten-Mappe des Corporate-Governance-Boards. Die Matrix ist eine
 > **Momentaufnahme der Planung**, kein Live-Bestand; der Stand steht über der Tabelle.

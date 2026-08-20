@@ -448,36 +448,51 @@ Abgesichert in `tests/lernvideos.test.mjs` und `tests/kenntnis-erinnerung.test.m
 ## Reiter „Governance-Struktur" (Stand 2026-08-20)
 
 Matrix **Kategorie × Dokumentenart** über das Konzernregelwerk, in der Gruppe
-*Corporate Governance* direkt unter dem Governance-Board.
+*Corporate Governance* direkt unter dem Governance-Board – und zugleich die
+Arbeitsfläche des Boards: vollständig bearbeitbar.
 
-**Daten** (`js/govstruktur.js`, oberer Teil): `GOV_ARTEN` (die sieben Ebenen der
-Regelwerkspyramide plus „Weitere" für Muster/Vorlagen), `GOV_KATEGORIEN` (die sieben
-Spalten des Fundaments), `GOV_EINTRAEGE` (je Regelung: Kategorie, Art, Titel,
-Verantwortung, Stand, dazu Dokumentname/Version/Datum, soweit gepflegt) und
-`GOV_WEITERE` (Leitbild, Unternehmenspolitik, KBV – gleiche Mappe, außerhalb der
-Pyramide). Bewusst statisch im Code: Es ist eine Momentaufnahme der Planung des
-Corporate-Governance-Boards, kein Live-Bestand wie die SharePoint-Listen.
-
-**Erzeugt** wird der Datenteil aus der Excel-Mappe:
+**Startbestand** (`js/govstruktur.js`, oberer Teil): `GOV_ARTEN` (die sieben Ebenen der
+Regelwerkspyramide plus „Weitere" für Muster/Vorlagen), `GOV_KATEGORIEN`,
+`GOV_EINTRAEGE` (je Regelung: Kategorie, Art, Titel, Verantwortung, Stand, dazu
+Dokumentname/Version/Datum, soweit gepflegt) und `GOV_WEITERE` (Leitbild,
+Unternehmenspolitik, KBV – gleiche Mappe, außerhalb der Pyramide). Erzeugt aus der
+Excel-Mappe:
 
 ```
 python scripts/govstruktur-import.py "…/CGB_Organisation_Zuständigkeiten_Nomenklatur.xlsx"
 ```
 
-Das Skript ersetzt nur den Kopf der Datei bis zur Marke „Ansicht" und lässt den
-Ansichtsteil unberührt. Zwei Fallstricke der Mappe sind darin abgebildet: Zeilen ohne
-Eintrag in *Verantwortung* sind Zwischenüberschriften (werden übersprungen), und die
-Art ergibt sich aus dem **Titel**, nicht aus der Überschrift – unter
-„…_Konzernrichtlinien und Policy" stehen beide Arten gemischt. Der Stand kommt aus
-dem Änderungsdatum der Mappe.
+Das Skript ersetzt nur den Kopf der Datei bis zur Marke „Ansicht". Zwei Fallstricke der
+Mappe sind darin abgebildet: Zeilen ohne Eintrag in *Verantwortung* sind
+Zwischenüberschriften (werden übersprungen), und die Art ergibt sich aus dem **Titel**,
+nicht aus der Überschrift – unter „…_Konzernrichtlinien und Policy" stehen beide Arten
+gemischt. Der Stand kommt aus dem Änderungsdatum der Mappe.
 
-**Ansicht** (unterer Teil derselben Datei): `renderGovStruktur()` mit zwei Modi –
-`gsMatrixHtml()` (Zeile = Kategorie, Spalte = Art; Arten ohne einen einzigen Eintrag
-bekommen keine Spalte) und `gsOwnerHtml()` (je Person eine Karte mit Verteilung nach
-Stand). Filter über `gsGefiltert()` (Suche, Stand, Verantwortung), Kennzahlen mit
-Fortschrittsbalken, aufklappbare Legende. `gsPolicyTreffer()` verbindet die Planung mit
-dem Bestand: Trägt `State.policies` ein Regelwerk mit passendem Titel, führt „→ im RMS"
-dorthin (normalisierter Vergleich, Titel unter fünf Zeichen werden nicht verglichen).
+**Arbeitsstand und Speicherung.** Zur Laufzeit hält `_gsDaten` den bearbeiteten Stand.
+Beim Öffnen lädt `spLoadGovStruktur()` die Datei `governance-struktur.json` aus dem
+Konfigurationsordner (neben `access-config.json`); fehlt sie, gilt eine tiefe Kopie des
+Startbestands – die Konstanten selbst werden nie verändert. Jede Änderung speichert
+sofort (`gsSpeichern()` → `spSaveGovStruktur()`), es gibt keinen Sammel-Speichern-Knopf.
+Gegen gegenseitiges Überschreiben vergleicht `gsSpeichern()` vorher den
+Änderungszeitstempel (`spGovStrukturMeta()`) mit dem beim Laden gemerkten und fragt bei
+Abweichung nach. `gsZuruecksetzen()` stellt den Startbestand wieder her (mit Rückfrage).
 
-Abgesichert in `tests/govstruktur.test.mjs` (Datenintegrität, Stichproben gegen die
-Mappe, Filter, beide Ansichten, Einhängung).
+**Bearbeiten.** `gsBearbeiten(i)` öffnet eine Kachel im Dialog (Titel, Kategorie als
+Datalist – neue Kategorien werden zu neuen Zeilen –, Dokumentenart, Verantwortung, Stand,
+Dokument/Version/Datum), `gsNeu(kategorie, art)` legt aus dem `+` einer Zelle direkt dort
+an, `gsLoeschen(i)` entfernt nach Rückfrage. Dieselbe Mechanik für die Einträge außerhalb
+der Pyramide (`gsWeitere*`). Ohne Schreibrecht (`canWriteTab('govstruktur')`) rendert die
+Ansicht ohne Bedienelemente, und die Funktionen brechen zusätzlich selbst ab.
+
+**Anzeige.** `gsMatrixHtml()`: Zeile = Kategorie, Spalte = Art. Beim Bearbeiten werden
+**alle** Ebenen gezeigt (sonst käme man in eine leere Ebene nie hinein), beim reinen Lesen
+nur die belegten. Filter über `gsGefiltert()` (Suche, Stand, Verantwortung), Kennzahlen mit
+Fortschrittsbalken, aufklappbare Legende. `gsPolicyTreffer()` verbindet die Planung mit dem
+Bestand: Trägt `State.policies` ein Regelwerk mit passendem Titel, führt „→ im RMS" dorthin
+(normalisierter Vergleich, Titel unter fünf Zeichen werden nicht verglichen).
+
+Eine zweite Sicht „nach Verantwortung" gab es kurz; sie zeigte dieselben Daten noch einmal
+und ist wieder entfernt. Wer nach einer Person sucht, filtert die Matrix.
+
+Abgesichert in `tests/govstruktur.test.mjs` (Datenintegrität, Stichproben gegen die Mappe,
+Filter, Anlegen/Ändern/Löschen samt Speichern, Gleichzeitigkeit, Nur-Lese-Zugriff).
