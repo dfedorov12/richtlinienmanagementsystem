@@ -384,11 +384,17 @@ mit der ausführlichen Ansicht auf. `_rrEintraege()`, `_rrStufe()` und
 `_rrGefiltert()` rechnen ohne DOM und sind einzeln getestet.
 
 **Träger** sind Personen (E-Mail, wie bisher), Rollennamen (Altbestand) – und
-neu **Sicherheitsgruppen**. Sie stehen als `gruppe:<Objekt-ID>` in denselben
-Listen (`reiterRechte[view].lesen/schreiben`); der Anzeigename liegt getrennt
-unter `gruppenNamen` und wird beim Speichern auf die tatsächlich berechtigten
-Gruppen eingedampft. Gespeichert wird die ID, nicht der Name: Eine umbenannte
-Gruppe verlöre sonst still ihre Rechte.
+**Gruppen**: Sicherheits-, Verteiler- und Microsoft-365-Gruppen. Für die
+Auswertung sind sie gleichwertig; entscheidend ist allein die Mitgliedschaft.
+Sie stehen als `gruppe:<Objekt-ID>` in denselben Listen
+(`reiterRechte[view].lesen/schreiben`); Anzeigename und Art liegen getrennt unter
+`gruppenNamen` / `gruppenTypen` (`sicherheit` | `verteiler` | `m365`) und werden
+beim Speichern auf die tatsächlich berechtigten Gruppen eingedampft. Gespeichert
+wird die ID, nicht der Name: Eine umbenannte Gruppe verlöre sonst still ihre
+Rechte. `gruppenArtVon()` (sharepoint.js) leitet die Art aus `groupTypes` /
+`securityEnabled` / `mailEnabled` ab; gesucht wird über `displayName` **und**
+`mail`, weil Verteiler meist unter ihrer Adresse bekannt sind. Nicht möglich sind
+**dynamische** Verteilerlisten: Die leben nur in Exchange, nicht im Verzeichnis.
 
 **Auswertung** (`js/access.js`): `_matchesUserOrRole()` prüft Gruppen-Einträge
 gegen `State.myGroups` – die Gruppen des angemeldeten Kontos, in `bootApp`

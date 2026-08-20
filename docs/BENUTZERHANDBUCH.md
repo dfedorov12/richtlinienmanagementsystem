@@ -473,17 +473,22 @@ Alle drei Ansichten mit **CSV-Export**.
 - **Power Automate:** Ist der Modus aktiv, verschickt die App keine Prüf-/Freigabe-Mails – die
   Genehmigung läuft über den Power-Automate-Flow.
 - **Reiter-Berechtigungen (Lesen/Schreiben):** eigener Bereich in den Einstellungen (Umschalter
-  oben). Eine Zeile je **Person** oder **Sicherheitsgruppe**, eine Spalte je Reiter: **–** kein
+  oben). Eine Zeile je **Person** oder **Gruppe**, eine Spalte je Reiter: **–** kein
   Zugriff, **L** Lesen, **S** Schreiben. Eine Zelle anklicken schaltet weiter (– → L → S → –);
   die Zeile aufklappen zeigt alle Reiter mit Beschriftung und Häkchen. Suchfeld und Reiter-Filter
   („wer darf ins Risiko-Register?") halten den Überblick. **Additiv** zu den Standardrechten,
   Admins haben immer Zugriff. „Nur Lesen" = Reiter sichtbar, aber Anlegen/Bearbeiten gesperrt;
   „Schreiben" schließt Lesen ein. „Einstellungen" bleibt Admins vorbehalten.
-- **Freigabe an Sicherheitsgruppen:** Statt jede Person einzeln einzutragen, kann eine
-  **Entra-Sicherheitsgruppe** berechtigt werden – wer in der Gruppe ist, sieht den Reiter
+- **Freigabe an Gruppen:** Statt jede Person einzeln einzutragen, kann eine **Gruppe**
+  berechtigt werden – **Sicherheitsgruppe**, **Verteilergruppe** oder **Microsoft-365-Gruppe**.
+  Gesucht wird über den Namen oder die Adresse (Verteiler kennt man oft nur als
+  `einkauf@dihag.com`). Wer in der Gruppe ist, sieht den Reiter
   automatisch, ohne dass hier jemand nachpflegen muss. Über „👥 + Sicherheitsgruppe" suchen oder
   die Objekt-ID aus Entra eintragen. Gespeichert wird die **Objekt-ID**, ein Umbenennen der Gruppe
   ändert also nichts. Verschachtelte Gruppen zählen mit.
+  *Eine Ausnahme:* **dynamische** Verteilerlisten aus Exchange lassen sich nicht berechtigen –
+  sie existieren nur dort und nicht als Objekt im Verzeichnis. Gewöhnliche Verteilergruppen
+  funktionieren.
 
 > **Normbezug:** ISO 27001 Klausel 5.3, 7.4 (Kommunikation), A.5.2.
 
