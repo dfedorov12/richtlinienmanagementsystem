@@ -475,7 +475,20 @@ Startbestands – die Konstanten selbst werden nie verändert. Jede Änderung sp
 sofort (`gsSpeichern()` → `spSaveGovStruktur()`), es gibt keinen Sammel-Speichern-Knopf.
 Gegen gegenseitiges Überschreiben vergleicht `gsSpeichern()` vorher den
 Änderungszeitstempel (`spGovStrukturMeta()`) mit dem beim Laden gemerkten und fragt bei
-Abweichung nach. `gsZuruecksetzen()` stellt den Startbestand wieder her (mit Rückfrage).
+Abweichung nach.
+
+**Versionsverlauf.** Jede Änderung schreibt über `gsSpeichern(meldung, was)` einen Eintrag in
+`_gsDaten.historie` (`{am, upn, name, was}`, neueste zuerst, gekappt bei `GS_VERLAUF_MAX` = 100).
+Über der Matrix steht die jüngste Änderung mit Urheber und Zeitpunkt, `gsVerlaufZeigen()` listet
+alle. Ältere Fassungen der Datei selbst bewahrt SharePoint als Dokumentversionen auf – ein
+Wiederherstellen des Startbestands aus dem Code gibt es bewusst nicht mehr: Es hätte die
+gepflegte Fassung überschrieben.
+
+**Verschieben.** Kacheln sind `draggable`; Zellen nehmen sie über
+`gsZiehUeber`/`gsZiehAblegen(ev, td, kategorieIndex, artIndex)` entgegen und setzen Kategorie und
+Art des Eintrags neu. Die Zellen bekommen **Indizes** statt Namen übergeben – ein Apostroph im
+Namen würde sonst das Inline-Attribut zerlegen (`_gsKatName`/`_gsArtName` lösen beides auf).
+Der gezogene Index liegt in `_gsZieht`, zusätzlich in `dataTransfer` (Firefox verlangt Nutzlast).
 
 **Bearbeiten.** `gsBearbeiten(i)` öffnet eine Kachel im Dialog (Titel, Kategorie als
 Datalist – neue Kategorien werden zu neuen Zeilen –, Dokumentenart, Verantwortung, Stand,

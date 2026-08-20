@@ -404,8 +404,14 @@ Regelwerk im RMS, führt **„→ im RMS"** direkt hin.
 Dokumentenart, Verantwortung, Stand und optional Dokumentname, Version und Datum. Das **+** in
 einer Zelle legt dort eine neue Regelung an, Kategorie und Ebene sind schon vorbelegt. Gespeichert
 wird **sofort nach jeder Änderung** – es gibt keinen extra Speichern-Knopf. Hat jemand anderes
-zwischenzeitlich gespeichert, fragt die App nach, bevor sie überschreibt. **↺ Startbestand** stellt
-nach Rückfrage den Stand aus der CGB-Mappe wieder her.
+zwischenzeitlich gespeichert, fragt die App nach, bevor sie überschreibt.
+
+**Verschieben:** Eine Kachel lässt sich mit der Maus in eine andere Zelle **ziehen** – sie wechselt
+damit Kategorie und/oder Verbindlichkeitsebene. Über den Dialog geht es weiterhin auch.
+
+**Versionsverlauf:** Über der Matrix steht, **wer** zuletzt **was** geändert hat und **wann**; ein
+Klick öffnet die Liste der letzten 100 Änderungen. Ältere Fassungen der Datei bewahrt SharePoint
+zusätzlich im Versionsverlauf von `governance-struktur.json` auf.
 
 **Zeilen und Spalten bearbeiten:** Auch die Beschriftungen sind Daten. Ein Klick auf einen
 **Zeilen- oder Spaltenkopf** benennt ihn um (bei Ebenen zusätzlich die Erklärung, die als Tooltip
@@ -421,7 +427,9 @@ wird nicht einfach gelöscht: Die App fragt, wohin die Regelungen umziehen solle
 > **Quelle:** Zuständigkeiten-Mappe des Corporate-Governance-Boards. Die Matrix ist eine
 > **Momentaufnahme der Planung**, kein Live-Bestand; der Stand steht über der Tabelle.
 > Leitbild, Unternehmenspolitik und die kollektivrechtlichen Regelungen (KBV/BV) stehen
-> aufklappbar darunter – gleiche Mappe, aber außerhalb der Regelwerkspyramide.
+> aufklappbar darunter: Sie sind Bestandteile der Corporate Governance, aufgrund ihres
+> eigenständigen Charakters sowie ihrer normativen bzw. hierarchischen Stellung aber nicht dem
+> Konzernregelwerk zuzuordnen.
 
 > **Normbezug:** ISO 27001 Klausel 5.1, 5.3, A.5.1; DCGK.
 
