@@ -227,6 +227,20 @@ einziges Absender-Postfach einschränken (PowerShell in der Detail-Doku). Workfl
 > `KonformitaetJson`-Format: `[{ "upn": "...", "name": "...", "entscheidung": "konform|nicht_konform", "anmerkung": "...", "datum": "ISO" }]`
 > `FreigabeJson`-Format: `[{ "upn": "...", "name": "...", "datum": "ISO" }]`
 
+### 7e. Freigabe per Klick in Outlook
+Der empfohlene Weg ist der **Approvals-Connector** von Power Automate: Der Klick hängt am
+M365-Konto, Microsoft übernimmt Karte, Erinnerungen und Mobilgeräte. Schritt für Schritt in
+**`docs/GENEHMIGUNG-POWER-AUTOMATE.md`** (dort auch der Vergleich mit einem eigenen HTTP-Trigger
+und mit Actionable Messages).
+
+App-Seite ist dafür fertig: Der Schalter `genehmigungPAScope` (`aus` | `gl` | `alle`) schaltet die
+eigene Mail der betroffenen Etappe ab (`js/freigaben.js`), der Audit Report leitet aus
+`FreigegebenVon` das Ereignis „Freigabe erteilt (Outlook / Power Automate)" ab, und
+`historieMitOutlookFreigabe()` (`js/admin.js`) ergänzt denselben Eintrag in der Historie des
+Regelwerks – rein anzeigend, geschrieben wird dabei nichts. Schreibt der Flow zusätzlich
+`FreigabeJson` (Ausdruck in A6a der Anleitung), ist die Freigabe von einer im Portal erteilten
+nicht mehr zu unterscheiden.
+
 > **Alternative (ohne GitHub Actions):** derselbe Ablauf lässt sich als geplanter **Power-Automate**-
 > Flow (Wiederkehrend täglich → access-config lesen → Richtlinien filtern → Mail) oder als
 > **Azure Function/Logic App (Timer)** bauen. GitHub Actions wurde gewählt, weil das Repo ohnehin
