@@ -227,7 +227,35 @@ einziges Absender-Postfach einschränken (PowerShell in der Detail-Doku). Workfl
 > `KonformitaetJson`-Format: `[{ "upn": "...", "name": "...", "entscheidung": "konform|nicht_konform", "anmerkung": "...", "datum": "ISO" }]`
 > `FreigabeJson`-Format: `[{ "upn": "...", "name": "...", "datum": "ISO" }]`
 
-### 7e. Freigabe per Klick in Outlook
+### 7e. Ein-Klick-Entscheidung aus der Mail (eigener Weg)
+Die Workflow-Mails tragen ein **Einmal-Token** der laufenden Runde
+(`p.aktionToken = {wert, art, erstelltAm}` im Sammelfeld `DatenJson`, erzeugt bei jedem
+Rundenwechsel: Einreichen zur Prüfung, Übergang zur Freigabe, nach der Mitbestimmung).
+Der Link `?richtlinie=…&ansicht=freigaben&aktion=freigeben&t=…` landet in
+`einKlickAktion()` (`js/freigaben.js`): Status passend? Berechtigung (inkl. Vertretung)?
+Token gültig? Dann wird **ohne Rückfrage** ausgeführt und nur das Ergebnis gezeigt;
+`freigabeZuruecknehmen()` nimmt einen Fehlklick protokolliert zurück. Fehlt das Token
+oder passt es nicht, bleibt es beim gewohnten Weg mit Rückfrage – so bleiben alte Mails
+harmlos, statt Fehler zu werfen.
+
+**Warum nicht nur ein Link ohne Anmeldung:** Ein GET aus Outlook trägt keine Identität.
+Ein Token beweist, dass der Klick zu *dieser Runde* gehört, nicht *wer* geklickt hat –
+bei Weiterleitung oder Postfachvertretung fällt das auseinander. Die stille Anmeldung
+(SSO) kostet praktisch nichts und macht aus dem Klick einen belastbaren Nachweis.
+Der Erinnerungs-Cron hängt dasselbe Token an seine Links (`aktionToken(f, art)`).
+
+### 7f. Vertretung (Urlaub, Krankheit)
+`vertretungen: { "<upn>": { vertreter, von, bis } }` in der access-config, gepflegt in den
+Einstellungen. `vertretungAktiv()` prüft den Zeitraum (beide Tage inklusive, leere Werte =
+unbefristet bzw. einseitig offen). Die Rollenprüfungen laufen über `_hasOderVertritt()`,
+Empfängerlisten über `mitVertretern()`, und `vertretungFuerAus()` liefert den Vermerk
+`fuer` im Votum – Anzeige und Audit Report schreiben daraus „in Vertretung für …".
+Der Cron kennt dieselbe Logik (`mitVertretern`, `abgestimmtVon`, `erledigt`): Hat die
+Vertretung entschieden, ruht die Mahnung für die vertretene Person und umgekehrt.
+
+Abgesichert in `tests/vertretung.test.mjs`.
+
+### 7g. Freigabe per Klick in Outlook über Power Automate
 Der empfohlene Weg ist der **Approvals-Connector** von Power Automate: Der Klick hängt am
 M365-Konto, Microsoft übernimmt Karte, Erinnerungen und Mobilgeräte. Schritt für Schritt in
 **`docs/GENEHMIGUNG-POWER-AUTOMATE.md`** (dort auch der Vergleich mit einem eigenen HTTP-Trigger

@@ -10,6 +10,13 @@ M365-Konto authentifiziert).
 > genau diese Spalte – die App zeigt das Ergebnis sofort an (Freigaben-/Audit-Report). Der
 > GitHub-Cron für Erinnerungen läuft unabhängig weiter.
 
+> **Seit August 2026 gibt es einen dritten, hauseigenen Weg:** Die Workflow-Mails der App
+> enthalten Knöpfe mit **Einmal-Token**, die nach stillem Single Sign-On **sofort** entscheiden –
+> ohne Portal-Navigation und ohne Rückfrage, inklusive **Vertretungsregelung mit Zeitraum** und
+> „Rückgängig" bei Fehlklick. Damit entfällt der häufigste Grund, überhaupt zu Power Automate zu
+> greifen. Diese Anleitung bleibt für alle, die die Genehmigung dennoch dort führen wollen
+> (Details zum eigenen Weg: Benutzerhandbuch 7a und Entwicklungsdokumentation 7e).
+
 ## Der kürzeste Weg (rund 30 Minuten, kein Code)
 
 Wer nur das eine Ziel hat – **die Geschäftsleitung gibt per Klick in Outlook frei** –, braucht

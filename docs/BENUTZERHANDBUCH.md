@@ -232,6 +232,27 @@ App und führt die Entscheidung nach kurzer Rückfrage aus (Anmeldung nötig).
 
 ---
 
+## 7a. Entscheiden mit einem Klick aus Outlook  ·  *Prüfer & Geschäftsleitung*
+
+Die Workflow-Mails enthalten die Knöpfe **✓ Freigeben** / **✗ Zurück** (bei der Prüfung
+**Konform** / **Nicht konform**). Ein Klick genügt: Die Seite meldet Sie still an (Single Sign-On),
+prüft Ihre Berechtigung, führt die Entscheidung aus und zeigt das Ergebnis. Kein Suchen im Portal,
+keine Rückfrage.
+
+- **Einmal-Token:** Jeder Link gehört zur *laufenden* Runde. Wurde inzwischen neu eingereicht oder
+  ist der Vorgang schon entschieden, führt der Knopf nur noch zum Vorgang – entschieden wird nichts.
+- **Fehlklick?** Direkt auf der Ergebnisseite steht **Rückgängig**. Die Freigabe wird entfernt, das
+  Regelwerk liegt wieder zur Freigabe bereit, und die Rücknahme steht in der Historie.
+- **Warum überhaupt eine Anmeldung?** Ein Link allein belegt nur, dass jemand Zugriff auf das
+  Postfach hatte. Erst die Anmeldung weist nach, **wer** entschieden hat – genau das fragt ein
+  Auditor. Über SSO passiert das in der Regel unsichtbar.
+- **Vertretung:** Wer laut Einstellungen gerade vertritt, darf ebenfalls klicken; die Entscheidung
+  wird als *„in Vertretung für …"* protokolliert.
+
+> **Normbezug:** ISO 27001 Klausel 5.3, A.5.1; Nachvollziehbarkeit der Freigabe.
+
+---
+
 ## 8. Dokument-Health-Check  ·  *Administration*
 
 Reiter „Richtlinien Dashboard" → Button **„🩺 Dokumente prüfen"**. Prüft die angehängten
@@ -467,6 +488,10 @@ Alle drei Ansichten mit **CSV-Export**.
 
 - **Rollen:** Admins, Genehmiger, Prüfer, Geschäftsleitung, KI-Gremium, ISMS-Verantwortliche,
   Vorschlags-Empfänger und *Governance-Struktur: Zeilen & Spalten ändern*.
+- **Vertretungen (Urlaub, Krankheit):** je Person eine Vertretung mit optionalem Zeitraum.
+  Solange er läuft, bekommt die Vertretung alle Mails mit und darf prüfen, freigeben und Konzepte
+  entscheiden; im Protokoll steht **„in Vertretung für …"**. Die vertretene Person bleibt zuständig
+  und wird weiter angeschrieben. Ohne Datum gilt die Vertretung unbefristet.
 - **Genehmigungs-Schwellen:** „konform/freigegeben, wenn alle zustimmen" oder „einer reicht"
   (global; je Richtlinie überschreibbar).
 - **Erinnerungen:** aktiv/aus, Absender-Postfach, Taktung, Eskalation, Ersatz-Empfänger.
