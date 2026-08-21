@@ -252,10 +252,10 @@ App und führt die Entscheidung nach kurzer Rückfrage aus (Anmeldung nötig).
 
 ---
 
-## 7a. Entscheiden mit einem Klick aus Outlook  ·  *Prüfer & Geschäftsleitung*
+## 7a. Entscheiden mit einem Klick aus Outlook  ·  *Prüfer, Betriebsrat & Geschäftsleitung*
 
-Die Workflow-Mails enthalten die Knöpfe **✓ Freigeben** / **✗ Zurück** (bei der Prüfung
-**Konform** / **Nicht konform**). Ein Klick genügt: Die Seite meldet Sie still an (Single Sign-On),
+Die Workflow-Mails enthalten die Knöpfe **✓ Freigeben** / **✗ Zurück** (bei der Prüfung und bei der
+Mitbestimmung **Konform** / **Nicht konform**). Ein Klick genügt: Die Seite meldet Sie still an (Single Sign-On),
 prüft Ihre Berechtigung, führt die Entscheidung aus und zeigt das Ergebnis. Kein Suchen im Portal,
 keine Rückfrage.
 
@@ -273,6 +273,15 @@ keine Rückfrage.
 - **Weitergeleitete Mail?** Klickt jemand anderes auf Ihren Knopf, bricht die App ab: Der Link war
   an Sie adressiert, angemeldet ist jemand anderes – gespeichert wird nichts. Wer einspringen soll,
   wird als **Vertretung** eingetragen.
+- **Betriebsrat:** Die Mitbestimmungs-Mail trägt dieselben Knöpfe **✓ Konform** / **✗ Nicht konform**
+  und zeigt, wer dem Regelwerk bereits zugestimmt hat. Sie geht an ein **Postfach** des Betriebsrats,
+  nicht an eine Person – deshalb trägt der Link keinen Anmelde-Hinweis. Wer klickt, meldet sich mit
+  dem eigenen DIHAG-Konto an; die App erkennt die Zugehörigkeit an der Adresse des Betriebsrats aus
+  den Einstellungen oder an der Mitgliedschaft in der dort hinterlegten Gruppe. Entschieden wird
+  namentlich – das Votum steht mit Name und Zeitpunkt im Protokoll.
+- **„Nicht konform" braucht eine Begründung.** Bei Prüfung und Mitbestimmung fragt die Seite danach,
+  bevor sie speichert. Ohne Begründung wird nichts gespeichert – ein Nein ohne Grund hilft im
+  weiteren Ablauf niemandem.
 - **Vertretung:** Wer laut Einstellungen gerade vertritt, darf ebenfalls klicken; die Entscheidung
   wird als *„in Vertretung für …"* protokolliert.
 

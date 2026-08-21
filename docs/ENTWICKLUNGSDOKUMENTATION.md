@@ -690,3 +690,44 @@ verlieren.
 
 Abgesichert in `tests/datenjson-sammelfeld.test.mjs` (Abschnitte 9 und 10) – datengetrieben
 über `POLICY_EXT_FIELDS`, damit ein künftiges Feld automatisch mitgeprüft wird.
+
+---
+
+## Der Betriebsrat entscheidet aus der Mail (Stand 2026-08-21)
+
+Prüfer und Geschäftsleitung konnten längst per Klick aus Outlook entscheiden; der Betriebsrat
+bekam nur eine Mitteilung. Sein Votum trug jemand aus dem Workflow-Kreis nach, sobald die
+Rückmeldung auf anderem Weg eintraf. Jetzt stehen dieselben zwei Knöpfe – **✓ Konform** und
+**✗ Nicht konform** – in seiner Mail (`_mitMailHtml`, `js/admin.js`), dazu `_wfApprovalsHtml(p)`:
+wer dem Regelwerk bereits zugestimmt hat.
+
+**Eigene Runde.** `markKonform()` erzeugt beim Übergang zur Mitbestimmung ein Token der Art
+`mitbestimmung` (vorher gab es für diese Etappe gar keins). `_EK_ERWARTET` kennt
+`mb_konform`/`mb_nicht_konform` nur im Status `Mitbestimmung`; `einKlickAktion()` leitet die Art
+aus dem Präfix `mb_` ab und ruft `markMitbestimmung(id, true|false)`.
+
+**Berechtigung ohne zweite Liste.** `darfMitbestimmung(p)` (`js/access.js`) lässt durch, wer den
+Ablauf führt (Prüfer, Geschäftsleitung, Admin) – und wer zu dem Betriebsrat gehört, an den die
+Mail ging: entweder ist es die eigene Adresse, oder man ist Mitglied der hinterlegten Verteiler-
+bzw. Sicherheitsgruppe (`State.myGroups`). Die BR-Adressen stehen ohnehin in den Einstellungen;
+eine separate Rolle wäre eine zweite Wahrheit.
+
+**Kein Anmelde-Hinweis im Link.** Anders als bei Prüfung und Freigabe geht die Mail an ein
+*Postfach*, nicht an ein Konto. Ein `&u=`-Hinweis würde die Adressaten-Prüfung in
+`einKlickAktion()` gegen jedes persönliche Konto laufen lassen und alle aussperren. Der Kommentar
+im Quelltext sagt das, damit es niemand „nachrüstet".
+
+**Bis zur Entscheidung kommen.** `applyDeepLinkOrDefault()` ließ `ansicht=freigaben` nur für
+Prüfer und Geschäftsleitung durch – der Betriebsrat ist beides nicht und wäre an der Schranke
+hängen geblieben. Für die beiden `mb_`-Aktionen gilt jetzt `darfMitbestimmung()`; hinter dem
+Ergebnis-Fenster steht für ihn „Meine Regelwerke" statt der Freigabe-Ansicht. Im Portal zeigt
+`renderFreigaben()` ihm seinen Vorgang ebenfalls (`darfMb(p)` je Karte statt global).
+
+**Begründungspflicht.** `markMitbestimmung(id, false)` greift ohne Eingabefeld auf `uiPrompt`
+zurück und speichert ohne Begründung nicht – dieselbe Mechanik wie bei der Konformitätsprüfung.
+
+**Cron.** Die Erinnerung für die Phase `Mitbestimmung` verlinkte bisher `konform`/`nicht_konform`,
+also die Aktionen der Prüfer – im Status `Mitbestimmung` wäre daraus „Schon erledigt" geworden.
+Jetzt `mb_konform`/`mb_nicht_konform` mit dem Token der richtigen Runde und ohne Empfänger im Link.
+
+Abgesichert in `tests/mitbestimmung-mail.test.mjs`.
