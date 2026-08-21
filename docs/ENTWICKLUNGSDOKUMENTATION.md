@@ -660,3 +660,33 @@ um), und der **Typ-Filter** im Dashboard hängt eine Art, die es nur noch im Alt
 hinten an – sonst wären genau die Regelwerke mit „Richtlinie" nicht mehr filterbar.
 
 Abgesichert in `tests/kategorien-geltung.test.mjs`, `tests/regelwerk-typ.test.mjs`.
+
+---
+
+## Fehler: drei Erweiterungsfelder gingen beim Laden verloren (Stand 2026-08-21)
+
+**Symptom.** Unter „Meine Regelwerke" erschien nie ein Lernvideo, und jeder Ein-Klick-Link
+aus einer Freigabe-Mail endete mit „Dieser Link ist nicht mehr aktuell".
+
+**Ursache.** `_mapPolicy()` (`js/sharepoint.js`) zählte die Erweiterungsfelder **namentlich**
+auf – `typ`, `konzept`, `regelwerkTyp`, `geltungsbereich`, `historie`. `_readExtFields()`
+lieferte aber alle sieben. `videos`, `aktionToken` und `bekanntgabeAm` wurden korrekt
+geschrieben, korrekt gelesen und im selben Atemzug weggeworfen. Ohne Fehler, ohne Spur:
+Beim Speichern war alles da, beim nächsten Laden nicht mehr.
+
+Damit war der Sinn von `POLICY_EXT_FIELDS` – „ein neues Feld braucht keine neue Spalte und
+keine weitere Codestelle" – an genau einer Stelle wieder aufgehoben. Jetzt steht dort
+`...ext`, und die drei Felder kommen an.
+
+**Was das erklärt:** Das Einmal-Token war nie gespeichert. Die Mail trug es (aus dem
+Arbeitsspeicher), der Datensatz nicht – also schlug `aktionTokenGueltig()` bei *jedem* Klick
+fehl. Mails, die vor dem Fix verschickt wurden, bleiben tot; ab der nächsten Runde greift es.
+
+**Nachgezogen:** Ein unlesbares Sammelfeld schweigt nicht mehr. `spDatenJsonDefekt()` zählt
+Datensätze, deren `DatenJson` sich nicht parsen ließ – typischerweise, weil die Spalte als
+„Einzelne Textzeile" angelegt wurde und SharePoint bei 255 Zeichen abschneidet. Das
+Regelwerk-Dashboard zeigt das als Banner samt Abhilfe, statt still dieselben drei Felder zu
+verlieren.
+
+Abgesichert in `tests/datenjson-sammelfeld.test.mjs` (Abschnitte 9 und 10) – datengetrieben
+über `POLICY_EXT_FIELDS`, damit ein künftiges Feld automatisch mitgeprüft wird.
