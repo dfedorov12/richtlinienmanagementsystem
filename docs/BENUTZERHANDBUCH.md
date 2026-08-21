@@ -488,6 +488,12 @@ Alle drei Ansichten mit **CSV-Export**.
 
 - **Rollen:** Admins, Genehmiger, Prüfer, Geschäftsleitung, KI-Gremium, ISMS-Verantwortliche,
   Vorschlags-Empfänger und *Governance-Struktur: Zeilen & Spalten ändern*.
+- **Verteiler je Zielgruppe (Bekanntgabe):** je Rolle die Adresse einer **Verteiler- oder
+  Sicherheitsgruppe**, dazu ein Verteiler für „Alle Mitarbeitenden". Beim Veröffentlichen fragt die
+  App, ob die Zielgruppe informiert werden soll, und schickt **eine** Mail an den Verteiler –
+  Exchange kennt die Mitglieder und hält sie aktuell. Ohne Verteiler erscheint ein Hinweis, und die
+  Bekanntgabe lässt sich später über **„📣 Zielgruppe informieren"** im Audit Report nachholen.
+  Zeitpunkt und Empfänger landen in der Historie des Regelwerks.
 - **Vertretungen (Urlaub, Krankheit):** je Person eine Vertretung mit optionalem Zeitraum.
   Solange er läuft, bekommt die Vertretung alle Mails mit und darf prüfen, freigeben und Konzepte
   entscheiden; im Protokoll steht **„in Vertretung für …"**. Die vertretene Person bleibt zuständig

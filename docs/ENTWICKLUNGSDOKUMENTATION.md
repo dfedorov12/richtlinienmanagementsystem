@@ -244,7 +244,29 @@ bei Weiterleitung oder Postfachvertretung fällt das auseinander. Die stille Anm
 (SSO) kostet praktisch nichts und macht aus dem Klick einen belastbaren Nachweis.
 Der Erinnerungs-Cron hängt dasselbe Token an seine Links (`aktionToken(f, art)`).
 
-### 7f. Vertretung (Urlaub, Krankheit)
+### 7f. Bekanntgabe an die Zielgruppe
+Bis August 2026 erfuhr die Zielgruppe von einer Veröffentlichung nur beim Öffnen der
+App; die erste Mail war die Kenntnisnahme-Erinnerung nach sieben Tagen – gemahnt wurde
+also, wer nie informiert worden war. Jetzt fragt `markFreigabe()` beim Veröffentlichen,
+ob die Zielgruppe informiert werden soll, und `notifyZielgruppe()` schickt die Mitteilung.
+
+**Über Verteiler, nicht über Einzeladressen.** `zielgruppenMails` in der access-config
+bildet Rolle → Gruppenadresse ab (plus `ALLE`); `mailsFuerZielgruppen()` löst die
+Zielgruppen eines Regelwerks darauf ab, meldet fehlende Zuordnungen und lässt „ALLE"
+alles andere schlagen. Exchange übernimmt die Verteilung und kennt die Mitglieder –
+die App muss keine Empfängerlisten aufbauen und pflegen. `zielgruppenDomains()` gibt die
+Domains der hinterlegten Verteiler als `extraDomains` an `spSendMail()` weiter, damit auch
+Gruppen der Gruppengesellschaften erreichbar sind (dieselbe Begründung wie bei den
+BR-Adressen: admin-gepflegt).
+
+Nachholen und Wiederholen über `zielgruppeInformieren(id)` („📣 Zielgruppe informieren"
+im Audit Report). `zielgruppeBekanntgabeVermerken()` schreibt Zeitpunkt (`bekanntgabeAm`)
+und Empfänger in die Historie – damit ist die Bekanntgabe nachweisbar (ISO 27001 A.6.3,
+Klausel 7.3).
+
+Abgesichert in `tests/bekanntgabe.test.mjs`.
+
+### 7g. Vertretung (Urlaub, Krankheit)
 `vertretungen: { "<upn>": { vertreter, von, bis } }` in der access-config, gepflegt in den
 Einstellungen. `vertretungAktiv()` prüft den Zeitraum (beide Tage inklusive, leere Werte =
 unbefristet bzw. einseitig offen). Die Rollenprüfungen laufen über `_hasOderVertritt()`,
@@ -255,7 +277,7 @@ Vertretung entschieden, ruht die Mahnung für die vertretene Person und umgekehr
 
 Abgesichert in `tests/vertretung.test.mjs`.
 
-### 7g. Freigabe per Klick in Outlook über Power Automate
+### 7h. Freigabe per Klick in Outlook über Power Automate
 Der empfohlene Weg ist der **Approvals-Connector** von Power Automate: Der Klick hängt am
 M365-Konto, Microsoft übernimmt Karte, Erinnerungen und Mobilgeräte. Schritt für Schritt in
 **`docs/GENEHMIGUNG-POWER-AUTOMATE.md`** (dort auch der Vergleich mit einem eigenen HTTP-Trigger
