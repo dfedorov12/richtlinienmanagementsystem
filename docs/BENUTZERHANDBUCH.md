@@ -171,7 +171,8 @@ Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
 
 **Der Editor im Überblick:**
 
-- **Titel, Beschreibung, Kategorie, Version** – neue Version ⇒ alle müssen erneut bestätigen.
+- **Titel, Beschreibung, Version** – neue Version ⇒ alle müssen erneut bestätigen.
+- **Dokumentenart** (Pflichtangabe) und **Kategorie** – siehe Kasten unten.
 - **Dokument** aus der Bibliothek wählen oder hochladen (Zielordner-Wähler; Versionsverlauf bleibt
   erhalten). Ist bereits ein Dokument zugeordnet, stehen **„✏️ In Office bearbeiten"** (On-Premise
   Office) und **„🌐 Im Browser bearbeiten"** zur Verfügung – wie bei den ISMS-Dokumenten legt
@@ -179,8 +180,8 @@ Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
 - **Zielgruppe** – wer die Richtlinie sehen/bestätigen muss (Rollen/Abteilungen oder „für alle").
 - **Pflichtlektüre**, **Wissenstest** (Fragen + Bestehensquote), **Wiederholungspflicht**.
 - **Nächste Überprüfung (Review)** – interner Wiedervorlage-Termin (siehe Abschnitt 10).
-- **Normbezug** – erscheint nur bei Kategorie **„ISO 27001"** oder **„NIS2"**: welche Controls/
-  Artikel die Richtlinie abdeckt; „↩ Aus Review übernehmen" befüllt bekannte Zuordnungen (siehe
+- **Normbezug** (eingeklappt, für jede Richtlinie verfügbar): welche Controls/
+  Artikel aus ISO 27001 bzw. NIS2 die Richtlinie abdeckt; „↩ Aus Review übernehmen" befüllt bekannte Zuordnungen (siehe
   Abschnitt 9).
 - **Konformitätsprüfung – nur für diese Richtlinie** (optional): eigene Prüfer/Schwelle. Leer =
   globale Einstellung.
@@ -196,10 +197,18 @@ Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
 
 ---
 
-> **Kategorie:** Die Auswahl kommt aus der **Governance-Struktur** – dieselbe Systematik, in der
-> das Konzernregelwerk geführt wird (Allgemein, Compliance, Security/Cyber Security …). Wer dort
-> eine Zeile umbenennt oder ergänzt, ändert damit die Auswahl im Editor. Ein bisheriger Wert bleibt
-> wählbar, bis er ersetzt wird.
+> **Dokumentenart und Kategorie** kommen beide aus der **Governance-Struktur** – dieselbe
+> Systematik, in der das Konzernregelwerk geführt wird:
+>
+> - **Dokumentenart** (Pflichtangabe) = die **Spalten** der Matrix, also die Verbindlichkeitsebene
+>   der Regelwerkspyramide: Handbuch, Policy, Konzernrichtlinie, Konzernfachregelung,
+>   Arbeits-/Prozessanweisung, Leitfaden, Weitere. Unter dem Feld steht die Erklärung der
+>   gewählten Ebene („Policy = strategischer Rahmen: Was ist das Ziel, der Grundsatz?").
+> - **Kategorie** = die **Zeilen**, also das Themenfeld: Allgemein, Compliance,
+>   Security/Cyber Security …
+>
+> Wer dort umbenennt oder ergänzt, ändert damit die Auswahl im Editor. Ein bisheriger Wert bleibt
+> wählbar, bis er ersetzt wird – auch die frühere Art „Richtlinie", die in der Matrix „Policy" heißt.
 
 > **Geltungsbereich in den Mails:** Jede Workflow-Mail nennt, für welche Standorte ein Regelwerk
 > gilt – Prüfung, Freigabe, Mitbestimmung (dort zusätzlich die betroffenen Werke), Bekanntgabe,

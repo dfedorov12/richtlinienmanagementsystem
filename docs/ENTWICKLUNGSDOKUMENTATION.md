@@ -621,4 +621,16 @@ zusätzlich die betroffenen Werke), Erinnerung an Mitarbeitende (`reminderHtml`)
 Konzept-Mail (`_konzeptMailHtml`) und im Cron (`geltungsbereich(f)` liest das Sammelfeld
 `DatenJson`, mit Rückfall auf die Altbestand-Spalte `GeltungsbereichJson`).
 
-Abgesichert in `tests/kategorien-geltung.test.mjs`.
+**Nachtrag: auch die Dokumentenart.** „Die Kategorien sind oben" – gemeint waren die
+**Spaltenköpfe** der Matrix, nicht die Zeilen: die Verbindlichkeitsebenen der Pyramide.
+Die standen als `REGELWERK_TYPEN` fest im Code und wichen ab („Richtlinie" statt „Policy",
+„Weitere" fehlte ganz). `regelwerkArten(aktuell)` und `regelwerkArtHinweis(key)`
+(`js/govstruktur.js`) liefern jetzt die Spalten samt Erklärung; `regelwerkTypen()`
+(`js/admin.js`) ist der Wrapper mit Rückfall, `konzeptArten()` das Gegenstück in
+`js/konzepte.js`. Beide Editoren zeigen die Erklärung der gewählten Ebene unter dem Feld.
+
+Zwei Feinheiten: Ein bisheriger Wert bleibt wählbar (sonst spränge er beim Speichern still
+um), und der **Typ-Filter** im Dashboard hängt eine Art, die es nur noch im Altbestand gibt,
+hinten an – sonst wären genau die Regelwerke mit „Richtlinie" nicht mehr filterbar.
+
+Abgesichert in `tests/kategorien-geltung.test.mjs`, `tests/regelwerk-typ.test.mjs`.
