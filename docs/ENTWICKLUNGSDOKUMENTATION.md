@@ -597,3 +597,28 @@ Abgesichert in `tests/govstruktur.test.mjs` (Datenintegrität, Stichproben gegen
 Filter, Anlegen/Ändern/Löschen samt Speichern, Umbenennen mit Mitziehen der Einträge,
 Umzug beim Löschen belegter Köpfe, Gleichzeitigkeit, Nur-Lese-Zugriff und das eigene
 Struktur-Recht).
+
+---
+
+## Kategorien aus der Governance-Struktur · Geltungsbereich in den Mails (Stand 2026-08-21)
+
+**Eine Systematik statt zweier Listen.** Die Kategorien im Regelwerk- und im Konzept-Editor
+kamen aus einer festen Liste im Code (`'ISO 27001', 'NIS2', 'ISMS allgemein', …`) – parallel
+zur Systematik des Konzernregelwerks, die in der Governance-Struktur gepflegt wird.
+`regelwerkKategorien(aktuell)` (`js/govstruktur.js`) liefert jetzt die Zeilen der Matrix und
+hängt einen bisherigen Wert an, wenn er dort fehlt; sonst spränge die Kategorie beim
+Speichern still um. `gsDatenLaden()` lädt die Struktur ohne zu zeichnen – der Editor stößt
+es an, wenn der Reiter in dieser Sitzung noch nicht offen war, und zeichnet sich nach.
+
+Mitumgestellt: Der **Normbezug** erschien nur bei Kategorie „ISO 27001"/„NIS2" und wäre
+sonst nie wieder aufgetaucht. Er ist jetzt immer verfügbar (eingeklappt) – inhaltlich
+richtiger, denn auch ein Regelwerk der Kategorie „Compliance" kann ISO-Bezug haben.
+
+**Geltungsbereich in allen Mails.** Für welche Standorte ein Regelwerk gilt, stand nur in
+der App. Ergänzt in: Prüf-/Freigabe-Mail (`_wfMailHtml`, dazu die Zielgruppe, wenn sie nicht
+„alle" ist), Bekanntgabe (`_zielgruppeMailHtml`), Mitbestimmung (`_mitMailHtml`, dort
+zusätzlich die betroffenen Werke), Erinnerung an Mitarbeitende (`reminderHtml`),
+Konzept-Mail (`_konzeptMailHtml`) und im Cron (`geltungsbereich(f)` liest das Sammelfeld
+`DatenJson`, mit Rückfall auf die Altbestand-Spalte `GeltungsbereichJson`).
+
+Abgesichert in `tests/kategorien-geltung.test.mjs`.

@@ -196,6 +196,17 @@ Word-/PDF-Dateien lassen sich per **Import** gleichzeitig als Entwürfe anlegen.
 
 ---
 
+> **Kategorie:** Die Auswahl kommt aus der **Governance-Struktur** – dieselbe Systematik, in der
+> das Konzernregelwerk geführt wird (Allgemein, Compliance, Security/Cyber Security …). Wer dort
+> eine Zeile umbenennt oder ergänzt, ändert damit die Auswahl im Editor. Ein bisheriger Wert bleibt
+> wählbar, bis er ersetzt wird.
+
+> **Geltungsbereich in den Mails:** Jede Workflow-Mail nennt, für welche Standorte ein Regelwerk
+> gilt – Prüfung, Freigabe, Mitbestimmung (dort zusätzlich die betroffenen Werke), Bekanntgabe,
+> Erinnerungen und Konzept-Mails.
+
+---
+
 ## 7. Konformitätsprüfung & Freigabe  ·  *Prüfer & Geschäftsleitung*
 
 Ablauf: **Entwurf → Konformitätsprüfung → Freigabe → Veröffentlicht.** Alles im Reiter
