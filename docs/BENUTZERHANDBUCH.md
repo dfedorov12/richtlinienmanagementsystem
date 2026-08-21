@@ -265,7 +265,14 @@ keine Rückfrage.
   Regelwerk liegt wieder zur Freigabe bereit, und die Rücknahme steht in der Historie.
 - **Warum überhaupt eine Anmeldung?** Ein Link allein belegt nur, dass jemand Zugriff auf das
   Postfach hatte. Erst die Anmeldung weist nach, **wer** entschieden hat – genau das fragt ein
-  Auditor. Über SSO passiert das in der Regel unsichtbar.
+  Auditor. Sie läuft im Hintergrund: Waren Sie in diesem Browser schon einmal angemeldet, sehen
+  Sie nur die Ergebnisseite. Beim allerersten Mal blitzt die Microsoft-Seite kurz auf – ohne
+  Kontoauswahl, denn Ihre Mail nennt der Anmeldung bereits Ihr Konto.
+- **Jeder bekommt seine eigene Mail.** Die Entscheidungs-Mails gehen einzeln raus, nicht als
+  Sammelmail an alle Freigeber. Nur so gehört der Knopf wirklich Ihnen.
+- **Weitergeleitete Mail?** Klickt jemand anderes auf Ihren Knopf, bricht die App ab: Der Link war
+  an Sie adressiert, angemeldet ist jemand anderes – gespeichert wird nichts. Wer einspringen soll,
+  wird als **Vertretung** eingetragen.
 - **Vertretung:** Wer laut Einstellungen gerade vertritt, darf ebenfalls klicken; die Entscheidung
   wird als *„in Vertretung für …"* protokolliert.
 

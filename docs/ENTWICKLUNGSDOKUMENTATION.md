@@ -244,6 +244,32 @@ bei Weiterleitung oder Postfachvertretung fällt das auseinander. Die stille Anm
 (SSO) kostet praktisch nichts und macht aus dem Klick einen belastbaren Nachweis.
 Der Erinnerungs-Cron hängt dasselbe Token an seine Links (`aktionToken(f, art)`).
 
+**Nachtrag August 2026: „still" war es nicht.** Der Klick funktionierte, aber davor stand
+die Anmeldung. Outlook öffnet einen **neuen Tab**, und der Konto-Cache lag in
+`sessionStorage` – dort war kein Konto bekannt, also lief jede Entscheidung erst über
+die Microsoft-Anmeldeseite, bei mehreren Sitzungen mit Kontoauswahl. Drei Änderungen:
+
+1. **`cacheLocation: 'localStorage'`** (`js/auth.js`) – der Cache gilt für den Browser,
+   nicht für einen Tab. Wer die App schon einmal offen hatte, landet ohne jeden Umweg
+   direkt auf der Ergebnisseite. Preis: Die Anmeldung überlebt das Schließen des
+   Browsers, an einem geteilten Rechner bleibt das Konto angemeldet – wie bei Outlook
+   und Teams. Bewusste Abwägung, kein Versehen.
+2. **Adressat im Link** (`&u=<upn>`, gelesen von `getLoginHint()`): MSAL bekommt ihn als
+   `loginHint`, damit entfällt die Kontoauswahl; vorher wird `ssoSilent()` versucht.
+   Der Zeichensatz ist bewusst enger als das, was als E-Mail zulässig wäre – der Wert
+   landet in einem `onclick`-Attribut.
+3. **Einzelversand** der Entscheidungs-Mails (`notifyPruefer`, `notifyGL`, Cron): Nur so
+   trägt jeder Link die Adresse seines Empfängers. Die Eskalationsmail geht weiterhin
+   raus, ohne persönlichen Link – sie entscheidet ja nicht.
+
+Der Hinweis ist zugleich die **Sicherung**: Ein geteilter Konto-Cache kann mehrere Konten
+enthalten. `einKlickAktion()` vergleicht den Adressaten mit dem angemeldeten Konto und
+**bricht ab**, bevor irgendetwas gespeichert wird, wenn beide auseinanderfallen – mit dem
+Angebot, das Konto zu wechseln, und dem Hinweis auf die Vertretung als richtigen Weg.
+`authAnmeldenAls(upn)` erledigt den Wechsel.
+
+Abgesichert in `tests/ein-klick-anmeldung.test.mjs`.
+
 ### 7f. Bekanntgabe an die Zielgruppe
 Bis August 2026 erfuhr die Zielgruppe von einer Veröffentlichung nur beim Öffnen der
 App; die erste Mail war die Kenntnisnahme-Erinnerung nach sieben Tagen – gemahnt wurde
