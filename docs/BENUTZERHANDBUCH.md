@@ -516,6 +516,29 @@ anderswo gilt.
 ändert Name, Untertitel, Band und Geltungsbereich. Kacheln lassen sich **zwischen den Bändern
 ziehen**. Jede Änderung steht mit Person und Zeitpunkt im **Versionsverlauf**.
 
+### 🕸 Verknüpfungen – wer hängt woran
+
+Dieselben Daten als **Mindmap**: In der Mitte steht ein Objekt, ringsum seine Beziehungen –
+beschriftet mit „modelliert in", „setzt um", „gilt für". Ein **Klick auf einen Nachbarn** rückt
+diesen in die Mitte, **← Zurück** führt zurück, und über **„In die Mitte"** springt man direkt zu
+einem beliebigen Prozess, Modell, Regelwerk oder Standort.
+
+Das Bild zeigt höchstens **zwölf** Nachbarn – mehr wären auf einem Kreis nicht mehr lesbar.
+Vollständig stehen alle darunter als anklickbare Chips.
+
+**Die Lücken** darunter sind der eigentliche Nutzen. Vier Kästen beantworten die Fragen, die eine
+Landkarte allein nie beantwortet:
+
+| | |
+|---|---|
+| Prozesse ohne Modell | Wo fehlt noch ein BPMN-Diagramm? |
+| Modelle ohne Regelwerk | Welcher Ablauf setzt (noch) keine Regelung um? |
+| Veröffentlichte Regelwerke ohne Prozess | Welche Regelung hängt an keinem Ablauf? |
+| Prozesse ohne Geltungsbereich | Wo ist nicht festgelegt, für wen es gilt? |
+
+Jeder Eintrag führt mit einem Klick dorthin, wo sich die Lücke schließen lässt. Die Ansicht liest
+beim Öffnen alle Modelle einmal ein – deshalb der kurze Ladehinweis – und **speichert nichts**.
+
 > **Normbezug:** ISO 27001 Klausel 4.4 (Managementsystem und seine Prozesse), 8.1 (Planung und
 > Steuerung); ISO 9001 Klausel 4.4 (prozessorientierter Ansatz).
 

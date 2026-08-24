@@ -770,3 +770,35 @@ deren Band, Ablegen auf ein leeres Band hängt ans Ende. Der Verlauf unterscheid
 
 Abgesichert in `tests/prozesslandkarte.test.mjs` (Startbestand, Geltungsbereich, Modell-Auflösung,
 Zeichnen, Ziehen, Gleichzeitigkeit, Kennungen, Einbau).
+
+---
+
+## Verknüpfungen als Mindmap · sichtbare Standortauswahl (Stand 2026-08-21)
+
+**Fehler zuerst: der Geltungsbereich wirkte gesperrt.** `renderGeltungsbereichSection()` blendete
+die Werke-Kästchen aus, solange „Alle Standorte" gesetzt war. Wer den Editor öffnete, sah ein
+einziges Kästchen und schloss daraus, es gebe nichts zu wählen. Die Werke stehen jetzt **immer**
+da – deaktiviert und blass, solange „Alle Standorte" gilt, mit dem Hinweis, wie man sie freigibt.
+Eine Stelle, drei Editoren: Regelwerk, Konzept und Prozesskachel.
+
+**Die Mindmap** (`js/verknuepfungen.js`, Ansicht **🕸 Verknüpfungen**) folgt dem Aufbau, den
+Signavio, ADONIS und BIC „Beziehungsansicht" nennen: ein Objekt in der Mitte, die Beziehungen nach
+Art gruppiert ringsum, Klick rückt einen Nachbarn in die Mitte, ein Verlauf führt zurück. Dazu eine
+Direktauswahl aller Objekte, damit niemand sich durch Ebenen klicken muss.
+
+`vkGraphBauen()` baut Knoten und Kanten aus drei vorhandenen Quellen – Landkarte (Kachel → Modell,
+Kachel → Standorte), BPMN-XML (Modell → Regelwerke) und `State.policies` (Regelwerk → Standorte).
+**Gespeichert wird nichts**; die BPMN-Verknüpfungen kommen aus `_procLinkCache`, den die Modell-Liste
+ohnehin füllt.
+
+**Lesbarkeit ist hier eine Anforderung, keine Kosmetik.** Neunzehn Kästen auf einer Ellipse
+überlappten sich fünfmal – im Browser gemessen, nicht geschätzt. Zwei Ringe halfen nur halb (zwei
+Überlappungen, einer ragte heraus). Die tragfähige Lösung: der Graph zeigt **höchstens zwölf**
+Nachbarn, ausgewählt reihum aus jeder Beziehungsart, x-Position auf die Fläche geklemmt – und
+**alle** Nachbarn stehen darunter als Chips. Ergebnis: null Überlappungen, nichts fehlt.
+
+**Die Lücken** (`vkLuecken()`) sind der eigentliche Ertrag: Prozesse ohne Modell, Modelle ohne
+Regelwerk, veröffentlichte Regelwerke ohne Prozess (Entwürfe zählen nicht – die sind in Arbeit),
+Prozesse ohne Geltungsbereich. Jeder Eintrag verlinkt dorthin, wo sich die Lücke schließen lässt.
+
+Abgesichert in `tests/verknuepfungen.test.mjs`.
