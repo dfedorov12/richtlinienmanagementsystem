@@ -731,3 +731,42 @@ also die Aktionen der Prüfer – im Status `Mitbestimmung` wäre daraus „Scho
 Jetzt `mb_konform`/`mb_nicht_konform` mit dem Token der richtigen Runde und ohne Empfänger im Link.
 
 Abgesichert in `tests/mitbestimmung-mail.test.mjs`.
+
+---
+
+## Prozesslandkarte (Stand 2026-08-21)
+
+Die Prozesslandschaft lag als Bild in einer Präsentation. Jetzt ist sie eine Ansicht:
+`js/landkarte.js`, erreichbar als **🗺 Landkarte** im Reiter Prozesse (Umschalter
+`prozessModusLeiste()`; die Karte ist die Startansicht, die Dateiliste der zweite Klick).
+
+**Drei Entscheidungen halten den Aufwand klein:**
+
+1. **Eine Datei statt einer Liste.** `prozesslandkarte.json` im Konfig-Ordner, geladen und
+   gespeichert über `spLoadLandkarte` / `spSaveLandkarte` / `spLandkarteMeta` – dieselbe Mechanik
+   wie die Governance-Struktur, inklusive Gleichzeitigkeits-Prüfung über den Zeitstempel und
+   Versionsverlauf in der Datei. Keine neue SharePoint-Spalte, kein Administrationsaufwand.
+2. **Die Verknüpfung Prozess → Regelwerk wird nicht dupliziert.** Sie steht seit jeher im BPMN-XML
+   (`[[rms:policies=…]]`). Die Kachel merkt sich nur, welches Modell zu ihr gehört – `prozessId`
+   mit `prozessName` als Rückfall, damit der Link eine neu angelegte Datei überlebt. Die Regelwerke
+   selbst holt `_lkRegelwerkeLaden()` erst beim Öffnen einer Kachel; 17 Dateien beim Zeichnen zu
+   lesen wäre Unsinn.
+3. **Der Geltungsbereich ist derselbe wie bei Regelwerken.** `renderGeltungsbereichSection(…, 'lgb')`
+   – `_gbScope` in `js/admin.js` kennt jetzt einen dritten Bereich. Damit gilt dasselbe Vokabular
+   (`STANDORTE`, `'ALLE'`), und die Frage „Was gilt in SHB?" bekommt für Prozesse und Regelwerke
+   dieselbe Antwort. `lkGiltDort()` behandelt einen ungepflegten Geltungsbereich als konzernweit –
+   lieber zu viel zeigen als etwas verschweigen.
+
+**Darstellung.** Die Formen (Fünfeck-Kacheln, Pfeile) entstehen mit `clip-path`, nicht als Bild –
+die Karte bleibt anklickbar, durchsuchbar und bei jeder Breite scharf. Die Bänder sind ein
+**Raster** mit `grid-template-columns: repeat(n, minmax(0,1fr))`, n = Anzahl der Kacheln: ein Band,
+eine Zeile, gleiche Breiten. Mit Flexbox blies die letzte Zeile auf, sobald ein Band umbrach (neun
+Unterstützungsprozesse ergaben zwei Zeilen mit 163 px und 596 px). Lange Komposita bekommen
+`hyphens: auto`; unter 780 px fallen die Formen weg.
+
+**Ziehen und Ablegen** arbeitet mit Indizes in `lkKacheln()`: Ablegen auf einer Kachel übernimmt
+deren Band, Ablegen auf ein leeres Band hängt ans Ende. Der Verlauf unterscheidet „verschoben nach
+…" und „Reihenfolge geändert".
+
+Abgesichert in `tests/prozesslandkarte.test.mjs` (Startbestand, Geltungsbereich, Modell-Auflösung,
+Zeichnen, Ziehen, Gleichzeitigkeit, Kennungen, Einbau).

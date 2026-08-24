@@ -492,6 +492,35 @@ wird nicht einfach gelöscht: Die App fragt, wohin die Regelungen umziehen solle
 
 ---
 
+## 13b. Prozesslandkarte  ·  *Reiter „Prozesse" → 🗺 Landkarte*
+
+Die Prozesslandschaft des Konzerns – **Führungsprozesse** oben, **Kernprozesse** als Pfeile in die
+Ergebnisse (Aufträge, Produkte, Einnahmen), **Unterstützungsprozesse** unten. Anders als ein Bild
+in einer Präsentation ist jede Kachel anklickbar.
+
+**Ein Klick auf eine Kachel zeigt:**
+
+- den **Geltungsbereich** – für welche Standorte dieser Prozess gilt,
+- das hinterlegte **BPMN-Modell** (mit Knopf „Modell öffnen"),
+- die **Regelwerke**, die an diesem Prozess hängen – gelesen aus dem Modell.
+
+**Noch kein Modell?** „Modell anlegen" erzeugt ein Grundgerüst und öffnet es im Modeler.
+„Vorhandenes verknüpfen" verbindet die Kachel mit einer Datei, die es schon gibt. Ein **grüner
+Punkt** auf der Kachel zeigt, wo ein Modell liegt – oben steht, wie viele der Prozesse modelliert sind.
+
+**Standort-Filter:** Oben lässt sich ein Werk wählen. Prozesse, die dort nicht gelten, werden
+**ausgegraut** statt ausgeblendet – die Landschaft bleibt dadurch vergleichbar, und man sieht, was
+anderswo gilt.
+
+**Bearbeiten** (bei Schreibrecht auf „Prozesse"): „+ Prozess" legt eine Kachel an; „Bearbeiten"
+ändert Name, Untertitel, Band und Geltungsbereich. Kacheln lassen sich **zwischen den Bändern
+ziehen**. Jede Änderung steht mit Person und Zeitpunkt im **Versionsverlauf**.
+
+> **Normbezug:** ISO 27001 Klausel 4.4 (Managementsystem und seine Prozesse), 8.1 (Planung und
+> Steuerung); ISO 9001 Klausel 4.4 (prozessorientierter Ansatz).
+
+---
+
 ## 14. Vorschläge bearbeiten  ·  *Administration / Verantwortliche*
 
 Reiter **„Vorschläge"** sammelt alle Änderungsvorschläge (auch die aus dem Health-Check, erkennbar
