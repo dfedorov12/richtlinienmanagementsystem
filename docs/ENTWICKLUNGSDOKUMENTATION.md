@@ -802,3 +802,46 @@ Regelwerk, veröffentlichte Regelwerke ohne Prozess (Entwürfe zählen nicht –
 Prozesse ohne Geltungsbereich. Jeder Eintrag verlinkt dorthin, wo sich die Lücke schließen lässt.
 
 Abgesichert in `tests/verknuepfungen.test.mjs`.
+
+---
+
+## Landkarte je Werk · Mindmap über alle Werke · Verknüpfen in der Mindmap (Stand 2026-08-21)
+
+**Eine Landkarte reichte nicht.** Die abgestimmte Landschaft ist die von **HOL**, nicht die des
+Konzerns – jedes Werk führt seine eigene. Das Datenmodell in `prozesslandkarte.json` hat deshalb
+eine Werk-Ebene bekommen:
+
+```
+{ "version": 2, "karten": { "HOL": {baender, kacheln, ergebnisse}, "SHB": {…} }, "historie": [...] }
+```
+
+`lkDatenLaden()` **migriert** die Fassung 1 beim ersten Öffnen: Was dort auf oberster Ebene stand,
+wird zur Karte von HOL. Niemand muss etwas neu erfassen. `LK_WERKE` ist `['KONZERN', …STANDORTE]` –
+die Holding führt ihre eigene Ebene, weil sie eigene Prozesse steuert.
+
+**Übernahme statt Handarbeit.** Zehn Landkarten von Hand zu bauen, würde niemand tun.
+`lkUebernehmen()` kopiert Bänder, Kacheln und Modell-Verknüpfung eines anderen Werks und setzt den
+Geltungsbereich auf das eigene; die Quelle bleibt unangetastet. Eine neue Kachel wird mit dem
+eigenen Werk vorbelegt (auf Konzern-Ebene mit `ALLE`).
+
+**Die Mindmap sieht jetzt alle Werke.** `lkAlleKacheln()` liefert `{werk, kachel}` über alle Karten;
+Knoten-Kennungen tragen das Werk (`prozess:SHB:giesserei`, `band:HOL:kern`). Die Arten `standort`
+und `werk` sind zu **einer** zusammengefallen: Ein Werk führt eine Landkarte *und* ist der Ort, für
+den Prozesse und Regelwerke gelten – ein Knoten, zwei Rollen, und dadurch die Verbindung zwischen
+beidem. Auch `vkLuecken()` rechnet über alle Werke; sonst bliebe die Lücke der anderen Karten blind.
+
+**Verknüpfen in der Mindmap.** „Wer hängt woran" nützt erst, wenn man es dort auch ändern kann.
+`_vkAktionenHtml()` blendet je nach Art des Knotens in der Mitte die passenden Knöpfe ein.
+Prozess → Modell läuft über die Landkarte (dort liegt die Kachel, `vkZurKarte()` stellt das richtige
+Werk ein). **Modell → Regelwerk** schreibt `vkXmlMitRegelwerken()` als Text in die BPMN-Datei: Der
+Marker `[[rms:policies=…]]` steht in der Dokumentation des Prozesses – laut Schema deren erstes
+Kindelement, genau dort legt ihn auch der Modeler ab. Gespeichert wird unter demselben Dateinamen,
+SharePoint legt eine neue Version an.
+
+Der Textweg ist die riskante Stelle, deshalb ausführlich geprüft: ohne vorhandene Dokumentation
+(anlegen), mit vorhandenem Marker (ersetzen, nicht ergänzen), leere Auswahl (entfernen), Präfixe
+`bpmn:` / `bpmn2:` / keines, eine Dokumentation an einer *Aufgabe* (bleibt erhalten), Sonderzeichen
+im Titel (maskiert), und der Marker danach wieder auslesbar. Vom Regelwerk aus wird **ergänzt**,
+nicht überschrieben – an einem Modell hängen oft mehrere Regelwerke.
+
+Abgesichert in `tests/prozesslandkarte.test.mjs` und `tests/verknuepfungen.test.mjs`.

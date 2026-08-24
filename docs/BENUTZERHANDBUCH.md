@@ -494,9 +494,17 @@ wird nicht einfach gelöscht: Die App fragt, wohin die Regelungen umziehen solle
 
 ## 13b. Prozesslandkarte  ·  *Reiter „Prozesse" → 🗺 Landkarte*
 
-Die Prozesslandschaft des Konzerns – **Führungsprozesse** oben, **Kernprozesse** als Pfeile in die
+Die Prozesslandschaft – **Führungsprozesse** oben, **Kernprozesse** als Pfeile in die
 Ergebnisse (Aufträge, Produkte, Einnahmen), **Unterstützungsprozesse** unten. Anders als ein Bild
 in einer Präsentation ist jede Kachel anklickbar.
+
+**Jedes Werk führt seine eigene Landkarte**, dazu gibt es die Ebene **Konzern / Holding**. Oben
+links wählen Sie, welche Karte offen ist; Werke ohne Karte sind mit „– leer" gekennzeichnet.
+
+> **Ein Werk neu aufsetzen:** In einer leeren Karte steht **„Von einem anderen Werk übernehmen".**
+> Bänder, Kacheln und die Verknüpfung zum Modell werden kopiert, der Geltungsbereich auf das eigene
+> Werk gesetzt. Die Quelle bleibt unverändert. Danach passen Sie an, wo das Werk abweicht — das ist
+> deutlich schneller, als zehn Landkarten von Hand zu bauen.
 
 **Ein Klick auf eine Kachel zeigt:**
 
@@ -525,6 +533,20 @@ einem beliebigen Prozess, Modell, Regelwerk oder Standort.
 
 Das Bild zeigt höchstens **zwölf** Nachbarn – mehr wären auf einem Kreis nicht mehr lesbar.
 Vollständig stehen alle darunter als anklickbare Chips.
+
+Die Mindmap geht **über alle Werke**: Unter dem Konzern hängen die Werke mit eigener Landkarte,
+darunter deren Bänder und Prozesse. Werk und Standort sind derselbe Knoten — ein Werk zeigt also
+seine Landkarte *und* alles, was dort gilt.
+
+**Verknüpfen geht direkt hier.** Je nachdem, was in der Mitte steht:
+
+- **Prozess** → „Modell öffnen", „Regelwerke zuordnen" oder „In der Landkarte öffnen"
+- **Modell** → **„Regelwerke zuordnen"**: ankreuzen, welche Regelwerke dieser Ablauf umsetzt —
+  ohne den Modeler zu öffnen
+- **Regelwerk** → **„Mit einem Modell verknüpfen"**
+
+Die Zuordnung wird in der **BPMN-Datei** gespeichert, an derselben Stelle, die auch der
+Prozess-Editor beschreibt. Es entsteht keine zweite Liste, die auseinanderlaufen könnte.
 
 **Die Lücken** darunter sind der eigentliche Nutzen. Vier Kästen beantworten die Fragen, die eine
 Landkarte allein nie beantwortet:
