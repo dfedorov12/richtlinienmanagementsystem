@@ -845,3 +845,36 @@ im Titel (maskiert), und der Marker danach wieder auslesbar. Vom Regelwerk aus w
 nicht überschrieben – an einem Modell hängen oft mehrere Regelwerke.
 
 Abgesichert in `tests/prozesslandkarte.test.mjs` und `tests/verknuepfungen.test.mjs`.
+
+---
+
+## Mehrere Modelle je Prozess · Regelwerke ohne Umweg · Suche (Stand 2026-08-21)
+
+**Ein Prozess, mehrere Abläufe.** Die Kachel trug genau ein Modell (`prozessId`/`prozessName`).
+Angebot, Auftrag und Reklamation gehören aber alle zum Vertrieb. Neu ist `prozesse: [{id, name}]`;
+`lkModellVerweise()` liest die alten Felder weiter mit, `_lkVerweise()` stellt sie beim ersten
+Schreiben um. `lkProzesseVon()` löst alle auf, `lkProzessVon()` bleibt als „das erste" für Anzeigen,
+die nur eines brauchen.
+
+Zwei Fallen dabei: `spSaveProcess()` schreibt über den **Dateinamen** – ein zweites Modell mit
+demselben Namen wäre dieselbe Datei und überschriebe das erste. `_lkFreierModellName()` hängt
+deshalb „ 2", „ 3" an. Und der Verknüpfen-Dialog bietet nur noch an, was **nicht** schon hängt.
+
+**Regelwerke ohne Umweg über ein Modell.** Bisher hing ein Regelwerk ausschließlich am BPMN-Marker.
+Bei 70 geplanten Regelwerken und einer Handvoll Modelle bleibt die Mindmap damit auf Jahre leer.
+`regelwerke: []` an der Kachel schließt die Lücke: In der Mindmap ist das die Beziehung
+**„geregelt durch"** (Gegenrichtung „regelt"), klar unterscheidbar von „setzt um" über ein Modell.
+Kein Widerspruch, sondern zwei verschiedene Aussagen – und der Weg, sofort loszulegen.
+
+Entsprechend gibt es eine fünfte Lücke: **„Prozesse ohne jeden Bezug"** – weder Modell noch
+Regelwerk. „Nur kein Modell" ist oft in Ordnung; gar nichts ist die eigentliche Baustelle.
+
+**Suche über alle Landkarten.** Mit zehn Karten ist „wo steckt die Beschaffung?" sonst eine
+Klickstrecke. `lkTreffer()` sucht in Name und Untertitel über alle Werke (ab zwei Zeichen, höchstens
+zwölf Treffer), `lkSpringeZu()` wechselt die Karte und öffnet die Kachel.
+
+**Tastatur.** Die Kacheln sind Schaltflächen, keine Bilder: `role="button"`, `tabindex="0"`,
+Enter und Leertaste, dazu ein `aria-label` aus Name und Untertitel – derselbe Standard wie beim
+Ordner-Baum der Governance-Ansicht.
+
+Abgesichert in `tests/prozesslandkarte.test.mjs` und `tests/verknuepfungen.test.mjs`.

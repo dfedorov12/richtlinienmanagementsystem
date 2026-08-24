@@ -512,9 +512,21 @@ links wählen Sie, welche Karte offen ist; Werke ohne Karte sind mit „– leer
 - das hinterlegte **BPMN-Modell** (mit Knopf „Modell öffnen"),
 - die **Regelwerke**, die an diesem Prozess hängen – gelesen aus dem Modell.
 
-**Noch kein Modell?** „Modell anlegen" erzeugt ein Grundgerüst und öffnet es im Modeler.
-„Vorhandenes verknüpfen" verbindet die Kachel mit einer Datei, die es schon gibt. Ein **grüner
-Punkt** auf der Kachel zeigt, wo ein Modell liegt – oben steht, wie viele der Prozesse modelliert sind.
+**Mehrere Modelle je Prozess.** Ein Prozess besteht oft aus mehreren Abläufen — Angebot, Auftrag
+und Reklamation gehören alle zum Vertrieb. **„+ Modell anlegen"** und **„+ Vorhandenes verknüpfen"**
+hängen beliebig viele an dieselbe Kachel. Ein **grüner Punkt** zeigt, dass ein Modell hinterlegt
+ist, die **Zahl daneben**, wie viele. Ein neu angelegtes Modell bekommt automatisch einen freien
+Dateinamen („Vertrieb 2") — sonst überschriebe es das erste.
+
+**Regelwerke auch ohne Modell.** Über **„Regelwerke zuordnen"** hängen Regelwerke direkt an der
+Kachel. Das ist der Weg für die vielen Prozesse, die noch kein BPMN-Diagramm haben: Sie können
+sofort festhalten, was einen Ablauf regelt, ohne ihn erst modellieren zu müssen. Was über ein
+Modell verknüpft ist, wird zusätzlich angezeigt — mit Angabe, aus welchem.
+
+**Suche über alle Werke.** Das Suchfeld oben findet einen Prozess in **jeder** Landkarte, nicht nur
+in der geöffneten. Ein Klick auf den Treffer wechselt die Karte und öffnet die Kachel.
+
+Die Kacheln sind **mit der Tastatur bedienbar**: Tab führt zur nächsten, Enter oder Leertaste öffnet sie.
 
 **Standort-Filter:** Oben lässt sich ein Werk wählen. Prozesse, die dort nicht gelten, werden
 **ausgegraut** statt ausgeblendet – die Landschaft bleibt dadurch vergleichbar, und man sieht, was
