@@ -1137,4 +1137,8 @@ auf `?probelauf=1`, sondern auch auf `rms_probelauf_an` im `localStorage`; geset
 entfernt beim Beenden. Wer aus einer Mail heraus in einem neuen Tab landet, bleibt damit im
 Probelauf – vorher war der Streifen dort weg.
 
+**Aufgeräumte Leiste:** `probelaufNavFiltern()` blendet im laufenden Probelauf alles aus außer den
+Reitern, die ohnehin jede und jeder sieht, sowie Dashboard und Freigaben. Aufgerufen wird sie
+**zuletzt** in `initRoleNav()` – sonst überschriebe die Rollenlogik den Filter wieder.
+
 Damit sind es 15 Schritte.
