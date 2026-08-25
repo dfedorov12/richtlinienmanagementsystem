@@ -524,8 +524,9 @@ sofort festhalten, was einen Ablauf regelt, ohne ihn erst modellieren zu müssen
 Modell verknüpft ist, wird zusätzlich angezeigt — mit Angabe, aus welchem.
 
 **Die geführte Vorführung als Lernvideo.** Der Probelauf führt Schritt für Schritt durch einen
-kompletten Vorgang — vom Konzept bis zum Nachweis im Audit. Die Texte in der Sprechblase sprechen die
-**Zuschauer** an und lassen sich mitlesen; was zu klicken ist, steht klein darunter im *Hinweis*.
+kompletten Vorgang — vom Konzept bis zum Nachweis im Audit. Jeder Schritt nennt in **einem Satz**,
+worum es geht; was zu klicken ist, steht klein darunter im *Hinweis*. Erklärt wird gesprochen — so
+liest niemand mit, statt zuzuhören.
 Damit reicht es, den Bildschirm aufzunehmen und frei dazu zu sprechen — das Ergebnis ist ein
 Lernvideo von rund fünf Minuten. Denken Sie danach an **🧹 Aufräumen**: Der Probelauf legt einen
 echten Vorgang an und verschickt echte E-Mails.

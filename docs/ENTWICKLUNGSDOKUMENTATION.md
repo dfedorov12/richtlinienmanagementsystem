@@ -1045,8 +1045,8 @@ klicken ja nichts.
 
 Deshalb die Rollenteilung im Sprechblasen-Aufbau, den es ohnehin schon gab:
 
-* **`text`** – der Lehrtext für die Zuschauer. Erklärt, *warum* dieser Schritt existiert, und ist
-  zum Mitlesen gedacht.
+* **`text`** – **ein Satz**, der den Schritt benennt. Bewusst knapp: Erklärt wird gesprochen; ein
+  Absatz auf dem Bildschirm führt nur dazu, dass mitgelesen statt zugehört wird.
 * **`hinweis`** – die Regieanweisung („Zum Mitmachen: Reiter Verwaltung anklicken") sowie
   Betriebswissen. Steht klein darunter und stört beim Zuschauen nicht.
 
