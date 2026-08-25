@@ -1059,3 +1059,32 @@ prüft weiterhin Reihenfolge und Abdeckung der Schritte, `tests/anrede.test.mjs`
 
 **Die Ergebnisspalte der Landkarte** („Aufträge · Produkte · Einnahmen") ist entfallen – samt
 `lkErgebnisse()`, dem Feld in den Vorlagen und der Spalte in der Kernzeile.
+
+---
+
+## Ein Klick heißt ein Klick (Stand 2026-08-25)
+
+Der Ein-Klick-Weg aus der Mail führte in eine zweite Nachfrage: „Konzept annehmen?" mit
+Bestätigungsdialog, ebenso „als konform markieren?" und „freigeben und veröffentlichen?". Wer in der
+Mail auf „Annehmen" klickt, hat aber bereits entschieden – die Nachfrage fragte nichts, was nicht
+schon beantwortet war.
+
+Entfernt sind daher die reinen Sicherheitsabfragen:
+
+* `handleKonzeptMailAction()` ruft `konzeptDecide(id, decision, { ohneRueckfrage: true })`
+* `handleMailAction()` führt `markKonform(id, true)` und `markFreigabe(id)` direkt aus
+* die **optionale** Notiz beim Zurückstellen entfällt auf diesem Weg
+
+**Bewusst geblieben** sind alle Prompts, die eine *Angabe* verlangen statt einer Bestätigung: die
+Pflichtbegründung bei „nicht konform", bei der Mitbestimmung und bei der Ablehnung eines Konzepts.
+Sie sind keine Rückfrage, sondern der fehlende Teil der Entscheidung – ohne sie wäre die Historie
+wertlos.
+
+Ebenfalls geblieben ist die **Weiche** nach dem Annehmen („Wie soll es weitergehen?"). Sie fragt
+nicht „sind Sie sicher?", sondern nach dem nächsten Schritt. Dafür trennt `konzeptDecide()` jetzt
+zwei Schalter: `ohneRueckfrage` (keine Bestätigung) und `ohneWeiche` (keine Folgefrage) – der
+Selbsttest setzt beide, der Mail-Weg nur den ersten.
+
+Die Absicherung liegt weiterhin bei der Rolle: `isCurrentUserPrueferForPolicy()`,
+`isCurrentUserGeschaeftsleitung()` bzw. `darfMitbestimmung()` prüfen vor jeder Aktion, und jede
+Entscheidung landet mit Person und Zeitstempel in der Änderungshistorie.

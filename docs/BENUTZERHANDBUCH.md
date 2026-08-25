@@ -256,7 +256,7 @@ App und führt die Entscheidung nach kurzer Rückfrage aus (Anmeldung nötig).
 
 Die Workflow-Mails enthalten die Knöpfe **✓ Freigeben** / **✗ Zurück** (bei der Prüfung und bei der
 Mitbestimmung **Konform** / **Nicht konform**). Ein Klick genügt: Die Seite meldet Sie still an (Single Sign-On),
-prüft Ihre Berechtigung, führt die Entscheidung aus und zeigt das Ergebnis. Kein Suchen im Portal,
+prüft Ihre Berechtigung, führt die Entscheidung **ohne weitere Rückfrage** aus und zeigt das Ergebnis. Kein Suchen im Portal,
 keine Rückfrage.
 
 - **Einmal-Token:** Jeder Link gehört zur *laufenden* Runde. Wurde inzwischen neu eingereicht oder
