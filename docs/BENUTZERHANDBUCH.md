@@ -523,6 +523,13 @@ Kachel. Das ist der Weg für die vielen Prozesse, die noch kein BPMN-Diagramm ha
 sofort festhalten, was einen Ablauf regelt, ohne ihn erst modellieren zu müssen. Was über ein
 Modell verknüpft ist, wird zusätzlich angezeigt — mit Angabe, aus welchem.
 
+**Die geführte Vorführung als Lernvideo.** Der Probelauf führt Schritt für Schritt durch einen
+kompletten Vorgang — vom Konzept bis zum Nachweis im Audit. Die Texte in der Sprechblase sprechen die
+**Zuschauer** an und lassen sich mitlesen; was zu klicken ist, steht klein darunter im *Hinweis*.
+Damit reicht es, den Bildschirm aufzunehmen und frei dazu zu sprechen — das Ergebnis ist ein
+Lernvideo von rund fünf Minuten. Denken Sie danach an **🧹 Aufräumen**: Der Probelauf legt einen
+echten Vorgang an und verschickt echte E-Mails.
+
 **Vorlage für eine neue Landkarte.** **„📋 Vorlage"** setzt eine fertige Prozesslandschaft ein:
 
 | Vorlage | Inhalt |
@@ -536,8 +543,8 @@ Verknüpfungen. Ist schon eine Landkarte da, wird sie ersetzt; der Schritt steht
 
 **Beliebig viele Bereiche.** Jedes Band ist eine eigene Zeile mit farbiger Titelspalte und der Anzahl
 seiner Prozesse — drei Bänder wie im Werk oder sechs wie im Konzern. Kernprozesse behalten ihre
-Pfeilform mit den Ergebnissen rechts. Auf der Kachel stehen Name, Untertitel, der Vorname der
-verantwortlichen Person und der Geltungsbereich.
+Pfeilform. Auf der Kachel stehen Name, Untertitel, der Vorname der verantwortlichen Person und der
+Geltungsbereich.
 
 **🌳 Übersicht — die Mindmap als Baum.** Reiter „Prozesse" → **🕸 Verknüpfungen**. Die Wurzel steht
 links, die Äste laufen nach rechts: **Werk → Band → Prozess → Modell → Regelwerk**. Jeder Ast der

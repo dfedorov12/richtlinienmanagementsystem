@@ -1034,3 +1034,28 @@ Person.
 Im Browser gemessen (1440 px): Konzernkarte 6 Zeilen à 3 Kacheln (387 px, alle gleich hoch, kein
 Textüberlauf, Gesamthöhe 674 px); Werkskarte 3 Zeilen, Unterstützung bricht auf zwei Reihen um; bei
 774 px stapeln beide sauber und die Seite scrollt nicht quer.
+
+---
+
+## Die Vorführung ist das Lernvideo (Stand 2026-08-25)
+
+Die geführte Vorführung (`js/tour.js`) hatte die bedienende Person angesprochen: „Klick den Reiter
+an", „Wechsle kurz ins Postfach". Aufgenommen als Lernvideo liest sich das falsch – die Zuschauer
+klicken ja nichts.
+
+Deshalb die Rollenteilung im Sprechblasen-Aufbau, den es ohnehin schon gab:
+
+* **`text`** – der Lehrtext für die Zuschauer. Erklärt, *warum* dieser Schritt existiert, und ist
+  zum Mitlesen gedacht.
+* **`hinweis`** – die Regieanweisung („Zum Mitmachen: Reiter Verwaltung anklicken") sowie
+  Betriebswissen. Steht klein darunter und stört beim Zuschauen nicht.
+
+Dazu ein Rahmen: Schritt 1 heißt jetzt **„Herzlich willkommen"** und sagt, was gleich passiert;
+der Schlussschritt heißt **„Was das für Sie heißt"** und nennt die drei Handgriffe
+(nachsehen, bestätigen, mitreden) statt nur „Durchlauf abgeschlossen".
+
+Logik, Ziele und `erfuellt`-Bedingungen sind unverändert – nur Beschriftungen. `tests/probelauf.test.mjs`
+prüft weiterhin Reihenfolge und Abdeckung der Schritte, `tests/anrede.test.mjs` die Sie-Form.
+
+**Die Ergebnisspalte der Landkarte** („Aufträge · Produkte · Einnahmen") ist entfallen – samt
+`lkErgebnisse()`, dem Feld in den Vorlagen und der Spalte in der Kernzeile.
