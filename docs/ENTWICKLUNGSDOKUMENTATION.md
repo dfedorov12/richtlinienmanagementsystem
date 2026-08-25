@@ -926,3 +926,44 @@ treffen.
 
 Abgesichert in `tests/prozess-ablage.test.mjs` (40 Prüfungen: Pfadbau, Auflisten über Unterordner,
 Ordneranlage mit 409, Verschieben mit Kennungserhalt, Gruppierung, Aufräum-Regeln).
+
+---
+
+## Verantwortliche, Matrix, Bild, Link, Abgleich (Stand 2026-08-25)
+
+Sechs Punkte aus einer Verbesserungsrunde – zusammengefasst, weil sie dieselbe Stelle betreffen.
+
+**1 · Prozessverantwortliche.** Die Kachel trug Name, Band, Geltungsbereich, Modelle und Regelwerke –
+aber niemanden. Neu: `verantwortlich` und `vertretung` (Mailadressen, Auswahl über `spGetMembers()`
+wie bei Risiken). `lkPersonName()` löst die Adresse gegen die Mitarbeiterliste auf; solange die noch
+lädt, steht die Adresse selbst da. Neue Lücke in der Mindmap: `ohneVerantwortlich`.
+
+**2 · Matrix (`js/prozessmatrix.js`).** Prozesse als Zeilen, Werke als Spalten, zwei Blätter
+(Zuständigkeiten / Abdeckung). Der Zeilenschlüssel ist der **normalisierte Name**, nicht die
+Kennung: Zwei Werke führen denselben Prozess oft mit verschiedenen Kacheln, gehören für den
+Vergleich aber in eine Zeile. Wichtig und getestet: „—" (niemand zuständig) und „·" (Werk führt den
+Prozess nicht) sind zwei verschiedene Aussagen und sehen verschieden aus – auch im CSV.
+Die Ansicht **schreibt nichts**; ein Test verbietet Schreibaufrufe in dieser Datei.
+
+**3 · Bild-Export.** `downloadProcessSvg()` über `saveSVG()` von bpmn-js. Mit einer .bpmn-Datei kann
+außerhalb des Modelers niemand etwas anfangen – für Regelwerke, Schulungen und Folien braucht es
+ein Bild.
+
+**4 · Deep-Link `?prozess=WERK:KACHEL`.** `lkLinkFuer()` / `lkLinkKopieren()` erzeugen ihn,
+`lkDeepLink()` löst ihn ein (lädt die Landkarten, setzt das Werk, öffnet die Kachel). In
+`js/app.js` steht die Auswertung vor dem Richtlinien-Deeplink, mit derselben Leserechtsprüfung.
+
+**5 · Abgleich Kachel ↔ Modell.** Seit Regelwerke sowohl an der Kachel als auch im BPMN-Marker
+hängen können, kann beides auseinanderlaufen. `vkAbgleich()` findet, was nur an der Kachel steht,
+obwohl es ein Modell gibt; `vkAbgleichUebernehmen()` schreibt es hinein. Kacheln ohne Modell
+erzeugen bewusst **keinen** Widerspruch – dort gibt es nichts abzugleichen.
+
+**6 · Ladezeit der Mindmap.** `vkGraphBauen()` las die BPMN-Dateien in einer verschachtelten
+Schleife nacheinander – bei vierzig Modellen vierzig Anfragen in Reihe. Jetzt werden alle
+gebrauchten Modelle vorab dedupliziert und **parallel** gelesen (`Promise.all`); der Rest der
+Funktion trifft danach nur noch den Cache. Der Cache selbst überlebt neuerdings die Sitzung:
+`procLinksLaden()` / `procLinksMerken()` legen ihn im `localStorage` ab, Schlüssel ist
+`itemId|modified` – eine geänderte Datei fällt damit automatisch heraus.
+
+Abgesichert in `tests/prozessmatrix.test.mjs` (32) und den erweiterten Suiten
+`verknuepfungen` und `prozesslandkarte`.

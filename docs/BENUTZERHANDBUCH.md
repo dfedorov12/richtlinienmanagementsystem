@@ -523,6 +523,30 @@ Kachel. Das ist der Weg für die vielen Prozesse, die noch kein BPMN-Diagramm ha
 sofort festhalten, was einen Ablauf regelt, ohne ihn erst modellieren zu müssen. Was über ein
 Modell verknüpft ist, wird zusätzlich angezeigt — mit Angabe, aus welchem.
 
+**Prozessverantwortliche.** Jede Kachel trägt eine **verantwortliche Person** und optional eine
+Vertretung (Feld „Prozessverantwortlich" im Bearbeiten-Dialog). Sie steht oben in der Kachel, mit
+Mail-Link. Fehlt sie, steht dort in Rot „Kein Prozessverantwortlicher gepflegt" — und der Prozess
+taucht in der Mindmap unter „Prozesse ohne Verantwortlichen" auf.
+
+**👤 Matrix — wer ist für welchen Prozess zuständig.** Reiter „Prozesse" → **👤 Matrix**. Prozesse
+stehen als Zeilen, Werke als Spalten:
+
+* **Zuständigkeiten** — je Werk die verantwortliche Person. „—" heißt: Das Werk führt den Prozess,
+  aber niemand verantwortet ihn. „·" heißt: Das Werk führt diesen Prozess gar nicht (kann richtig
+  sein). Ein Klick auf eine Zelle öffnet die Kachel im jeweiligen Werk.
+* **Abdeckung** — je Zelle drei Marken: **V** Verantwortliche(r), **M** BPMN-Modell, **R** Regelwerk.
+  Grün = vorhanden, blass = fehlt. So sieht man auf einen Blick, welche Werke wo hinterherhinken.
+
+Oben stehen die Kennzahlen, dazu Filter nach Band und „nur Lücken". **⬇ CSV** gibt die Tabelle für
+Excel aus, **🖨 Drucken** öffnet eine Druckfassung für Sitzungsunterlagen.
+
+**Diagramm als Bild.** Im Modeler liefert **„⬇ Bild"** das Diagramm als SVG. Das lässt sich direkt in
+Word, PowerPoint oder ein Regelwerk einfügen und bleibt beim Vergrößern scharf.
+
+**Link auf einen Prozess.** **„🔗 Link"** in der geöffneten Kachel kopiert einen dauerhaften Link.
+Wer ihn anklickt, landet nach der Anmeldung genau auf dieser Kachel — praktisch für Mails,
+Regelwerke, die auf einen Ablauf verweisen, und Schulungsunterlagen.
+
 **Jedes Werk hat seinen eigenen Ordner.** Ein Modell liegt unter **Prozesse/&lt;Werk&gt;** in der
 ISMS-Bibliothek. „Vertrieb" in HOL und „Vertrieb" in SHB sind dadurch zwei Dateien — ohne diese
 Trennung wäre es dieselbe, und das zweite Werk hätte das erste überschrieben. In der Modell-Liste
