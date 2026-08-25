@@ -1080,10 +1080,12 @@ Pflichtbegründung bei „nicht konform", bei der Mitbestimmung und bei der Able
 Sie sind keine Rückfrage, sondern der fehlende Teil der Entscheidung – ohne sie wäre die Historie
 wertlos.
 
-Ebenfalls geblieben ist die **Weiche** nach dem Annehmen („Wie soll es weitergehen?"). Sie fragt
-nicht „sind Sie sicher?", sondern nach dem nächsten Schritt. Dafür trennt `konzeptDecide()` jetzt
-zwei Schalter: `ohneRueckfrage` (keine Bestätigung) und `ohneWeiche` (keine Folgefrage) – der
-Selbsttest setzt beide, der Mail-Weg nur den ersten.
+Auch die **Weiche** nach dem Annehmen („Wie soll es weitergehen?") entfällt auf dem Mail-Weg. Sie
+fragt zwar nichts Überflüssiges, aber direkt nach einem Klick aus dem Postfach will das niemand
+beantworten – wie es weitergeht, entscheidet man später im Entwurf. `konzeptDecide()` trennt dafür
+zwei Schalter: `ohneRueckfrage` (keine Bestätigung) und `ohneWeiche` (keine Folgefrage); Mail-Weg
+und Selbsttest setzen beide. **Im Dashboard bleibt die Weiche**: Wer dort auf „Annehmen → Regelwerk"
+klickt, sitzt ohnehin schon im System und kann direkt weiterarbeiten.
 
 Die Absicherung liegt weiterhin bei der Rolle: `isCurrentUserPrueferForPolicy()`,
 `isCurrentUserGeschaeftsleitung()` bzw. `darfMitbestimmung()` prüfen vor jeder Aktion, und jede
