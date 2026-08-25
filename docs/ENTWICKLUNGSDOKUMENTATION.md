@@ -878,3 +878,51 @@ Enter und Leertaste, dazu ein `aria-label` aus Name und Untertitel – derselbe 
 Ordner-Baum der Governance-Ansicht.
 
 Abgesichert in `tests/prozesslandkarte.test.mjs` und `tests/verknuepfungen.test.mjs`.
+
+---
+
+## Prozessmodelle liegen unter ihrem Werk (Stand 2026-08-25)
+
+Seit jedes Werk eine eigene Landkarte führt, lagen die Modelle trotzdem alle flach im Ordner
+`Prozesse`. Das war zwei Dinge zugleich: unübersichtlich und gefährlich. `spSaveProcess()` schreibt
+über den **Dateinamen** – „Vertrieb" aus HOL und „Vertrieb" aus SHB wären dieselbe Datei gewesen,
+das zweite Werk hätte das erste überschrieben. `_lkFreierModellName()` hat das bis dahin mit
+„Vertrieb 2" abgefangen; ein Name, der niemandem etwas sagt.
+
+**Ablage:** `Prozesse/<WERK>/<Name>.bpmn`. Neu in `js/sharepoint.js`:
+
+* `_prozessOrdnerName(werk)` – lässt nur `[A-Za-z0-9_-]` durch; ein Ordnername kann nicht aus dem
+  Ordner ausbrechen.
+* `_prozessOrdnerSicherstellen(token, werk)` – legt `Prozesse` und den Werk-Ordner per POST an,
+  `conflictBehavior: 'fail'`; **409 ist der Normalfall** und wird bewusst geschluckt.
+* `spListProcesses()` – liest die Wurzel und zusätzlich jeden Unterordner (`Promise.all`). Jeder
+  Prozess trägt jetzt `ordner` ('' = liegt direkt im Prozesse-Ordner). Ein gesperrter Ordner kostet
+  nur seinen Inhalt, nicht die ganze Liste.
+* `spSaveProcess(name, xml, werk)` – dritter Parameter; ohne ihn bleibt alles wie bisher, damit der
+  Altbestand erreichbar bleibt.
+* `spMoveProcess(itemId, werk, neuerName)` – PATCH auf `parentReference` (und optional `name`).
+  **Die Kennung überlebt den Umzug** – Landkarte und Mindmap merken sich die Kennung, nicht den Pfad.
+
+Alle Aufrufer mussten mitziehen: `vkRegelwerkeSpeichern()` und `vkRegelwerkAnModellSpeichern()`
+speicherten über den Namen – ohne Ordner hätten sie eine **zweite** Datei in der Wurzel angelegt.
+
+**Nebenbei einen Datenverlust beseitigt:** `saveProcess()` hat beim Umbenennen bisher unter dem
+neuen Namen gespeichert und die alte Datei gelöscht. Das erzeugt eine neue Kennung – jede
+Verknüpfung aus der Landkarte lief danach ins Leere. Jetzt wird zuerst verschoben/umbenannt
+(`spMoveProcess`), dann der Inhalt in denselben Pfad geschrieben.
+
+**Auflösung über den Namen** (`lkModellZu(verweis, werk)`) bevorzugt seither den Ordner des eigenen
+Werks; die Kennung schlägt weiterhin alles. `_lkFreierModellName(basis, werk)` zählt nur innerhalb
+eines Ordners – „Vertrieb" bleibt in jedem Werk „Vertrieb".
+
+**Übernahme einer fremden Landkarte** kopiert die Modellverweise nur noch auf ausdrücklichen Wunsch
+(Haken im Dialog). Sonst zeigten zwei Werke auf dieselbe Datei, was der Ordnertrennung genau
+zuwiderläuft.
+
+**Aufräumen:** `prozessAblageAufraeumen()` in `js/prozesse.js` sortiert die flach liegenden Modelle
+ein. Welches Werk gemeint ist, sagt die Landkarte (Verweis über Kennung **oder** Name). Zeigen
+Kacheln aus zwei Werken darauf, bleibt die Datei liegen – diese Entscheidung kann die App nicht
+treffen.
+
+Abgesichert in `tests/prozess-ablage.test.mjs` (40 Prüfungen: Pfadbau, Auflisten über Unterordner,
+Ordneranlage mit 409, Verschieben mit Kennungserhalt, Gruppierung, Aufräum-Regeln).

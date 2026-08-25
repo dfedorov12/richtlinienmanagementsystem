@@ -523,6 +523,20 @@ Kachel. Das ist der Weg für die vielen Prozesse, die noch kein BPMN-Diagramm ha
 sofort festhalten, was einen Ablauf regelt, ohne ihn erst modellieren zu müssen. Was über ein
 Modell verknüpft ist, wird zusätzlich angezeigt — mit Angabe, aus welchem.
 
+**Jedes Werk hat seinen eigenen Ordner.** Ein Modell liegt unter **Prozesse/&lt;Werk&gt;** in der
+ISMS-Bibliothek. „Vertrieb" in HOL und „Vertrieb" in SHB sind dadurch zwei Dateien — ohne diese
+Trennung wäre es dieselbe, und das zweite Werk hätte das erste überschrieben. In der Modell-Liste
+(Reiter „Prozesse" → 📋 Modelle) steht jedes Werk als eigener Block.
+
+Im Modell selbst gibt es das Feld **Ablage (Werk)**. Wird es geändert, zieht die Datei beim
+Speichern um; ihre Kennung bleibt, also bleiben auch Landkarte, Mindmap und die verknüpften
+Regelwerke intakt. Dasselbe gilt fürs Umbenennen.
+
+Modelle aus früheren Ständen liegen noch direkt im Ordner „Prozesse". **„🗂 Ablage aufräumen"**
+sortiert alle ein, die eindeutig zu einem Werk gehören — maßgeblich ist die Landkarte, die auf sie
+zeigt. Modelle, auf die Kacheln aus zwei Werken zeigen, bleiben liegen: Diese Entscheidung kann die
+App nicht treffen.
+
 **Suche über alle Werke.** Das Suchfeld oben findet einen Prozess in **jeder** Landkarte, nicht nur
 in der geöffneten. Ein Klick auf den Treffer wechselt die Karte und öffnet die Kachel.
 
