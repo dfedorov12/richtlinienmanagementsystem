@@ -1110,3 +1110,31 @@ belegt `pflicht`, `quizErforderlich` und `wiederholungMonate` vor, damit im Vide
 getippt wird.
 
 Damit sind es 17 Schritte. `tests/probelauf.test.mjs` prüft weiterhin Reihenfolge und Abdeckung.
+
+---
+
+## Die Vorführung folgt dem Mail-Weg (Stand 2026-08-25)
+
+Beim ersten Aufnehmen fiel auf: Die Führung ließ klicken, wo im Betrieb längst die Mail entscheidet –
+und die Sprechblase stand genau vor den Feldern, um die es ging.
+
+* **Sprechblase in die Ecke** (`platz: 'ecke'`): Ist das Ziel ein ganzes Formular, deckt die Blase
+  sonst die Felder ab und man kann nicht scrollen, ohne sie zu verschieben. Sie sitzt jetzt unten
+  links. Gesetzt bei „Konzept ausfüllen" und „Zielgruppe, Pflichtlektüre, Wissenstest".
+* **Kein eigener Schritt fürs Entscheiden**: Der Schritt „Die Mail im Postfach" wartet selbst, bis
+  das Konzept angenommen ist – gleich, ob in der Mail oder auf der Karte.
+* **Prüfung, Mitbestimmung und Freigabe sind ein Schritt**: Wer per Mail entscheidet, klickt im
+  System nichts; die Führung wartet, bis der Status „Veröffentlicht" erreicht ist. „✨ Vormachen"
+  spielt die drei Stufen nacheinander durch.
+* **Der Entwurfs-Schritt springt selbst ins Regelwerk** (`beim: openPolicyEditor`) und belegt neben
+  Pflichtlektüre und Wiedervorlage auch **zwei Wissenstest-Fragen** und ein **Lernvideo** vor – im
+  Video wird erklärt, nicht getippt.
+* **Die Kenntnisnahme ist geteilt**: erst „Meine Regelwerke öffnen" (der Reiter, den jede und jeder
+  sieht), dann „Kenntnisnahme, Wissenstest und Video" mit dem geöffneten Regelwerk.
+
+**Der Probelauf überlebt jetzt Neuladen und neue Tabs.** `probelaufGewuenscht()` sieht nicht mehr nur
+auf `?probelauf=1`, sondern auch auf `rms_probelauf_an` im `localStorage`; gesetzt beim Aktivieren,
+entfernt beim Beenden. Wer aus einer Mail heraus in einem neuen Tab landet, bleibt damit im
+Probelauf – vorher war der Streifen dort weg.
+
+Damit sind es 15 Schritte.
