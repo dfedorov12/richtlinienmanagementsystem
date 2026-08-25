@@ -1003,3 +1003,34 @@ der Landkarte.
 
 Abgesichert in `tests/mindmapbaum.test.mjs` (31). Layout im Browser gemessen: keine Überlappungen,
 auch vollständig aufgeklappt; die Seite scrollt nie quer, der Baum scrollt in seinem Rahmen.
+
+---
+
+## Konzern-Landkarte und beliebig viele Bereiche (Stand 2026-08-25)
+
+**Die Ansicht kannte nur drei Bänder.** `renderLandkarte()` rief fest verdrahtet
+`_lkBandHtml('fuehrung')`, `_lkKernHtml()`, `_lkBandHtml('unterstuetzung')` auf – die Datei führte
+die Bänder längst als Liste. Eine Landkarte mit sechs Bereichen wäre stumm geblieben: Kacheln in
+unbekannten Bändern wurden schlicht nicht gezeichnet. Jetzt erzeugt `_lkKarteHtml()` je Band eine
+Zeile (`_lkZeileHtml`), das Band `kern` behält seine Pfeilform samt Ergebnisspalte. Ohne Kernband
+bekommen die Ergebnisse eine eigene Zeile am Fuß.
+
+**Vorlagen.** `LK_KONZERN` ist die Landschaft einer Führungsholding: sechs Bereiche à drei
+Hauptaufgaben. Sie ist bewusst **kein Werk in klein** – eine Holding steuert, finanziert, sichert ab,
+bündelt, kommuniziert, verändert. `LK_VORLAGEN` stellt sie neben die Werkslandschaft (`LK_START`);
+`lkVorlageDialog()` / `lkVorlageAnwenden()` setzen eine davon ein, mit Geltungsbereich nach Ebene und
+ohne Modell-/Regelwerksverweise.
+
+⚠️ **Reihenfolge im globalen Scope:** `LK_VORLAGEN` verweist auf `LK_START` und muss deshalb **nach**
+dessen `const` stehen. Zuerst stand es davor – die temporale Todeszone warf beim Laden, was die
+gesamte App lahmlegte (alle Skripte teilen einen Scope). Aufgefallen ist es in der Browser-Konsole,
+und die vm-Tests laufen in dieselbe Falle: `tests/prozesslandkarte.test.mjs` lädt die Datei komplett.
+
+**Optik.** Kacheln sind helle Karten mit farbiger Oberkante statt gefüllter Fünfecke; die Farbe
+kommt über `--lk-c` aus der Bandzeile (`LK_FARBEN`, DIHAG-CD). Höchstens fünf Kacheln nebeneinander –
+neun in einer Zeile wären Streifen. Auf der Kachel steht zusätzlich der Vorname der verantwortlichen
+Person.
+
+Im Browser gemessen (1440 px): Konzernkarte 6 Zeilen à 3 Kacheln (387 px, alle gleich hoch, kein
+Textüberlauf, Gesamthöhe 674 px); Werkskarte 3 Zeilen, Unterstützung bricht auf zwei Reihen um; bei
+774 px stapeln beide sauber und die Seite scrollt nicht quer.

@@ -523,6 +523,22 @@ Kachel. Das ist der Weg für die vielen Prozesse, die noch kein BPMN-Diagramm ha
 sofort festhalten, was einen Ablauf regelt, ohne ihn erst modellieren zu müssen. Was über ein
 Modell verknüpft ist, wird zusätzlich angezeigt — mit Angabe, aus welchem.
 
+**Vorlage für eine neue Landkarte.** **„📋 Vorlage"** setzt eine fertige Prozesslandschaft ein:
+
+| Vorlage | Inhalt |
+|---|---|
+| **Konzern / Holding** | Sechs Bereiche einer Führungsholding — Strategie, Finanzen, Risiko & Compliance, Synergien, Kommunikation, Transformation — mit je drei Hauptaufgaben (18 Prozesse) |
+| **Produzierende Gesellschaft** | Führungs-, Kern- und Unterstützungsprozesse mit Vertrieb, Produktion und Auftragsabwicklung (17 Prozesse) |
+
+Der Geltungsbereich wird passend gesetzt: Konzernprozesse gelten konzernweit, die einer Gesellschaft
+zunächst dort. Modelle und Regelwerke bleiben leer — eine Vorlage bringt Struktur, keine erfundenen
+Verknüpfungen. Ist schon eine Landkarte da, wird sie ersetzt; der Schritt steht danach im Verlauf.
+
+**Beliebig viele Bereiche.** Jedes Band ist eine eigene Zeile mit farbiger Titelspalte und der Anzahl
+seiner Prozesse — drei Bänder wie im Werk oder sechs wie im Konzern. Kernprozesse behalten ihre
+Pfeilform mit den Ergebnissen rechts. Auf der Kachel stehen Name, Untertitel, der Vorname der
+verantwortlichen Person und der Geltungsbereich.
+
 **🌳 Übersicht — die Mindmap als Baum.** Reiter „Prozesse" → **🕸 Verknüpfungen**. Die Wurzel steht
 links, die Äste laufen nach rechts: **Werk → Band → Prozess → Modell → Regelwerk**. Jeder Ast der
 ersten Ebene hat seine eigene Farbe, alles darunter erbt sie — so sieht man die Zugehörigkeit, ohne
