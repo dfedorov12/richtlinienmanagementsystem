@@ -1142,3 +1142,19 @@ Reitern, die ohnehin jede und jeder sieht, sowie Dashboard und Freigaben. Aufger
 **zuletzt** in `initRoleNav()` – sonst überschriebe die Rollenlogik den Filter wieder.
 
 Damit sind es 15 Schritte.
+
+---
+
+## Aus der Skizze wird das Dokument (Stand 2026-08-25)
+
+Beim Annehmen erbt das Regelwerk den Anhang des Konzepts. Die Datei hieß danach weiter
+„Konzept-Skizze X.docx", obwohl sie am Regelwerk hängt – im Lernvideo fiel das sofort auf.
+
+`konzeptDecide()` benennt sie jetzt beim Übernehmen um: `spRenameDoc()` (PATCH auf `name`) macht aus
+„Konzept-Skizze X.docx" schlicht „X.docx". Es bleibt **dieselbe Datei** – die Kennung ändert sich
+nicht –, deshalb ziehen Name und neue Adresse auch am **Konzept** mit; sonst liefe dessen Link ins
+Leere. Scheitert das Umbenennen, wird es nur protokolliert: Die Annahme darf daran nicht hängen.
+
+Nebenbei: `videoEinbettung()` kannte **YouTube Shorts** nicht (`watch?v=`, `embed/`, `live/`,
+`youtu.be/` – aber kein `shorts/`). Ein Shorts-Link lief damit nur als Verweis statt als Player,
+ausgerechnet bei dem Format, in dem kurze Erklärvideos entstehen. Ergänzt.
