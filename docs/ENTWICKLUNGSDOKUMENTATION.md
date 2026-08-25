@@ -1090,3 +1090,23 @@ klickt, sitzt ohnehin schon im System und kann direkt weiterarbeiten.
 Die Absicherung liegt weiterhin bei der Rolle: `isCurrentUserPrueferForPolicy()`,
 `isCurrentUserGeschaeftsleitung()` bzw. `darfMitbestimmung()` prüfen vor jeder Aktion, und jede
 Entscheidung landet mit Person und Zeitstempel in der Änderungshistorie.
+
+---
+
+## Zwei Schritte mehr in der Vorführung (Stand 2026-08-25)
+
+Zwei Dinge fehlten dem Lernvideo, obwohl es sie im System längst gibt:
+
+**1 · Bestehende Regelwerke ohne Konzept.** `newRegelwerkGate()` bietet seit jeher „Direkt anlegen"
+für Bestand und Migration – nur zeigte die Vorführung ausschließlich den Konzept-Weg. Neuer Schritt
+*„Bestehendes Regelwerk aufnehmen"* (`ziel: '#btn-new-policy'`, ohne Wartebedingung): Er erklärt die
+Weiche zwischen beiden Wegen, ohne den Erzählfaden zu verlassen.
+
+**2 · Was am Entwurf eingestellt wird.** Zielgruppe, Pflichtlektüre, Wissenstest, Wiedervorlage,
+Lernvideo und der zuständige Betriebsrat entscheiden darüber, wen das Regelwerk erreicht und was es
+verlangt – der Teil, der die Mitarbeitenden wirklich betrifft. Neuer Schritt *„Zielgruppe,
+Pflichtlektüre, Wissenstest"* vor dem Absenden des Entwurfs; sein `vormachen` öffnet den Editor und
+belegt `pflicht`, `quizErforderlich` und `wiederholungMonate` vor, damit im Video erklärt statt
+getippt wird.
+
+Damit sind es 17 Schritte. `tests/probelauf.test.mjs` prüft weiterhin Reihenfolge und Abdeckung.

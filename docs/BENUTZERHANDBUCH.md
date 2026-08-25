@@ -523,6 +523,12 @@ Kachel. Das ist der Weg für die vielen Prozesse, die noch kein BPMN-Diagramm ha
 sofort festhalten, was einen Ablauf regelt, ohne ihn erst modellieren zu müssen. Was über ein
 Modell verknüpft ist, wird zusätzlich angezeigt — mit Angabe, aus welchem.
 
+**Bestehendes Regelwerk ohne Konzept aufnehmen.** Der Konzept-Weg gilt für **neue** Themen. Was es
+schon gibt — ein Handbuch, eine ältere Richtlinie, ein Dokument aus der Migration — kommt direkt
+herein: **+ Neues Regelwerk** → **„Direkt anlegen"**. Es entsteht sofort ein Entwurf, der dann
+denselben Weg durch Prüfung, Mitbestimmung und Freigabe geht. Die geführte Vorführung zeigt diesen
+zweiten Weg in einem eigenen Schritt.
+
 **Die geführte Vorführung als Lernvideo.** Der Probelauf führt Schritt für Schritt durch einen
 kompletten Vorgang — vom Konzept bis zum Nachweis im Audit. Jeder Schritt nennt in **einem Satz**,
 worum es geht; was zu klicken ist, steht klein darunter im *Hinweis*. Erklärt wird gesprochen — so
