@@ -523,6 +523,33 @@ Kachel. Das ist der Weg für die vielen Prozesse, die noch kein BPMN-Diagramm ha
 sofort festhalten, was einen Ablauf regelt, ohne ihn erst modellieren zu müssen. Was über ein
 Modell verknüpft ist, wird zusätzlich angezeigt — mit Angabe, aus welchem.
 
+**🌳 Übersicht — die Mindmap als Baum.** Reiter „Prozesse" → **🕸 Verknüpfungen**. Die Wurzel steht
+links, die Äste laufen nach rechts: **Werk → Band → Prozess → Modell → Regelwerk**. Jeder Ast der
+ersten Ebene hat seine eigene Farbe, alles darunter erbt sie — so sieht man die Zugehörigkeit, ohne
+Linien zu verfolgen.
+
+* **Klick auf einen Knoten** klappt seinen Zweig auf oder zu. Die kleine Zahl sagt, wie viele
+  Einträge zugeklappt darunter liegen.
+* **Wurzel** wechselt zwischen einem einzelnen Werk und dem Konzern — dann sind die Werke die erste
+  Ebene.
+* **⤢ Alles** klappt alles auf, **⤡ Zu** wieder zusammen. Der **Zoom** (100/80/65 %) hilft, wenn der
+  Baum breiter wird als der Bildschirm.
+* Unter dem Baum steht, was sich mit dem ausgewählten Knoten tun lässt.
+
+**Neues direkt im Baum anlegen.** Das **+** am Knoten legt an, was an dieser Stelle passt:
+
+| Knoten | Das + öffnet |
+|---|---|
+| Werk oder Band | Neuen **Prozess** (das Band ist schon vorbelegt) |
+| Prozess | **Modell anlegen**, **vorhandenes Modell verknüpfen** oder **Regelwerke zuordnen** |
+| Modell | **Regelwerke** dieses Modells |
+
+Wer nur Lesezugriff hat, sieht das + gar nicht.
+
+**🎯 Nahsicht.** Die bisherige runde Ansicht bleibt als zweiter Schalter erhalten. Nur sie zeigt auch
+die **querlaufenden** Bezüge — etwa „gilt für" zwischen einem Regelwerk und den Standorten. Ein Baum
+kann das nicht darstellen, ohne aufzuhören, ein Baum zu sein.
+
 **Prozessverantwortliche.** Jede Kachel trägt eine **verantwortliche Person** und optional eine
 Vertretung (Feld „Prozessverantwortlich" im Bearbeiten-Dialog). Sie steht oben in der Kachel, mit
 Mail-Link. Fehlt sie, steht dort in Rot „Kein Prozessverantwortlicher gepflegt" — und der Prozess

@@ -967,3 +967,39 @@ Funktion trifft danach nur noch den Cache. Der Cache selbst überlebt neuerdings
 
 Abgesichert in `tests/prozessmatrix.test.mjs` (32) und den erweiterten Suiten
 `verknuepfungen` und `prozesslandkarte`.
+
+---
+
+## Mindmap als Baum (Stand 2026-08-25)
+
+Die radiale Fokus-Ansicht beantwortet „was hängt an diesem einen Objekt?" – gut zum Erkunden,
+schlecht zum Überblicken. Für den Überblick will man das, was jedes Mindmap-Werkzeug zeigt: eine
+Wurzel links, farbige Äste nach rechts, aufklappbare Zweige. Das ist `js/mindmapbaum.js`
+(Präfix `vb`), gezeichnet aus **demselben** Graphen `_vkGraph`.
+
+**Nur Hierarchie.** `VB_TYPEN` lässt genau die hierarchischen Beziehungen zu. `gilt für` verbindet
+quer und bliebe im Baum als Schleife stehen – dafür ist weiterhin die Nahsicht da
+(`_vkAnsicht = 'baum' | 'fokus'`).
+
+**Zustand am Pfad, nicht an der Kennung.** Ein Regelwerk hängt an mehreren Prozessen und steht
+deshalb mehrfach im Baum. Auf-/Zugeklappt wird über den **Pfad** (`a|b|c`) verwaltet, sonst klappten
+alle Vorkommen gemeinsam auf. `_vbAst()` führt eine Ahnenmenge mit: derselbe Knoten darf nie
+unterhalb seiner selbst erscheinen.
+
+**Layout.** `vbLayout()` ist ein einfacher Reingold-Tilford: Blätter der Reihe nach (`VB_ZEILE`),
+Eltern mittig zu ihren Kindern, x aus der Summe der Spaltenbreiten. Ein Test prüft je Spalte, dass
+sich keine zwei Knoten überlappen. Gezeichnet wird als **HTML-Knoten über einem SVG** – die Boxen
+bekommen dadurch echten Textumbruch, Fokusrahmen und Tastaturbedienung, das SVG nur die
+Bézier-Verbindungen.
+
+**Zoom.** Skaliert wird `.vb-buehne` per `transform`; die Fläche darunter trägt die *skalierte*
+Größe – sonst bliebe beim Verkleinern der alte Platzbedarf im Scrollbereich stehen.
+
+**Hinzufügen.** `vbPlus()` öffnet, was an der Stelle Sinn ergibt (Band → `lkKachelNeu(band)`,
+Prozess → Auswahl, Modell → `vkRegelwerkeDialog`). Damit das aus der Mindmap heraus funktioniert:
+`lkWerkSetzenStill()` wechselt das Werk ohne Ansichtswechsel, und `lkSpeichern()` kehrt über
+`_lkNachSpeichern()` in die Ansicht zurück, aus der gespeichert wurde – vorher landete man immer in
+der Landkarte.
+
+Abgesichert in `tests/mindmapbaum.test.mjs` (31). Layout im Browser gemessen: keine Überlappungen,
+auch vollständig aufgeklappt; die Seite scrollt nie quer, der Baum scrollt in seinem Rahmen.
