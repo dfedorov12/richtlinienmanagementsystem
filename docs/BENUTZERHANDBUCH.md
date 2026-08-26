@@ -571,6 +571,14 @@ echten Vorgang an und verschickt echte E-Mails.
 |---|---|
 | **Konzern / Holding** | Sechs Bereiche einer Führungsholding — Strategie, Finanzen, Risiko & Compliance, Synergien, Kommunikation, Transformation — mit je drei Hauptaufgaben (18 Prozesse) |
 | **Produzierende Gesellschaft** | Führungs-, Kern- und Unterstützungsprozesse mit Vertrieb, Produktion und Auftragsabwicklung (17 Prozesse) |
+| **Konzern-Prozesslandkarte (abgestimmt)** | Die abgestimmte Landkarte des Konzerns: Führung, Kernprozesse, Unterstützungsprozesse mit je sieben Prozessgruppen; die Teilprozesse stehen als Untertitel an der Kachel (21 Prozesse) |
+| **Holdinggesellschaft (Aufbau)** | Der Aufbau einer Holding: Strategie, Finanzierung, Konzern-Controlling, Personalwesen, Beteiligungsverwaltung, Beratung, Überwachung — und das operative Geschäft der Töchter (8 Bereiche, 33 Prozesse) |
+| **Führungsholding — Gesamtbild** | Aus den drei anderen zusammengeführt: Steuern & Ausrichten · Kapital & Beteiligungen als **Kernprozesse der Holding** · Überwachen & Absichern · Konzernservices · Umsetzung in den Gesellschaften (23 Prozesse) |
+
+Die letzte Vorlage ist die Antwort auf eine Frage, die die anderen offenlassen: **Was sind die
+Kernprozesse einer Holding?** Nicht Gießen — das tun die Töchter. Sondern Beteiligungen führen und
+Kapital verteilen. Und weil eine Konzernlandkarte sonst dort endet, wo die Arbeit anfängt, hat die
+Schnittstelle zu den Gesellschaften ein eigenes Band.
 
 Der Geltungsbereich wird passend gesetzt: Konzernprozesse gelten konzernweit, die einer Gesellschaft
 zunächst dort. Modelle und Regelwerke bleiben leer — eine Vorlage bringt Struktur, keine erfundenen

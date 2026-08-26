@@ -889,6 +889,22 @@ Seit jedes Werk eine eigene Landkarte führt, lagen die Modelle trotzdem alle fl
 das zweite Werk hätte das erste überschrieben. `_lkFreierModellName()` hat das bis dahin mit
 „Vertrieb 2" abgefangen; ein Name, der niemandem etwas sagt.
 
+### Landkarten-Vorlagen: fünf statt zwei
+
+`LK_VORLAGEN` bietet neben Konzern (LK_KONZERN) und Werk (LK_START) jetzt `LK_KONZERNKARTE`
+(die abgestimmte Konzern-Prozesslandkarte, drei Bänder à sieben Prozessgruppen), `LK_HOLDING`
+(der Aufbau der Holding nach der GF-Skizze, acht Bänder) und `LK_KONZERN_GESAMT` (die drei
+zusammengeführt).
+
+**Reihenfolge ist kein Geschmack, sondern Pflicht.** Die neuen Karten stehen zwischen `LK_KONZERN`
+und `LK_VORLAGEN`. Eine Konstante, die vor ihrer Deklaration gelesen wird, ist ein
+`ReferenceError` beim Laden der Datei – und weil alle Skripte einen Scope teilen, steht danach die
+ganze App. Das ist hier schon einmal passiert.
+
+**Die Vorlagen werden auch gezeichnet, nicht nur geprüft.** Der Test setzt jede Vorlage in eine
+Karte und rendert sie: acht Bänder und lange Teilprozess-Listen sind der Belastungstest für den
+Zeilenumbruch. Eine Vorlage, die nur als Datenstruktur stimmt, hilft niemandem.
+
 ### Normen-Katalog: neun Regelwerke dazu, und eine Kennzahl geradegerückt
 
 `js/normen.js` war ein ISMS-Katalog: ISO 27001 (23 Klauseln + 93 Annex-A-Controls) und NIS2 (12).
