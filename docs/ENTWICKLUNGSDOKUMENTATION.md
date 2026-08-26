@@ -889,6 +889,34 @@ Seit jedes Werk eine eigene Landkarte führt, lagen die Modelle trotzdem alle fl
 das zweite Werk hätte das erste überschrieben. `_lkFreierModellName()` hat das bis dahin mit
 „Vertrieb 2" abgefangen; ein Name, der niemandem etwas sagt.
 
+### „[object Object]" statt BPMN
+
+`lkProzessAnlegen()` („Modell anlegen" an einer Kachel) übergab das **Ergebnis-Objekt** von
+`_bpmnFromText()` an `spSaveProcess()` statt dessen `.xml`. `fetch` macht aus einem Objekt im
+Rumpf brav `"[object Object]"` — ohne Fehler, ohne Warnung. Die Datei lag also da, hatte eine
+Kennung, war in der Landkarte verknüpft und **enthielt kein BPMN**. Beim Öffnen:
+`unparsable content [object Object] detected … missing start tag`.
+
+Zwei Lehren:
+
+* **`fetch` verschluckt den Typfehler.** Wo ein Rumpf ein String sein muss, gehört die
+  Destrukturierung an die Quelle (`const { xml } = _bpmnFromText(…)`) — alle anderen Aufrufer
+  machten das, dieser eine nicht.
+* **Eine unbrauchbare Datei darf keine Sackgasse sein.** `openProcessEditor()` prüft jetzt auf
+  `<definitions>` und lädt sonst ein leeres Diagramm mit dem Hinweis, dass Speichern die Datei
+  repariert. Die Kennung bleibt dabei — Landkarte, Mindmap und Regelwerks-Verknüpfungen überleben
+  die Reparatur. Wer stattdessen löschen und neu anlegen müsste, verlöre sie alle.
+
+### Der blanke Deep-Link führte Prüfer in die Freigabe
+
+`applyDeepLinkOrDefault()` schickte bei `?richtlinie=…` **ohne** `ansicht` jede:n Prüfer:in und die
+Geschäftsleitung in den Freigabe-Reiter (`ansicht === '' && canReview`). Gedacht war das als
+Bequemlichkeit; in der Praxis traf es genau die falschen Mails: **Bekanntgabe** und
+**Kenntnisnahme-Erinnerung** verlinken blank, und dort geht es ums Lesen und Bestätigen. Wer
+freigeben soll, bekommt seit jeher `&ansicht=freigaben` mitgeschickt — die Weiche hatte also nie
+einen Zweck außer dem Fehlleiten. Sie ist raus; die beiden Lese-Links sagen jetzt zusätzlich
+`&ansicht=meine`, damit die Absicht am Entstehungsort steht.
+
 ### Anlagen am Prozess
 
 Ein Modell zeigt den Ablauf, aber nicht das Beiwerk. Die Verweise darauf stehen — wie die
