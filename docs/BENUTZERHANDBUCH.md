@@ -32,7 +32,7 @@ Rollen werden von der Administration unter **„Einstellungen"** gepflegt (E-Mai
 | **Konformitätsprüfer** | Prüfen Richtlinien fachlich auf Konformität (ISO 27001 / NIS2) und markieren „konform / nicht konform". Global **oder pro Richtlinie** hinterlegbar. |
 | **Geschäftsleitung** | Gibt die geprüften Richtlinien frei → Veröffentlichung. Global **oder pro Richtlinie** hinterlegbar. |
 | **Genehmiger** | App-interne Freigabeberechtigung (wie GL); sieht den Reiter „Freigaben". |
-| **Administration** | Richtlinien & ISMS-Dokumente verwalten, Health-Check, ISMS-Abdeckung, Fälligkeiten, Compliance-Auswertung, Einstellungen. |
+| **Administration** | Richtlinien & IMS-Dokumente verwalten, Health-Check, IMS-Abdeckung, Fälligkeiten, Compliance-Auswertung, Einstellungen. |
 | **ISMS-Verantwortliche / Vorschlags-Empfänger** | Erhalten und bearbeiten die Änderungsvorschläge (Reiter „Vorschläge"). |
 | **KI-Gremium** | Entscheidet über KI-Anträge im KI-Dashboard (leer = Genehmiger-Liste gilt). |
 
@@ -155,7 +155,7 @@ und Rückfrage ist ein **Kommentar Pflicht**; der Antragsteller wird automatisch
 
 Der Reiter **„Cockpit"** ist die Startseite für Berechtigte: alle ISMS-Kennzahlen auf einen Blick,
 jede Kachel führt per Klick in den passenden Reiter – Richtlinien-Status, Prüfung & Freigabe
-(inkl. Alter des ältesten Vorgangs), Fälligkeiten, ISMS-Abdeckung (Annex-A/NIS2-Quote),
+(inkl. Alter des ältesten Vorgangs), Fälligkeiten, IMS-Abdeckung (Annex-A/NIS2-Quote),
 SoA-Stand, Risiko-Register (offen/hoch/überfällige Maßnahmen), Compliance-Erfüllungsquote und
 offene Vorschläge. Aufwendige Kennzahlen laden im Hintergrund nach.
 
@@ -312,9 +312,9 @@ vorausgefüllten Änderungsvorschlag an die Verantwortlichen.
 
 ---
 
-## 9. ISMS-Abdeckung & SoA  ·  *Administration*
+## 9. IMS-Abdeckung & SoA  ·  *Administration*
 
-Reiter **„ISMS-Abdeckung"** zeigt als Heatmap, welche Normanforderungen durch mindestens
+Reiter **„IMS-Abdeckung"** zeigt als Heatmap, welche Normanforderungen durch mindestens
 eine Richtlinie abgedeckt sind.
 
 **Der Katalog umfasst 215 Anforderungen in 15 Gruppen:**
@@ -794,7 +794,7 @@ Alle drei Ansichten mit **CSV-Export**.
 - **Konformitätsprüfung:** fachliche Prüfung, ob eine Richtlinie den Vorgaben (ISO 27001 / NIS2)
   entspricht.
 - **Freigabe:** Genehmigung durch die Geschäftsleitung → Veröffentlichung.
-- **Normbezug:** Zuordnung einer Richtlinie zu ISO-27001-/NIS2-Controls (Grundlage der
+- **Normbezug:** Zuordnung eines Regelwerks zu Anforderungen aus Normen und Recht (Grundlage der
   Abdeckungs-Heatmap).
 - **ISO/IEC 27001:2022:** Norm für Informationssicherheits-Managementsysteme (Klauseln 4–10 +
   Annex A mit 93 Controls in A.5–A.8).
@@ -811,7 +811,7 @@ Alle drei Ansichten mit **CSV-Export**.
 | Richtlinien Dashboard | 7.5, 5.2, A.5.1 | — |
 | Konformitätsprüfung & Freigabe | A.5.1, 7.5.2, 5.3 | Art. 20 |
 | Dokument-Health-Check | 7.5.2/7.5.3, A.5.1 | — |
-| ISMS-Abdeckung (Heatmap) | 6.1.3, 4.3, Annex A | Art. 21(2) |
+| IMS-Abdeckung (Heatmap) | 6.1.3, 4.3, Annex A | Art. 21(2) |
 | SoA (Erklärung zur Anwendbarkeit) | 6.1.3 d) | Art. 21(2) |
 | Cockpit | 9.1, 9.3 | — |
 | Risiko-Register | 6.1.2, 6.1.3, 8.2/8.3 | Art. 21(1) |
