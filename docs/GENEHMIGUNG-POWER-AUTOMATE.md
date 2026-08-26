@@ -105,7 +105,7 @@ Damit dieselben Freigeber wie in der App gelten:
 
 *(Einfacher Start: GL-Adressen direkt als Text mit `;` eintragen.)*
 
-### A4b. Richtliniendokument holen (für den Anhang)
+### A4b. Regelwerkdokument holen (für den Anhang)
 Damit die Genehmigungs-Mail die Richtlinie **als Anhang** enthält, vor der Genehmigung den
 Dateiinhalt laden. Die Liste liefert dazu `DokumentUrl` (Klartext-URL zur Datei) und `DokumentName`.
 
@@ -119,7 +119,7 @@ Dateiinhalt laden. Die Liste liefert dazu `DokumentUrl` (Klartext-URL zur Datei)
   @{decodeUriComponent(replace(uriPath(triggerOutputs()?['body/DokumentUrl']), concat('/sites/', split(uriPath(triggerOutputs()?['body/DokumentUrl']), '/')[2]), ''))}
   ```
 
-> Liegen **alle** Richtliniendokumente auf **einer** Site (z. B. `…/sites/ISMS`), kannst du die
+> Liegen **alle** Regelwerkdokumente auf **einer** Site (z. B. `…/sites/ISMS`), kannst du die
 > Websiteadresse einfach fest eintragen und beim Dateipfad nur den Teil nach `/sites/ISMS` verwenden.
 > Alternative ohne URL-Zerlegung (benötigt ggf. Premium/HTTP): **Microsoft Graph**
 > `GET https://graph.microsoft.com/v1.0/drives/@{triggerOutputs()?['body/DokumentDriveId']}/items/@{triggerOutputs()?['body/DokumentItemId']}/content`.

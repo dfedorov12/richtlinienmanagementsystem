@@ -54,7 +54,7 @@ Anschließend **„Admin-Consent erteilen"** klicken.
 ## 3. SharePoint einrichten
 
 App-Daten liegen standardmäßig auf **`sites/IT`** (Konstante `SP.appSiteHost` in
-`js/sharepoint.js` — bei anderer Site dort anpassen). Die Richtliniendokumente liegen auf
+`js/sharepoint.js` — bei anderer Site dort anpassen). Die Regelwerkdokumente liegen auf
 **`sites/ISMS`** (`SP.ismsSiteHost`).
 
 ### 3a. Liste „Richtlinien"
