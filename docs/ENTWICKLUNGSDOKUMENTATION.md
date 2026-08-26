@@ -889,6 +889,39 @@ Seit jedes Werk eine eigene Landkarte führt, lagen die Modelle trotzdem alle fl
 das zweite Werk hätte das erste überschrieben. `_lkFreierModellName()` hat das bis dahin mit
 „Vertrieb 2" abgefangen; ein Name, der niemandem etwas sagt.
 
+### Anlagen am Prozess
+
+Ein Modell zeigt den Ablauf, aber nicht das Beiwerk. Die Verweise darauf stehen — wie die
+Regelwerke — **im BPMN selbst**, ein Marker je Dokument:
+
+```
+Hinterlegte Dokumente: Partnerinfo.pdf
+[[rms:doc=Partnerinfo.pdf|https://…|<driveId>|<itemId>]]
+```
+
+* **Warum vier Felder statt eines Links.** Verknüpft wird die **Kennung**, nicht der Pfad. Wird die
+  Datei später umbenannt oder verschoben, hält der Verweis; die Adresse ist nur der bequeme Weg zum
+  Anklicken.
+* **Warum `|` als Trenner.** Der Marker endet an `]]`, also darf kein Feld eine eckige Klammer
+  enthalten — `_docFeld()` räumt `| [ ]` und Zeilenumbrüche weg.
+* **Warum `_xmlUnesc()`.** bpmn-js schreibt die Dokumentation XML-escaped. Ohne Entschärfen beim
+  Zurücklesen würde aus `a&b.pdf` ein `a&amp;b.pdf` und aus jeder Adresse mit `&` ein toter Link.
+  Die Reihenfolge zählt: `&amp;` zuletzt, sonst wird aus `&amp;lt;` eine spitze Klammer.
+* **Ablage:** `Prozesse/<WERK>/Anlagen/<Datei>` (`spUploadProcessDoc`). `spListProcesses()`
+  überspringt diesen Ordner — er ist kein Werk.
+
+**Die Falle, die dabei zugeschnappt wäre:** `vkXmlMitRegelwerken()` im Netz-Reiter schreibt die
+Dokumentation **komplett neu**, wenn man einem Modell ein Regelwerk zuordnet. Da beide Marker sich
+diese eine Dokumentation teilen, hätte dieser Klick jedes hinterlegte Dokument gelöscht. Die
+Funktion liest die Anlagen deshalb vorher aus und gibt sie wieder mit.
+
+Aus demselben Grund gibt es `_setProcessPolicies()` nicht mehr: `_setProcessDoku(ids, docs)`
+schreibt beides zusammen — wer nur eine Hälfte schreibt, löscht die andere.
+
+**Nebenbei am Generator:** `_parseSteps()` versteht jetzt `Passt es? | nein: Nur intern vermerken`.
+Ohne diese Angabe endet jede Entscheidung in „Abweichung behandeln → Nachbessern"; bei einer Frage
+wie „Kann der Kunde betroffen sein?" ist das schlicht falsch.
+
 **Ablage:** `Prozesse/<WERK>/<Name>.bpmn`. Neu in `js/sharepoint.js`:
 
 * `_prozessOrdnerName(werk)` – lässt nur `[A-Za-z0-9_-]` durch; ein Ordnername kann nicht aus dem

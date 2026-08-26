@@ -600,6 +600,24 @@ Excel aus, **🖨 Drucken** öffnet eine Druckfassung für Sitzungsunterlagen.
 **Diagramm als Bild.** Im Modeler liefert **„⬇ Bild"** das Diagramm als SVG. Das lässt sich direkt in
 Word, PowerPoint oder ein Regelwerk einfügen und bleibt beim Vergrößern scharf.
 
+**Dokumente am Prozess hinterlegen.** Zu vielen Abläufen gehört Papier, das nicht ins Diagramm
+passt: ein Merkblatt, ein Formular, die Information eines Kunden. Im Modeler steht rechts das Feld
+**Hinterlegte Dokumente**:
+
+* **📎 Datei** lädt eine Datei hoch. Sie landet neben dem Modell in
+  **Prozesse/&lt;Werk&gt;/Anlagen** und ist damit dort abgelegt, wo auch das Modell liegt.
+* **🔗 Link** hinterlegt ein Dokument, das schon anderswo liegt — im Regelwerks-Ordner, im Intranet,
+  beim Kunden. Auch der Weg für Dateien über 4 MB.
+* Das **×** löst nur die Verknüpfung. Die Datei selbst bleibt in der Bibliothek; sie zu löschen ist
+  eine andere Entscheidung.
+
+Ist das Modell bereits gespeichert, wird die Verknüpfung sofort mitgeschrieben — sonst läge die
+Datei zwar in der Bibliothek, aber niemand fände sie. Bei einem **neuen** Modell erscheint sie erst
+beim Speichern. In der Modell-Liste zeigt die Karte **📎 2**, wie viele Dokumente dranhängen.
+
+Die Verknüpfung steckt in der **BPMN-Datei selbst** — wie die Regelwerke. Wer das Modell exportiert
+oder in ein anderes Werk verschiebt, nimmt sie mit.
+
 **Link auf einen Prozess.** **„🔗 Link"** in der geöffneten Kachel kopiert einen dauerhaften Link.
 Wer ihn anklickt, landet nach der Anmeldung genau auf dieser Kachel — praktisch für Mails,
 Regelwerke, die auf einen Ablauf verweisen, und Schulungsunterlagen.
