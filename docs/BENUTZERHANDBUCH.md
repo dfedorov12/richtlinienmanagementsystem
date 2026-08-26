@@ -314,13 +314,36 @@ vorausgefüllten Änderungsvorschlag an die Verantwortlichen.
 
 ## 9. ISMS-Abdeckung & SoA  ·  *Administration*
 
-Reiter **„ISMS-Abdeckung"** zeigt als Heatmap, welche ISO-27001-/NIS2-Controls durch mindestens
+Reiter **„ISMS-Abdeckung"** zeigt als Heatmap, welche Normanforderungen durch mindestens
 eine Richtlinie abgedeckt sind.
+
+**Der Katalog umfasst 215 Anforderungen in 15 Gruppen:**
+
+| Gruppe | Anforderungen |
+|---|---|
+| ISO/IEC 27001:2022 – Klauseln 4–10 | 23 |
+| ISO/IEC 27001:2022 – Annex A.5–A.8 | 93 |
+| NIS2 (Richtlinie (EU) 2022/2555) | 12 |
+| NIS2-Umsetzung Deutschland (BSIG n. F.) | 7 |
+| Datenschutz (DSGVO / BDSG) | 19 |
+| KI-Verordnung (VO (EU) 2024/1689) | 10 |
+| Lieferkette (LkSG) | 8 |
+| Hinweisgeberschutz (HinSchG) | 6 |
+| Arbeitsschutz (ISO 45001 / ArbSchG) | 11 |
+| Umwelt & Nachhaltigkeit (ISO 14001 / ISO 50001 / CSRD) | 11 |
+| Recht & Compliance (Kartell-, Außenwirtschafts-, Korruptions-, Geldwäscherecht, DCGK) | 9 |
+| IKS & Risikofrüherkennung (AktG, IDW PS, COSO, HGB) | 6 |
+
+Der Katalog war ursprünglich ein reiner ISMS-Katalog. Das Konzernregelwerk umfasst aber sieben
+Kategorien – für Datenschutz, KI, Lieferkette und die anderen gab es nichts, worauf ein Regelwerk
+hätte zeigen können.
 
 - **Grün = gespeichert** (im Normbezug einer Richtlinie hinterlegt), **Gelb ◔ = vorläufig** aus der
   Review-Zuordnung (noch nicht gespeichert), **Rot = Lücke**.
-- Oben die Kennzahlen **Annex-A** und **NIS2** (gespeichert bzw. inkl. Review), darunter die
-  **Lückenliste**.
+- Oben die Kennzahlen **Annex-A** und **NIS2** (gespeichert bzw. inkl. Review) sowie getrennt davon
+  die **weiteren Regelwerke**. Die Trennung ist Absicht: Eine ISO-Quote, in der Umwelt- und
+  Steuerrecht mitzählen, sagt über den Stand des ISMS nichts mehr aus.
+- Die **Lückenliste** darunter bleibt aus demselben Grund die ISO-27001-Lückenliste.
 - **„✔ Review-Zuordnungen jetzt speichern"** überträgt die vorläufigen (gelben) Zuordnungen
   dauerhaft in den Normbezug der Richtlinien.
 - Eine Zelle anklicken zeigt, welche Richtlinien das Control abdecken.
@@ -333,12 +356,17 @@ eine Richtlinie abgedeckt sind.
 
 ### SoA – Erklärung zur Anwendbarkeit (zweiter Modus im Reiter)
 
-- Je Control: **anwendbar / ausgeschlossen**, **Umsetzungsstatus** (umgesetzt / teilweise /
-  geplant / nicht umgesetzt) und **Begründung** – für **ausgeschlossene Controls ist die
-  Begründung Pflicht**.
+- **Entschieden wird über die 93 Annex-A-Controls** – dafür ist die SoA da. Je Control:
+  **anwendbar / ausgeschlossen**, **Umsetzungsstatus** (umgesetzt / teilweise / geplant / nicht
+  umgesetzt) und **Begründung** – für **ausgeschlossene Controls ist die Begründung Pflicht**.
+- Die übrigen 122 Anforderungen (Klauseln, NIS2, Gesetze und Verordnungen) stehen mit
+  „**gilt immer**" in derselben Tabelle. Sie lassen sich nicht ausschließen – „Internes Audit" ist
+  nicht „nicht anwendbar", und eine Verordnung gilt, ob sie einem passt oder nicht. Ihr
+  **Umsetzungsstatus** wird trotzdem gepflegt; genau der interessiert bei einer Rechtsnorm.
 - Die Richtlinien-Abdeckung wird je Control automatisch eingeblendet; **„⚡ Aus Abdeckung
-  vorbelegen"** setzt alle offenen Controls auf anwendbar und leitet den Status aus der Abdeckung
-  ab (gespeichert → umgesetzt, Review → geplant) – bereits Gepflegtes bleibt unangetastet.
+  vorbelegen"** setzt alle offenen Annex-A-Controls auf anwendbar und leitet den Status aus der
+  Abdeckung ab (gespeichert → umgesetzt, Review → geplant) – bereits Gepflegtes bleibt
+  unangetastet. Bei „gilt immer" wird nur der Status gesetzt, keine Scheinentscheidung.
 - Gespeichert wird versioniert (SoA-Version, wer, wann) in `soa-config.json`; Exporte:
   **🖨 SoA-Report** (das klassische Audit-Dokument) und **⬇ CSV**.
 

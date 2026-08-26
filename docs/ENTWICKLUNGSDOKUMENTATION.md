@@ -889,6 +889,35 @@ Seit jedes Werk eine eigene Landkarte führt, lagen die Modelle trotzdem alle fl
 das zweite Werk hätte das erste überschrieben. `_lkFreierModellName()` hat das bis dahin mit
 „Vertrieb 2" abgefangen; ein Name, der niemandem etwas sagt.
 
+### Normen-Katalog: neun Regelwerke dazu, und eine Kennzahl geradegerückt
+
+`js/normen.js` war ein ISMS-Katalog: ISO 27001 (23 Klauseln + 93 Annex-A-Controls) und NIS2 (12).
+Das RMS führt aber das ganze Konzernregelwerk – sieben Kategorien laut Governance-Mappe. Für
+Datenschutz, KI, Lieferkette, Hinweisgeberschutz, Arbeitsschutz, Umwelt, Recht und IKS gab es
+nichts, worauf ein Regelwerk hätte zeigen können, obwohl die zugehörigen Konzernrichtlinien
+teilweise **final freigegeben** sind (Datenschutz, KI).
+
+Jetzt: **215 Anforderungen in 15 Gruppen**. Jede Gruppe trägt eine `art`; daran hängen zwei Dinge:
+
+* **`NORM_ISMS_ARTEN` = ['klausel','annex','nis2']** – nur darüber rechnen Heatmap und Cockpit.
+  Sonst fiele die ISO-Quote, weil Umwelt- und Steuerrecht mitzählen.
+* **`normEntscheidbar(id)` = nur `annex`** – die SoA entscheidet über die 93 Annex-A-Controls.
+
+**Die Falle beim Erweitern:** Abdeckung und Cockpit filterten über den **Gruppennamen**
+(`/NIS2/.test(g.group)`). Die neue Gruppe „NIS2-Umsetzung Deutschland (BSIG n. F.)" hätte den
+Filter still mitgetroffen – die NIS2-Kachel zeigte plötzlich 19 statt 12 Anforderungen, ohne dass
+jemand etwas geändert hätte. Beide filtern jetzt über `normIdsMitArt(...)`.
+
+**Und die Kennzahl:** `_soaKpis()` rechnete über *alle* Katalog-IDs. Eine Erklärung zur
+Anwendbarkeit nach 6.1.3 d) betrifft die 93 Annex-A-Controls; Klausel 9.2 „Internes Audit" ist
+nicht „nicht anwendbar", sie ist Pflicht. Mit 215 Einträgen wäre „x von 215 entschieden" im Audit
+eine Steilvorlage gewesen. Jetzt: `total` = 93, alles andere zählt als `immer` und erscheint in der
+Tabelle als „gilt immer" – ohne Auswahlfeld, mit Umsetzungsstatus. `soaSet()` weist einen Ausschluss
+dort ab, `soaPrefill()` schreibt keine Entscheidung hinein, die niemand getroffen hat.
+
+> Die §§ der NIS2-Umsetzung folgen dem BSIG n. F. (NIS2UmsuCG) und sind vor dem ersten Audit gegen
+> den verkündeten Text zu prüfen – die Nummerierung hat sich zwischen den Entwürfen verschoben.
+
 ### „[object Object]" statt BPMN
 
 `lkProzessAnlegen()` („Modell anlegen" an einer Kachel) übergab das **Ergebnis-Objekt** von
