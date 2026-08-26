@@ -99,9 +99,16 @@ dem Dokument, vor dem Wissenstest. Videos aus Stream/SharePoint sowie YouTube un
 **in der Seite**, alles andere öffnet ein Knopf in einem neuen Tab. Die Rechte am Video vergibt
 SharePoint – wer es dort nicht sehen darf, sieht es auch hier nicht.
 
+**Quelle bei fremdem Material:** Stammt ein Video nicht aus dem eigenen Haus — YouTube, Vimeo oder
+ein anderer externer Anbieter —, steht die **Quellenangabe** unter dem Video, zum Beispiel
+*Quelle: Bundesamt für Sicherheit in der Informationstechnik (BSI)*. Sie beantwortet die Frage,
+wessen Aussage man gerade hört, und ist urheberrechtlich ohnehin fällig.
+
 *Für die Administration:* Im Regelwerk-Editor unter **„🎬 Lernvideos"** Titel und Adresse
 eintragen; am einfachsten in Stream/SharePoint auf **Teilen → Einbetten** klicken und den Code
-einfügen. Der Editor zeigt sofort, ob abgespielt oder verlinkt wird.
+einfügen. Der Editor zeigt sofort, ob abgespielt oder verlinkt wird — und ob eine Quelle fehlt.
+Bei externen Videos ist das Feld **Pflicht**: Ohne Quelle lässt sich das Regelwerk nicht speichern.
+Videos aus Stream/SharePoint brauchen keine.
 
 > **Normbezug:** ISO 27001 Klausel 7.2, 7.3, A.6.3; NIS2 Art. 21(2g).
 

@@ -889,6 +889,27 @@ Seit jedes Werk eine eigene Landkarte führt, lagen die Modelle trotzdem alle fl
 das zweite Werk hätte das erste überschrieben. `_lkFreierModellName()` hat das bis dahin mit
 „Vertrieb 2" abgefangen; ein Name, der niemandem etwas sagt.
 
+### Videos: Quellenangabe und die nocookie-Adresse
+
+Zwei Dinge an `videoEinbettung()` (js/util.js):
+
+* **`youtube-nocookie.com` fiel durch.** Das Muster prüfte nur `youtube.com` – ausgerechnet die
+  Adresse, die YouTube im **erweiterten Datenschutzmodus** in den Einbetten-Code schreibt, lief
+  damit als bloßer Link. Wer sich Mühe gibt, wurde bestraft. Jetzt `youtube(?:-nocookie)?\.com`.
+  (Die Umwandlung *nach* nocookie gab es längst – nur zurücklesen konnte die App sie nicht.)
+* **`videoHerkunft(url)`** unterscheidet eigenes Material (SharePoint, Stream, dihag.de) von
+  fremdem. Nur fremdes braucht eine Quelle; `videosOhneQuelle(videos)` liefert die Verstöße samt
+  Position, und `savePolicy()` hält daran an – **vor** dem Schreibzugriff, sonst stünde die Hälfte
+  schon in SharePoint.
+
+Im Regelwerk steckt die Quelle im Video-Objekt (`{titel, url, quelle}`) und damit im Sammelfeld
+`DatenJson` – keine neue SharePoint-Spalte. Fehlt sie an einem Altbestand, nennt die Leseansicht
+wenigstens den Dienst („Eingebettet über YouTube"); stumm fremdes Material einzubetten wäre die
+schlechtere Auskunft.
+
+`js/tour.js` legt im Vormachen selbst ein YouTube-Video an – mit Quelle, sonst hielte die
+Vorführung an ihrer eigenen Prüfung an.
+
 ### Landkarten-Vorlagen: fünf statt zwei
 
 `LK_VORLAGEN` bietet neben Konzern (LK_KONZERN) und Werk (LK_START) jetzt `LK_KONZERNKARTE`
