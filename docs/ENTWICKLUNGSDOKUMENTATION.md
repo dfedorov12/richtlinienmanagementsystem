@@ -238,6 +238,22 @@ Token gültig? Dann wird **ohne Rückfrage** ausgeführt und nur das Ergebnis ge
 oder passt es nicht, bleibt es beim gewohnten Weg mit Rückfrage – so bleiben alte Mails
 harmlos, statt Fehler zu werfen.
 
+**Nachschlagen der Kennung – `policyZuId()` / `konzeptZuId()` (`js/freigaben.js`):**
+Aus der URL kommt die Kennung **immer als Text**, in `DatenJson` gespeicherte Verweise
+(`konzept.regelwerkId`) sind dagegen **Zahlen** – der JSON-Rundlauf behält den Typ.
+`7 === "7"` ist falsch, deshalb wird auf allen Link-Wegen über `String()` verglichen.
+
+**„Regelwerk nicht gefunden" sagt nur dann „gelöscht oder archiviert",
+wenn es das auch weiß.** Ein leeres Ergebnis hat drei Ursachen, und zwei davon
+haben mit Löschen nichts zu tun:
+
+| Ursache | Was jetzt passiert |
+|---|---|
+| Liste noch leer (`bootApp()` verschluckt einen Ladefehler bewusst) | Einmal nachladen, dann erneut suchen |
+| Nachladen scheitert | „Die Regelwerke konnten nicht geladen werden" **plus** die Zusage, dass nichts entschieden wurde |
+| Kennung gehört zu einem Konzept (liegt in `State.konzepte`) | „Das ist noch ein Konzept" mit Knopf ins Regelwerk Dashboard |
+| Wirklich weg | Die alte Meldung – **mit** der Kennung aus dem Link, damit ein Bericht nachvollziehbar ist |
+
 **Warum nicht nur ein Link ohne Anmeldung:** Ein GET aus Outlook trägt keine Identität.
 Ein Token beweist, dass der Klick zu *dieser Runde* gehört, nicht *wer* geklickt hat –
 bei Weiterleitung oder Postfachvertretung fällt das auseinander. Die stille Anmeldung
