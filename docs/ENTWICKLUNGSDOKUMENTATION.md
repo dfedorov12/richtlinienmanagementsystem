@@ -238,6 +238,16 @@ Token gültig? Dann wird **ohne Rückfrage** ausgeführt und nur das Ergebnis ge
 oder passt es nicht, bleibt es beim gewohnten Weg mit Rückfrage – so bleiben alte Mails
 harmlos, statt Fehler zu werfen.
 
+**Die Kennung entsteht erst beim Speichern.** Wird ein Regelwerk im Editor **neu**
+angelegt und in einem Zug zur Konformitätsprüfung eingereicht, vergibt SharePoint die
+Kennung erst mit dem POST. `spSavePolicy()` gibt den angelegten Eintrag zurück –
+`savePolicy()` (`js/admin.js`) **übernimmt daraus `p.id`, bevor `notifyPruefer(p)` läuft**.
+Ohne das trug die Mail `?richtlinie=undefined`, und jeder Klick darauf landete bei
+„Regelwerk nicht gefunden". Über das Konzept fiel das nie auf: dort existiert das
+Regelwerk bereits. Zur Sicherung bauen `_wfMailHtml()`, `_mitMailHtml()` und die
+Bekanntgabe **keine Entscheidungs-Links mehr ohne Kennung** – ein Knopf, der
+zuverlässig in eine Fehlermeldung führt, ist schlimmer als keiner.
+
 **Nachschlagen der Kennung – `policyZuId()` / `konzeptZuId()` (`js/freigaben.js`):**
 Aus der URL kommt die Kennung **immer als Text**, in `DatenJson` gespeicherte Verweise
 (`konzept.regelwerkId`) sind dagegen **Zahlen** – der JSON-Rundlauf behält den Typ.
