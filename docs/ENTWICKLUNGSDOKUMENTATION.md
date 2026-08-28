@@ -22,6 +22,7 @@ werden nur eingebettet/gelesen).
 | `js/app.js` | App-Controller, gemeinsame Helfer, Mitarbeiter-Views |
 | `js/quiz.js` | Wissenstest-Engine |
 | `js/admin.js` | Verwaltung, Freigaben, Compliance, Einstellungen |
+| `js/mailbau.js` | Rumpf, Knopf, Fußzeile und Farben aller Workflow-Mails |
 
 Globaler State, keine Build-Tools. Skripte werden klassisch geladen (Funktionen global).
 
@@ -266,10 +267,18 @@ haben mit Löschen nichts zu tun:
 
 **Genau ein Weg dorthin.** Vorgefunden wurden vier Schreibweisen für dieselbe Frage:
 strikter Vergleich (35×), händisches `String()` (19×), `_policyById()` und `_plPolicy()`.
-Der strikte ist der gefährliche. Alle Stellen, die in `State.policies` bzw. `State.konzepte`
-suchen, gehen jetzt über die beiden Helfer; örtliche Listen (Vorschläge, Risiken,
-Reifegrad-Themen) bleiben unberührt, dort sind die Kennungen selbst vergeben.
-`tests/mail-deeplink-id.test.mjs` verhindert den Rückfall.
+Der strikte ist der gefährliche. Es bleiben **zwei** Klassen, und die zweite ist Absicht:
+
+- Dateien, die `app.js` voraussetzen, gehen über die beiden Helfer.
+- `landkarte.js`, `prozesse.js` und `verknuepfungen.js` werden in Tests **einzeln**
+  geladen, ohne `app.js`. Sie kommen an den Helfer nicht heran und schlagen selbst
+  nach – kenntlich am Vorbehalt `typeof State !== 'undefined'`. Daran erkennt sie
+  auch die Wache in `tests/mail-deeplink-id.test.mjs`, statt sie in einer
+  handgepflegten Ausnahmeliste zu führen.
+
+Örtliche Listen (Vorschläge, Risiken, Reifegrad-Themen) bleiben unberührt – dort sind
+die Kennungen selbst vergeben. `konzeptOeffnen()` (`js/konzepte.js`) bündelt den Weg
+ins Regelwerk Dashboard, den vorher ein Programm im `onclick`-Attribut nachbaute.
 
 **Mail-Bausteine – `js/mailbau.js`:** `mailRumpf()`, `mailBtn()`, `mailFuss()` und
 `MAIL_FARBE`. Rumpf, Knopf und Fußzeile standen zuvor in vier Dateien in je zwei bis
