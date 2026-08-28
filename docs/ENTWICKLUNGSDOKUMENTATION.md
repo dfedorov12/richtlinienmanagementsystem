@@ -248,7 +248,7 @@ Regelwerk bereits. Zur Sicherung bauen `_wfMailHtml()`, `_mitMailHtml()` und die
 Bekanntgabe **keine Entscheidungs-Links mehr ohne Kennung** – ein Knopf, der
 zuverlässig in eine Fehlermeldung führt, ist schlimmer als keiner.
 
-**Nachschlagen der Kennung – `policyZuId()` / `konzeptZuId()` (`js/freigaben.js`):**
+**Nachschlagen der Kennung – `policyZuId()` / `konzeptZuId()` (`js/app.js`, beim State):**
 Aus der URL kommt die Kennung **immer als Text**, in `DatenJson` gespeicherte Verweise
 (`konzept.regelwerkId`) sind dagegen **Zahlen** – der JSON-Rundlauf behält den Typ.
 `7 === "7"` ist falsch, deshalb wird auf allen Link-Wegen über `String()` verglichen.
@@ -263,6 +263,18 @@ haben mit Löschen nichts zu tun:
 | Nachladen scheitert | „Die Regelwerke konnten nicht geladen werden" **plus** die Zusage, dass nichts entschieden wurde |
 | Kennung gehört zu einem Konzept (liegt in `State.konzepte`) | „Das ist noch ein Konzept" mit Knopf ins Regelwerk Dashboard |
 | Wirklich weg | Die alte Meldung – **mit** der Kennung aus dem Link, damit ein Bericht nachvollziehbar ist |
+
+**Genau ein Weg dorthin.** Vorgefunden wurden vier Schreibweisen für dieselbe Frage:
+strikter Vergleich (35×), händisches `String()` (19×), `_policyById()` und `_plPolicy()`.
+Der strikte ist der gefährliche. Alle Stellen, die in `State.policies` bzw. `State.konzepte`
+suchen, gehen jetzt über die beiden Helfer; örtliche Listen (Vorschläge, Risiken,
+Reifegrad-Themen) bleiben unberührt, dort sind die Kennungen selbst vergeben.
+`tests/mail-deeplink-id.test.mjs` verhindert den Rückfall.
+
+**Mail-Bausteine – `js/mailbau.js`:** `mailRumpf()`, `mailBtn()`, `mailFuss()` und
+`MAIL_FARBE`. Rumpf, Knopf und Fußzeile standen zuvor in vier Dateien in je zwei bis
+drei Kopien – der Knopf dreimal wortgleich. Der Preis war nicht theoretisch: Die
+Sicherung gegen Links ohne Kennung musste an drei Stellen einzeln eingebaut werden.
 
 **Warum nicht nur ein Link ohne Anmeldung:** Ein GET aus Outlook trägt keine Identität.
 Ein Token beweist, dass der Klick zu *dieser Runde* gehört, nicht *wer* geklickt hat –
