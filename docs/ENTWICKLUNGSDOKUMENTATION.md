@@ -249,6 +249,27 @@ Regelwerk bereits. Zur Sicherung bauen `_wfMailHtml()`, `_mitMailHtml()` und die
 Bekanntgabe **keine Entscheidungs-Links mehr ohne Kennung** – ein Knopf, der
 zuverlässig in eine Fehlermeldung führt, ist schlimmer als keiner.
 
+**Ein Name, eine Farbe.** Die Absenderzeile der Mails hieß in vier Schreibweisen
+(„DIHAG Richtlinienmanagementsystem", „…management", „Regelwerk-Managements",
+„Regelwerk-Management") – drei davon aus der Zeit vor der Umbenennung. Sie lautet
+jetzt überall **DIHAG Regelwerk-Management-System**, einschließlich des Briefkopfs
+im Teilnahmenachweis.
+
+Ebenso die Farben: Der Erinnerungs-Cron (`scripts/erinnerungen.mjs`) nahm für
+neutrale Knöpfe und Links das CSS-Primärblau `#1a56db`, die Mails der App dagegen
+Azurblau `#17509e` aus dem Corporate Design – zwei Blautöne für dieselbe Sache.
+Jetzt gilt überall Azur. `tests/mailbau.test.mjs` bewacht beides. Der Cron läuft als
+GitHub-Action ohne die Browser-Dateien und kann `js/mailbau.js` nicht laden; er wird
+deshalb an `MAIL_FARBE` **gebunden** statt entdoppelt.
+
+**Der Entscheidungsweg steht im Protokoll.** `_ekAusMail` wird in `einKlickAktion()`
+gesetzt, und die drei `mark*`-Funktionen hängen über `ekKanalHinweis()` den Vermerk
+„Entschieden per Ein-Klick aus der Benachrichtigungs-Mail" an die Historie. Im Audit
+ist es ein Unterschied, ob jemand im Portal saß oder aus der Mail heraus entschied.
+Der Merker war lange angelegt und wurde gesetzt, aber von niemandem gelesen – die
+Verdrahtung fehlte. Das `finally` ist dabei kein Fehlerfänger: Es reicht eine
+Ablehnung unverändert weiter und sorgt nur dafür, dass der Merker nicht stehen bleibt.
+
 **Nachschlagen der Kennung – `policyZuId()` / `konzeptZuId()` (`js/app.js`, beim State):**
 Aus der URL kommt die Kennung **immer als Text**, in `DatenJson` gespeicherte Verweise
 (`konzept.regelwerkId`) sind dagegen **Zahlen** – der JSON-Rundlauf behält den Typ.
