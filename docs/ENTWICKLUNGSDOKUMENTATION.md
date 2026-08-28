@@ -249,6 +249,21 @@ Regelwerk bereits. Zur Sicherung bauen `_wfMailHtml()`, `_mitMailHtml()` und die
 Bekanntgabe **keine Entscheidungs-Links mehr ohne Kennung** – ein Knopf, der
 zuverlässig in eine Fehlermeldung führt, ist schlimmer als keiner.
 
+**Der Verknüpfungs-Cache hat genau eine Form.** `_procLinkCache`
+(`js/prozesse.js`, gespiegelt in `localStorage`) hält je Modell
+`{ p: [Kennung,…], d: Anlagen, k: kein Diagramm }`. Ältere Stände legten dort nur
+die Liste der Kennungen ab, und weil der Speicher die Sitzung überlebt, treffen
+beide Formen aufeinander. Die Mindmap gab den Eintrag ungeprüft weiter und
+scheiterte mit „ids.forEach is not a function".
+
+Die Formkenntnis steckt jetzt in **einer reinen Funktion**, `procLinkEintrag(e)`
+in `js/util.js` – bewusst über den *Eintrag* statt über den Schlüssel, damit sie
+ohne globalen Zustand auskommt und auch von Dateien erreichbar ist, die einzeln
+geladen werden. Die Ablage bleibt bei ihrem Eigentümer. `alt: true` heißt
+„unvollständig **für die Kartenansicht**" – dort fehlen Anlagenzahl und
+Diagramm-Warnung; die Kennungen selbst stehen in beiden Formen vollständig drin,
+weshalb die Mindmap `alt` bewusst ignoriert und nichts nachliest.
+
 **Ein Name, eine Farbe.** Die Absenderzeile der Mails hieß in vier Schreibweisen
 („DIHAG Richtlinienmanagementsystem", „…management", „Regelwerk-Managements",
 „Regelwerk-Management") – drei davon aus der Zeit vor der Umbenennung. Sie lautet
