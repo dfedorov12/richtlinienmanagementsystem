@@ -1402,3 +1402,96 @@ Leere. Scheitert das Umbenennen, wird es nur protokolliert: Die Annahme darf dar
 Nebenbei: `videoEinbettung()` kannte **YouTube Shorts** nicht (`watch?v=`, `embed/`, `live/`,
 `youtu.be/` – aber kein `shorts/`). Ein Shorts-Link lief damit nur als Verweis statt als Player,
 ausgerechnet bei dem Format, in dem kurze Erklärvideos entstehen. Ergänzt.
+
+---
+
+## End-to-End nach SAP, Übergänge im Diagramm, Trennung nach Gesellschaft (Stand 2026-08-31)
+
+### Die SAP-Landkarte
+
+Die bisherigen fünf Vorlagen beschreiben **Aufbau** – wer wofür zuständig ist. SAP beschreibt
+**Ablauf**: eine Kette quer durch die Abteilungen, vom Auslöser bis zum Ergebnis. „Lead to Cash"
+beginnt beim Interessenten und endet beim Zahlungseingang; unterwegs liegen Vertrieb, Planung,
+Gießerei, Versand und Buchhaltung. Wer nur Bänder hat, sieht diese Kette nicht – sie war bis zu den
+Verweisen gar nicht aufschreibbar.
+
+`LK_SAP` ist deshalb die erste Vorlage, die schon **verknüpft** ist, und nutzt alle drei Arten:
+
+| Art | wofür | Beispiel |
+|---|---|---|
+| `unterprozess` | die vier SAP-Klammern über ihre Ketten | Design to Operate ↳ Idea to Market, Plan to Fulfill, Acquire to Decommission |
+| `folgt` | die Kette selbst | Angebot → Auftragserfassung → Lieferung → Faktura |
+| `nutzt` | der Übergang zwischen zwei Ketten | Materialdisposition ⇢ Bedarfsanforderung |
+
+9 Bänder, 52 Prozesse, 65 Verweise – 20 davon über die Bandgrenze. Die Kettennamen sind SAPs, die
+Schritte die einer Gießereigruppe.
+
+**Verweisziele einer Vorlage stehen ohne Werk.** Eine Vorlage kennt es nicht; erst
+`lkVorlageAnwenden()` weiß, wohin sie eingesetzt wird, und schreibt es davor. Ohne das läse später
+jede andere Landkarte dieselben Ziele als ihre eigenen (`lkZielTeile()` fällt auf die offene Karte
+zurück), und die Gegenrichtung fände sie gar nicht (`lkVerweiseAuf()` vergleicht den vollen
+Schlüssel). Der Test hält beides fest – samt der Prüfung, dass kein Verweis ins Nichts zeigt:
+`lkVerweiseVon()` verschweigt tote Ziele, ein Tippfehler in der Vorlage fiele sonst niemandem auf.
+
+### Übergänge auf Element-Ebene
+
+Ein Verweis an der Kachel sagt „nach dem Vertrieb kommt die Fertigung". Er sagt nicht, **an welcher
+Stelle** – und genau das ist die Frage, wenn jemand vor dem Diagramm steht.
+
+Ein Element trägt deshalb jetzt selbst ein Ziel. Der Marker liegt in **seiner** Dokumentation, wie
+die Richtlinien in der des Prozesses:
+
+```
+[[rms:prozess=WERK:KACHEL]]
+```
+
+Damit wandert er mit der `.bpmn`-Datei – über Export, Umbenennung und den Umzug in ein anderes Werk
+hinweg. Eine zweite Ablage, die man vergessen kann, gibt es nicht.
+
+Drei Entscheidungen:
+
+- **Geschrieben wird über `modeling.updateProperties()`**, nicht per Zuweisung an das
+  `businessObject`. Nur so ist der Schritt widerrufbar und das Modell gilt als geändert.
+- **Der übrige Dokumentationstext bleibt stehen.** Entfernt werden nur der Marker und die
+  Klartextzeile davor – dort steht womöglich, was die Aufgabe erklärt.
+- **Das Zeichen ist ein Overlay am Element** (`overlays`, Typ `rms-sprung`), neu gezeichnet bei
+  jedem `elements.changed`: Ein verschobenes Element nähme sein Zeichen sonst nicht mit, ein
+  gelöschtes ließe es zurück. Ein Verweis, den man nicht sieht, ist keiner.
+
+Der Sprung führt über `lkDeepLink()`. Sind im Modeler Änderungen offen (`commandStack.canUndo()`),
+wird vorher gefragt: Die Landkarte ersetzt die Ansicht, das Diagramm wäre weg.
+
+### Berechtigungen nach Gesellschaft trennen
+
+Vorbild: „Rund um den Job", wo die Domäne des Kontos entscheidet, welche Reiter erscheinen. Im RMS
+gab es nur Personen, Rollen und Gruppen – wer eine ganze Gesellschaft berechtigen wollte, musste
+jede Person einzeln eintragen und bei jedem Eintritt daran denken.
+
+Zwei Bausteine, und sie tun **Verschiedenes**:
+
+```
+"domaene:gienanth.de" in lesen/schreiben   GIBT etwas dazu (additiv, wie eine Gruppe)
+reiterRechte[view].domaenen                NIMMT weg  (die eigentliche Trennung)
+```
+
+Der zweite ist der schärfere: `_domaeneGesperrt()` steht **vor** allem anderen in `canReadTab()` und
+`canWriteTab()`, also auch vor `_defaultTabRead()`. Sonst sähe eine Konformitätsprüferin den Reiter
+„Freigaben" trotz Trennung – die Sperre wäre löchrig. Sie nimmt weg, was eine Freigabe gegeben
+hätte; alles andere wäre keine Trennung, sondern nur eine weitere Meinung.
+
+**Admins sind ausgenommen.** „Einstellungen" ist admin-only: Wer sich dort aussperrt, kann eine
+falsch gesetzte Trennung nicht zurücknehmen. Die Ausnahme steht an genau einer Stelle.
+
+**Maßgeblich ist die Domäne des Kontos**, nicht ein gepflegtes Feld – sie lässt sich nicht
+vergessen. Geprüft werden **beide**: Anmeldename und Mailadresse. In manchen Mandanten fallen sie
+auseinander (`…@dihag.onmicrosoft.com` gegen `…@gienanth.de`); wer nur eine prüft, sperrt irgendwann
+die Falschen aus. Die Mailadresse kommt aus `spGetMyDepartment()` – derselbe `/me`-Aufruf, ein Feld
+mehr im `$select`, kein zusätzlicher Weg zu Graph. `spMeineMail()` gibt sie **synchron** zurück: Die
+Rechteprüfung läuft bei jedem Reiterwechsel und darf nicht auf einen Graph-Aufruf warten.
+
+`gesellschaften` (Domäne → Anzeigename) ist reine Anzeige; berechtigt wird über die Domäne selbst.
+In den Einstellungen steht die Gesellschaft als **dritte Trägerart** in der Rechtematrix (🏭, vor
+Gruppen und Personen sortiert – nach der Zahl der Betroffenen) und darunter die Tabelle
+*Reiter × Gesellschaft*. „🔍 Im Verzeichnis suchen" zählt die Domänen der ohnehin geladenen
+Mitarbeiterliste und **schlägt sie vor**, statt sie einzutragen: Nicht jede Domäne im Verzeichnis
+ist eine Gesellschaft.
