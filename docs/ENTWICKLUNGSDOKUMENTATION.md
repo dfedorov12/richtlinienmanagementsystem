@@ -249,6 +249,40 @@ Regelwerk bereits. Zur Sicherung bauen `_wfMailHtml()`, `_mitMailHtml()` und die
 Bekanntgabe **keine Entscheidungs-Links mehr ohne Kennung** – ein Knopf, der
 zuverlässig in eine Fehlermeldung führt, ist schlimmer als keiner.
 
+**Verweise zwischen Prozessen.** Eine Kachel konnte lange nur auf Modelle
+(BPMN-Dateien) und Regelwerke zeigen; `unter` war ein Untertitel, kein Unterprozess.
+Eine Prozesskette ließ sich damit gar nicht aufschreiben. Ein Verweis ist deshalb
+bewusst schlicht – ein Ziel und eine Art:
+
+```js
+k.verweise = [
+  { ziel: 'HOL:angebot',    art: 'unterprozess' },   // Hierarchie
+  { ziel: 'HOL:auftraege',  art: 'folgt' },          // Kette → End-to-End
+  { ziel: 'SHB:produktion', art: 'nutzt' },          // Querbezug
+]
+```
+
+Drei Entscheidungen dahinter:
+
+- **Ein Unterprozess ist eine ganz normale Kachel.** Sie behält Modelle, Regelwerke,
+  Geltungsbereich und ihren Verantwortlichen, statt dass es eine zweite, ärmere Sorte
+  Prozess gäbe.
+- **Im Ziel steht das Werk** (`WERK:KACHEL`). Ohne das ließe sich eine Kette quer durch
+  den Konzern nicht aufschreiben. `lkKachelVonZiel()` löst deshalb über *alle* Karten
+  auf – `lkKachelVonId()` kennt nur die geöffnete.
+- **Die Gegenrichtung wird gesucht, nicht gepflegt** (`lkVerweiseAuf()`). Gespeichert
+  ist ein Verweis nur bei der Quelle; sonst müssten beide Seiten gleichzeitig geändert
+  werden, und genau da laufen solche Beziehungen auseinander.
+
+Im Kachel-Dialog steht der Abschnitt **Prozesslandschaft**: wohin die Kachel zeigt (nach
+Art gruppiert) und wer auf sie zeigt. Jede Zeile ist ein Sprung, kein Text – ein fremdes
+Werk trägt sein Kürzel sichtbar, damit der Wechsel der Gesellschaft auffällt. Tote Ziele
+werden verschwiegen statt als Fehler gezeigt.
+
+In der Mindmap (`vkGraphBauen()`) sind Verweise die ersten Kanten, die **nicht nach unten**
+zeigen. Sie entstehen zum Schluss, wenn jede Kachel bereits ein Knoten ist – auch die in
+einer anderen Gesellschaft.
+
 **Der Verknüpfungs-Cache hat genau eine Form.** `_procLinkCache`
 (`js/prozesse.js`, gespiegelt in `localStorage`) hält je Modell
 `{ p: [Kennung,…], d: Anlagen, k: kein Diagramm }`. Ältere Stände legten dort nur
