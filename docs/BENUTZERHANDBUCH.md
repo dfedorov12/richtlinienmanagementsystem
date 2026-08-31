@@ -581,15 +581,49 @@ echten Vorgang an und verschickt echte E-Mails.
 | **Konzern-Prozesslandkarte (abgestimmt)** | Die abgestimmte Landkarte des Konzerns: Führung, Kernprozesse, Unterstützungsprozesse mit je sieben Prozessgruppen; die Teilprozesse stehen als Untertitel an der Kachel (21 Prozesse) |
 | **Holdinggesellschaft (Aufbau)** | Der Aufbau einer Holding: Strategie, Finanzierung, Konzern-Controlling, Personalwesen, Beteiligungsverwaltung, Beratung, Überwachung — und das operative Geschäft der Töchter (8 Bereiche, 33 Prozesse) |
 | **Führungsholding — Gesamtbild** | Aus den drei anderen zusammengeführt: Steuern & Ausrichten · Kapital & Beteiligungen als **Kernprozesse der Holding** · Überwachen & Absichern · Konzernservices · Umsetzung in den Gesellschaften (23 Prozesse) |
+| **SAP End-to-End-Prozesse** | Der Konzern als **Ablauf** statt als Aufbau: Lead to Cash · Source to Pay · Design to Operate · Recruit to Retire als Klammern, darunter die Ketten quer durch Vertrieb, Planung, Gießerei, Einkauf und Buchhaltung (9 Bänder, 52 Prozesse) — **die einzige Vorlage, die schon verknüpft ist** |
 
 Die letzte Vorlage ist die Antwort auf eine Frage, die die anderen offenlassen: **Was sind die
 Kernprozesse einer Holding?** Nicht Gießen — das tun die Töchter. Sondern Beteiligungen führen und
 Kapital verteilen. Und weil eine Konzernlandkarte sonst dort endet, wo die Arbeit anfängt, hat die
 Schnittstelle zu den Gesellschaften ein eigenes Band.
 
+Die **SAP-Vorlage** beantwortet eine andere Frage. Alle übrigen beschreiben den **Aufbau** — wer
+wofür zuständig ist. SAP beschreibt den **Ablauf**: „Lead to Cash" beginnt beim Interessenten und
+endet beim Zahlungseingang; unterwegs liegen Vertrieb, Planung, Gießerei, Versand und Buchhaltung.
+Genau deshalb ist sie die einzige Vorlage, die schon Verweise mitbringt: die vier SAP-Klammern als
+**Unterprozesse**, die Kette als **„Danach folgt"**, die Übergänge zwischen zwei Ketten als
+**„Nutzt"** — etwa Auftragserfassung ⇢ Produktionsplanung oder Materialdisposition ⇢
+Bedarfsanforderung. SAP dient als Leitfaden, die Schritte sind die einer Gießereigruppe.
+
 Der Geltungsbereich wird passend gesetzt: Konzernprozesse gelten konzernweit, die einer Gesellschaft
 zunächst dort. Modelle und Regelwerke bleiben leer — eine Vorlage bringt Struktur, keine erfundenen
 Verknüpfungen. Ist schon eine Landkarte da, wird sie ersetzt; der Schritt steht danach im Verlauf.
+
+**Verweise zwischen Prozessen — der Abschnitt „Prozesslandschaft".** Öffnen Sie eine Kachel, steht
+dort, wohin sie zeigt, und darunter, wer auf sie zeigt. Drei Arten:
+
+| Art | bedeutet | Beispiel |
+|---|---|---|
+| **↳ Unterprozesse** | die Kachel gliedert sich weiter auf | Vertrieb ↳ Angebot erstellen |
+| **→ Danach folgt** | die Kette — so entsteht die End-to-End-Sicht | Angebot → Auftragserfassung |
+| **⇢ Nutzt** | der Querbezug auf einen Prozess, den dieser braucht | Auftragserfassung ⇢ Produktionsplanung |
+
+Jede Zeile ist ein **Sprung**, kein Text: Anklicken öffnet die Zielkachel und wechselt bei Bedarf
+die Landkarte — ein fremdes Werk steht sichtbar daneben, damit der Wechsel der Gesellschaft
+auffällt. Unter **„Zeigt hierher"** steht die Gegenrichtung; sie wird gesucht, nicht gepflegt, denn
+gespeichert ist ein Verweis nur bei der Quelle. Gepflegt wird über **„Verweise pflegen"** — zur Wahl
+stehen die Kacheln **aller** Werke, denn eine Kette darf die Gesellschaft wechseln. Ein
+**Unterprozess ist eine ganz normale Kachel**: mit Modellen, Regelwerken, Geltungsbereich und
+verantwortlicher Person.
+
+**Übergänge im Diagramm.** Ein Verweis an der Kachel sagt, *dass* ein Prozess in einen anderen
+übergeht — nicht, *an welcher Stelle*. Deshalb kann auch ein **einzelnes Element** im Modeler ein
+Ziel tragen: Element anklicken, in der Seitenspalte unter **„Übergang zu einem anderen Prozess"** die
+Zielkachel wählen. Am Element erscheint dann ein **↦ mit dem Namen des Ziels**; anklicken springt in
+die Landkarte (ungespeicherte Änderungen werden vorher abgefragt). Gespeichert wird der Übergang in
+der **BPMN-Datei selbst** — er übersteht Export, Umbenennung und den Umzug in ein anderes Werk. Wurde
+die Zielkachel gelöscht, färbt sich das Zeichen orange, statt still zu verschwinden.
 
 **Beliebig viele Bereiche.** Jedes Band ist eine eigene Zeile mit farbiger Titelspalte und der Anzahl
 seiner Prozesse — drei Bänder wie im Werk oder sechs wie im Konzern. Kernprozesse behalten ihre
@@ -782,7 +816,7 @@ Alle drei Ansichten mit **CSV-Export**.
 - **Power Automate:** Ist der Modus aktiv, verschickt die App keine Prüf-/Freigabe-Mails – die
   Genehmigung läuft über den Power-Automate-Flow.
 - **Reiter-Berechtigungen (Lesen/Schreiben):** eigener Bereich in den Einstellungen (Umschalter
-  oben). Eine Zeile je **Person** oder **Gruppe**, eine Spalte je Reiter: **–** kein
+  oben). Eine Zeile je **Person**, **Gruppe** oder **Gesellschaft**, eine Spalte je Reiter: **–** kein
   Zugriff, **L** Lesen, **S** Schreiben. Eine Zelle anklicken schaltet weiter (– → L → S → –);
   die Zeile aufklappen zeigt alle Reiter mit Beschriftung und Häkchen. Suchfeld und Reiter-Filter
   („wer darf ins Risiko-Register?") halten den Überblick. **Additiv** zu den Standardrechten,
@@ -798,6 +832,20 @@ Alle drei Ansichten mit **CSV-Export**.
   *Eine Ausnahme:* **dynamische** Verteilerlisten aus Exchange lassen sich nicht berechtigen –
   sie existieren nur dort und nicht als Objekt im Verzeichnis. Gewöhnliche Verteilergruppen
   funktionieren.
+- **Freigabe an eine ganze Gesellschaft:** Die DIHAG-Gruppe sind mehrere Gesellschaften mit eigenen
+  Mail-Domänen. Statt jede Person einzeln einzutragen — und bei jedem Eintritt daran zu denken —
+  genügt **ein** Eintrag: „🏭 + Gesellschaft", Domäne eintragen (z. B. `gienanth.de`), fertig. In der
+  Matrix steht sie als eigene Zeile, ganz oben: Sie betrifft die meisten.
+- **Trennung nach Gesellschaft:** Die Freigaben oben **geben** etwas dazu. Die Tabelle **„Trennung
+  nach Gesellschaft"** darunter **nimmt weg**: Ist bei einem Reiter mindestens eine Gesellschaft
+  angehakt, sehen ihn **nur noch** Konten aus diesen Domänen — auch dann, wenn ihnen der Reiter
+  sonst freigegeben wurde. Ohne Haken bleibt er offen für alle.
+  Maßgeblich ist die **Domäne des Kontos** (Anmeldename *und* Mailadresse, denn beide können
+  auseinanderfallen), nicht ein gepflegtes Feld: Sie lässt sich nicht vergessen.
+  **Administratoren sind ausgenommen** — sonst käme niemand mehr in die Einstellungen, um eine
+  falsch gesetzte Trennung zurückzunehmen. Über **„🔍 Im Verzeichnis suchen"** schlägt die Seite die
+  Domänen des Mandanten vor; gezählt wird nur die ohnehin geladene Mitarbeiterliste, eine
+  zusätzliche Berechtigung braucht es dafür nicht.
 
 > **Normbezug:** ISO 27001 Klausel 5.3, 7.4 (Kommunikation), A.5.2.
 
