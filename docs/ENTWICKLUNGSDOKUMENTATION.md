@@ -1564,3 +1564,53 @@ noch als Übergang durchgehen, und die Umzugsseite des KI-Dashboards zeigte weit
 alten Link benutzte, landete also im Nichts. Beides umgestellt; der Wächter in
 `tests/deploy-marker.test.mjs` schaut jetzt über **alle** ausgelieferten Dateien statt über eine
 gepflegte Liste, die still veraltet, sobald eine Datei dazukommt.
+
+---
+
+## Ineinandergreifende Prozesse und die Landkarten der Werke (Stand 2026-08-31)
+
+### Ein Prozess, mehrere Hauptprozesse
+
+Das Modell konnte das schon: Mehrere Kacheln dürfen dieselbe als `unterprozess` führen, die
+Beziehung liegt beim Hauptprozess, der Unterprozess weiß nichts davon. Was fehlte, war die Sicht.
+
+- `lkHauptprozesseVon(werk, id)` – die Gegenrichtung, gesucht statt gepflegt.
+- `_lkGliederungZeichen()` – das **⇄ n** an der Kachel, hervorgehoben ab zwei Eltern.
+- `_lkUnterbaumHtml()` – die Gliederung in der Karte, rekursiv, mit `pfad` gegen Kreise.
+- `lkVerweisSetzen()` lehnt einen Kreis beim Pflegen ab (`lkIstNachfahre()`, mit eigener
+  Besuchsliste – sonst liefe die Prüfung in genau den Kreis, den sie sucht).
+
+**`lkVerweiseAuf()` verglich Zeichenketten.** Ein Eintrag ohne Werk („angebot" statt „HOL:angebot")
+war für die Gegenrichtung damit unsichtbar – ein geteilter Unterprozess hätte nicht gewusst, dass
+jemand auf ihn zeigt. Jetzt werden die Ziele verglichen, und ein Eintrag ohne Werk gehört zu der
+Karte, in der er steht. Aufgefallen ist das erst an den Werksvorlagen, deren Ziele naturgemäß ohne
+Werk stehen.
+
+### 103 Kacheln bleiben lesbar
+
+Coswig hat 16 Hauptprozesse und darunter über 80 Gruppen und Teilprozesse. `_lkZeileHtml()` zeigt
+deshalb nur, was nicht Unterprozess eines anderen **desselben Werks** ist (`lkIstTeilprozess()`);
+die Bandzeile nennt die Zahl der eingeordneten, `☰ Teilprozesse` holt sie zurück. Der Index `i`
+bleibt dabei der aus `lkKacheln()` – daran hängt das Ziehen und Ablegen.
+
+Bewusst nur im eigenen Werk: Ein Prozess, den eine andere Gesellschaft als Unterprozess führt,
+verschwände sonst aus seiner eigenen Karte, und dort gäbe es keinen Hauptprozess, unter dem man ihn
+wiederfände.
+
+### Die drei Werks-Landkarten
+
+`LK_WGC`, `LK_ZAI`, `LK_SCH` – übersetzt aus IMS-4.4 Rev. 7 (Coswig), F_01_005 Rev. 5 (Zaigler) und
+der Prozesslandkarte vom 14.07.2026 (Schmiedeberg). Der Coswiger Aufbau folgt der Tabelle des
+Dokuments Zeile für Zeile: Hauptprozess → Gruppe → Teilprozess, mit der Dokumentennummer im
+Untertitel, denn die ist in einer QM-Landschaft die eigentliche Kennung. Erzeugt wurden die Blöcke
+aus dem PDF (Textkoordinaten, zeilenweise gepaart), nicht abgetippt.
+
+Öffnet man die Karte eines dieser Werke, ist seine Vorlage im Dialog vorgewählt.
+
+### Deploy-Smoke: kein rotes Licht für fremdes Revier
+
+Die Umzugsseite des KI-Dashboards zeigt noch auf die abgeschaltete Adresse – ein echter Fehler, aber
+in einem anderen, **archivierten** Repo. Den Lauf dafür rot zu färben hieße: ein Build, den hier
+niemand grün bekommen kann, steht dauerhaft auf rot, und ab da schaut niemand mehr hin. Der Befund
+wird deshalb als Warnung gemeldet (mit der Anleitung dazu) und zählt nicht als Fehler. Was **dieses**
+Repo ausliefert, wird weiter hart geprüft.

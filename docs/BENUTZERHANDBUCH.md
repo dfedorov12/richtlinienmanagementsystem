@@ -582,6 +582,9 @@ echten Vorgang an und verschickt echte E-Mails.
 | **Holdinggesellschaft (Aufbau)** | Der Aufbau einer Holding: Strategie, Finanzierung, Konzern-Controlling, Personalwesen, Beteiligungsverwaltung, Beratung, Überwachung — und das operative Geschäft der Töchter (8 Bereiche, 33 Prozesse) |
 | **Führungsholding — Gesamtbild** | Aus den drei anderen zusammengeführt: Steuern & Ausrichten · Kapital & Beteiligungen als **Kernprozesse der Holding** · Überwachen & Absichern · Konzernservices · Umsetzung in den Gesellschaften (23 Prozesse) |
 | **SAP End-to-End-Prozesse** | Der Konzern als **Ablauf** statt als Aufbau: Lead to Cash · Source to Pay · Design to Operate · Recruit to Retire als Klammern, darunter die Ketten quer durch Vertrieb, Planung, Gießerei, Einkauf und Buchhaltung (9 Bänder, 52 Prozesse) — **die einzige Vorlage, die schon verknüpft ist** |
+| **Coswig (WGC)** | Die IMS-Prozesslandschaft aus IMS-4.4, Revision 7: 16 Hauptprozesse mit den Gruppen und Teilprozessen der Tabelle, jeder mit seiner Dokumentennummer (103 Kacheln) |
+| **Zaigler (ZAI)** | Netzwerk der Geschäftsprozesse aus F_01_005, Revision 5: 15 Prozesse mit ihren Verfahrensanweisungen, die Kernprozesse als Kette |
+| **Schmiedeberg (SCH)** | Prozesslandkarte vom 14.07.2026: acht Prozesse in drei Bändern |
 
 Die letzte Vorlage ist die Antwort auf eine Frage, die die anderen offenlassen: **Was sind die
 Kernprozesse einer Holding?** Nicht Gießen — das tun die Töchter. Sondern Beteiligungen führen und
@@ -599,6 +602,27 @@ Bedarfsanforderung. SAP dient als Leitfaden, die Schritte sind die einer Gießer
 Der Geltungsbereich wird passend gesetzt: Konzernprozesse gelten konzernweit, die einer Gesellschaft
 zunächst dort. Modelle und Regelwerke bleiben leer — eine Vorlage bringt Struktur, keine erfundenen
 Verknüpfungen. Ist schon eine Landkarte da, wird sie ersetzt; der Schritt steht danach im Verlauf.
+
+**Ein Prozess, mehrere Hauptprozesse — und nur einmal gepflegt.** „Bedarfsanforderung" gehört zu
+Source-to-Pay *und* zu Plan-to-Fulfill. Sie zweimal zu pflegen wäre der Anfang vom Auseinanderlaufen:
+Die eine Fassung wird geändert, die andere vergessen, und ab da gibt es zwei Wahrheiten. Deshalb
+steht sie nur **einmal** in der Landkarte, und mehrere Hauptprozesse zeigen als **Unterprozess** auf
+dieselbe Kachel. Die Beziehung liegt beim Hauptprozess — ein weiterer trägt sie bei sich ein, am
+Unterprozess ändert sich nichts.
+
+Damit man das sieht, trägt die Kachel das Zeichen **⇄ n**: zu wie vielen Hauptprozessen sie gehört.
+Mehrfach verwendete sind hervorgehoben, und im Kachel-Dialog steht es ausgeschrieben — samt Folge:
+*„Eine Änderung hier wirkt in allen."*
+
+**Ausklappen.** Ein Prozess mit Unterprozessen bekommt ein **▸** mit ihrer Anzahl; anklicken klappt
+die Gliederung auf, so tief sie reicht. **⤢ Gliederung** in der Leiste öffnet alles auf einmal. Ein
+Prozess, der über Umwege unter sich selbst hinge, ließe sich endlos aufklappen — solche **Kreise**
+lehnt das Pflegen mit Begründung ab, und ein vorhandener wird beim Aufklappen mit **↻** markiert.
+
+**Teilprozesse sind einsortiert, nicht versteckt.** Coswig hat 16 Hauptprozesse und darunter über 80
+Gruppen und Teilprozesse; alle nebeneinander im Band wären unbrauchbar. Die Karte zeigt die
+Hauptprozesse, die Bandzeile nennt die Zahl der eingeordneten, und **☰ Teilprozesse** holt sie
+einzeln zurück. Die Suche findet sie ohnehin.
 
 **Verweise zwischen Prozessen — der Abschnitt „Prozesslandschaft".** Öffnen Sie eine Kachel, steht
 dort, wohin sie zeigt, und darunter, wer auf sie zeigt. Drei Arten:
