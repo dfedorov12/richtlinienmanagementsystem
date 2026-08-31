@@ -836,8 +836,30 @@ Alle drei Ansichten mit **CSV-Export**.
   Mail-Domänen. Statt jede Person einzeln einzutragen — und bei jedem Eintritt daran zu denken —
   genügt **ein** Eintrag: „🏭 + Gesellschaft", Domäne eintragen (z. B. `gienanth.de`), fertig. In der
   Matrix steht sie als eigene Zeile, ganz oben: Sie betrifft die meisten.
-- **Trennung nach Gesellschaft:** Die Freigaben oben **geben** etwas dazu. Die Tabelle **„Trennung
-  nach Gesellschaft"** darunter **nimmt weg**: Ist bei einem Reiter mindestens eine Gesellschaft
+- **Inhalte nach Gesellschaft trennen:** Die Reiter-Sperre sagt, welche **Ansicht** jemand öffnen
+  darf – nicht, was er dort sieht. Wer das Dashboard öffnen durfte, sah bisher die Regelwerke
+  **aller** Gesellschaften: eine Tür ohne Wand. Der Schalter **„Jede Gesellschaft sieht nur ihre
+  eigenen Regelwerke und Prozesse"** schließt sie.
+  Die Brücke ist der **Geltungsbereich**, den jedes Regelwerk ohnehin trägt: In der Tabelle bekommt
+  jede Gesellschaft ihre **Werke** zugeordnet und sieht dann, was dort gilt – plus alles, was
+  konzernweit gilt. Dieselbe Trennung greift für die **Prozesslandkarten** und die BPMN-Modelle; die
+  Ebene **Konzern** bleibt immer sichtbar.
+  Drei Dinge, die absichtlich so sind:
+  - **Ohne zugeordnete Werke ändert sich nichts.** Eine Gesellschaft, die nur zur Anzeige gepflegt
+    ist, sieht weiter alles – sonst stünde sie über Nacht vor einer leeren Liste.
+  - **Regelwerke ohne Geltungsbereich bleiben sichtbar.** Sie zählen wie konzernweit. Andernfalls
+    verschwände beim Einschalten schlagartig der ganze Altbestand, und das sähe aus wie Datenverlust.
+  - **Es wird nie stillschweigend gefiltert.** Über der Liste steht, wessen Regelwerke gezeigt
+    werden; ein Mail-Link auf ein fremdes Regelwerk sagt „andere Gesellschaft" statt „wurde gelöscht".
+  **Konzernsicht:** Wer über alle Gesellschaften hinweg arbeitet, gehört in diese Liste – sonst sieht
+  auch die Konzern-Governance nur noch ihre eigene Gesellschaft. Ein Administrator ist **nicht**
+  automatisch dabei: Bei den Reitern wäre das ein Aussperren, hier ist es schlicht die Frage, wen es
+  angeht.
+  > **Ehrlich dazugesagt:** Das trennt die **Sicht**, nicht den Zugriff. Alle Regelwerke liegen in
+  > einer SharePoint-Liste; wer deren Leserecht hat, käme technisch an alles heran. Für eine echte
+  > Trennung bräuchte es getrennte Listen oder Sites – eine andere Größenordnung.
+- **Trennung nach Gesellschaft (Reiter):** Die Freigaben oben **geben** etwas dazu. Die Tabelle
+  **„Trennung nach Gesellschaft"** darunter **nimmt weg**: Ist bei einem Reiter mindestens eine Gesellschaft
   angehakt, sehen ihn **nur noch** Konten aus diesen Domänen — auch dann, wenn ihnen der Reiter
   sonst freigegeben wurde. Ohne Haken bleibt er offen für alle.
   Maßgeblich ist die **Domäne des Kontos** (Anmeldename *und* Mailadresse, denn beide können

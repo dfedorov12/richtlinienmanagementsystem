@@ -1495,3 +1495,72 @@ Gruppen und Personen sortiert – nach der Zahl der Betroffenen) und darunter di
 *Reiter × Gesellschaft*. „🔍 Im Verzeichnis suchen" zählt die Domänen der ohnehin geladenen
 Mitarbeiterliste und **schlägt sie vor**, statt sie einzutragen: Nicht jede Domäne im Verzeichnis
 ist eine Gesellschaft.
+
+---
+
+## Zugang ordentlich trennen: auch die Inhalte (Stand 2026-08-31)
+
+Die Domänen-Sperre von heute Vormittag trennte die **Reiter**. Sie sagte nichts darüber, was jemand
+dort sieht – wer das Dashboard öffnen durfte, sah die Regelwerke aller Gesellschaften. Eine Tür
+ohne Wand.
+
+### Die Brücke ist der Geltungsbereich
+
+Jedes Regelwerk trägt ihn ohnehin (Werke oder `ALLE`). Eine Gesellschaft bekommt deshalb ihre Werke
+zugeordnet – aus `gesellschaften: { dom: "Name" }` wird `{ dom: { name, werke: [] } }`, die alte
+Form bleibt lesbar (`gesellschaftDaten()`), sonst wäre sie beim ersten Speichern still verschwunden.
+
+```
+meineWerke()          → ['*'] wenn Trennung aus, Konzernsicht, ODER keine Werke zugeordnet
+geltungSichtbar(g)    → true bei ['*'], leerem g, 'ALLE', oder Schnittmenge
+filterNachGesellschaft(liste)
+```
+
+Der dritte `['*']`-Fall ist der wichtige: Ohne ihn stünde jemand, dessen Gesellschaft nur zur
+Anzeige gepflegt ist, über Nacht vor einer leeren Liste.
+
+### Der Filter greift an genau einer Stelle
+
+In `reloadData()`. `State.policies` und `State.konzepte` sind ab dort die gefilterten Listen – und
+damit ist jede Ansicht automatisch gefiltert: Dashboard, Freigaben, Fälligkeiten, Berichte, Mindmap,
+die Regelwerks-Auswahl im Modeler. Filterte jede Ansicht für sich, wäre die nächste neue die
+undichte Stelle.
+
+`State.policiesAlle` behält die ungefilterte Liste. Nicht als Hintertür, sondern für eine ehrliche
+Auskunft: `regelwerkVerborgen()` unterscheidet „gibt es nicht mehr" von „gehört einer anderen
+Gesellschaft", und der Ein-Klick-Weg aus der Mail sagt seitdem das Richtige. Die falsche Auskunft
+schickt Leute auf eine Suche, die nichts findet – und danach an die IT.
+
+### Dieselbe Logik für die Landkarten
+
+`lkWerkeSichtbar()` kürzt die Werkauswahl, `lkAlleKacheln()` und `lkWerkeMitKarte()` kürzen die
+Quelle, aus der Mindmap, Suche und die Auflösung von Verweisen schöpfen. Eine Kachel eines fremden
+Werks ist damit überall unauffindbar, und ein Verweis darauf fällt weg wie ein totes Ziel.
+`lkWerkAbsichern()` stellt außerdem die offene Karte um: Offen ist zunächst `HOL`, und das wäre für
+alle anderen der Einstieg in eine fremde Gesellschaft.
+
+Beide Kürzungen greifen **nur, wenn die Trennung wirklich aktiv ist** (`trennungGreift()`). Beim
+ersten Versuch filterten sie immer gegen `LK_WERKE` – und ließen damit eine Karte verschwinden,
+deren Werkkürzel gar nicht mehr in `STANDORTE` steht. Zwei Testsuiten sind sofort rot geworden.
+
+### Was das nicht ist
+
+Eine **Sicht**-Trennung, kein Zugriffsschutz. Alle Regelwerke liegen in einer SharePoint-Liste; wer
+deren Leserecht hat, kommt über Graph an alles heran. Das steht so in den Einstellungen, im
+Handbuch und in der In-App-Doku – eine Trennung, die man für mehr hält, als sie ist, ist gefährlicher
+als gar keine. Eine technische Trennung bräuchte getrennte Listen oder Sites.
+
+### Admins: zwei verschiedene Antworten
+
+Bei der **Reiter-Sperre** sind sie ausgenommen – wer sich aus „Einstellungen" aussperrt, kann die
+Sperre nicht zurücknehmen. Beim **Inhaltsfilter** nicht: Dort gibt es kein Aussperren, nur die Frage,
+wen etwas angeht. Wer alles sehen soll, steht in `konzernSicht`. Die Einstellungen warnen, solange
+diese Liste leer ist.
+
+### Nebenbei: die alte Adresse
+
+`richtlinienmanagement.dihag-extern.com` ist abgeschaltet und liefert 404. Der Deploy-Smoke ließ sie
+noch als Übergang durchgehen, und die Umzugsseite des KI-Dashboards zeigte weiter dorthin – wer den
+alten Link benutzte, landete also im Nichts. Beides umgestellt; der Wächter in
+`tests/deploy-marker.test.mjs` schaut jetzt über **alle** ausgelieferten Dateien statt über eine
+gepflegte Liste, die still veraltet, sobald eine Datei dazukommt.
