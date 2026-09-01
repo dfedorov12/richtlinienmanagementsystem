@@ -1721,3 +1721,42 @@ bleiben unberührt, eine Vorlage ist eine Kopiervorlage und keine Verbindung.
 zusammen und wirft alles andere weg; die Datei wird später aus genau diesem Objekt geschrieben. Eine
 Vorlage, die dort nicht ausdrücklich mitgenommen wird, ist beim nächsten Laden still verschwunden –
 und das merkt man erst Tage später. Der Test lädt deshalb einmal neu und schaut nach.
+
+---
+
+## Abhängigkeiten: die dritte Ansicht (Stand 2026-09-01)
+
+Die beiden vorhandenen Ansichten beantworten je eine halbe Frage. Der **Baum** zeigt die ganze
+Landschaft – wer EINEN Prozess sucht, klickt sich durch Ebenen. Die **Nahsicht** zeigt einen Knoten
+mit seinen direkten Nachbarn – aber nur eine Ebene weit, und der Weg dorthin ist eine Auswahlliste
+mit hundert Einträgen.
+
+Die Frage aus dem Alltag ist eine dritte: „Ich suche X – was hängt daran?" Die Antwort reicht über
+mehrere Ebenen und oft über Werksgrenzen.
+
+### Zwei Teile
+
+**Herkunft** (`vkHerkunftWege()`): alle Wege von oben. Mehrere Wege sind kein Sonderfall, sondern
+die interessante Auskunft – ein geteilter Unterprozess hängt an zwei Hauptprozessen, und liegen die
+in verschiedenen Werken, betrifft eine Änderung beide (`vkBetroffeneWerke()` zählt sie).
+
+**Hat ein Prozess einen Hauptprozess, führt der Weg durch ihn.** Beim ersten Versuch kamen drei Wege
+heraus: zwei über die Hauptprozesse und einer bloß über das Band („Kernprozesse enthält
+Bedarfsanforderung"). Das stimmt, ist aber nicht die gestellte Frage und stünde als dritter,
+fast gleicher Weg daneben. Der Band-Weg gilt jetzt nur, wo es keinen Hauptprozess gibt.
+
+**Abhängigkeiten**: der Baum ab diesem Knoten. Dafür brauchte `mindmapbaum.js` nur einen zweiten
+Satz Kindbeziehungen – `vbTypen()` nimmt im Modus `abhaengig` die Verweise dazu
+(`unterprozesse`, `danach folgt`, `nutzt`). In der Übersicht bleiben sie draußen: Dort stünde jeder
+Unterprozess zweimal, einmal unter seinem Bereich und einmal unter seinem Hauptprozess.
+
+Layout, Linien, Farben, Auf- und Zuklappen und der Zoom kommen unverändert aus dem vorhandenen
+Baum-Zeichner. Eine zweite Zeichenmaschine hätte dieselben Fehler noch einmal gelernt.
+
+### Suche statt Auswahlliste
+
+`vkTreffer()` sucht über alle Knoten – Prozesse zuerst, denn danach wird meistens gefragt –, ab zwei
+Zeichen. Ein einzelner Buchstabe wäre die halbe Landschaft.
+
+Aus der Landkarte führt `lkAbhaengigkeiten()` direkt hinein: Wunsch setzen, dann den Reiter
+wechseln. Andersherum wäre der Graph beim Zeichnen noch nicht gebaut.

@@ -710,6 +710,23 @@ seiner Prozesse — drei Bänder wie im Werk oder sechs wie im Konzern. Kernproz
 Pfeilform. Auf der Kachel stehen Name, Untertitel, der Vorname der verantwortlichen Person und der
 Geltungsbereich.
 
+**🔎 Abhängigkeiten — einen Prozess suchen, alles daran sehen.** Reiter „Prozesse" → **🕸
+Verknüpfungen** → **🔎 Abhängigkeiten**. Die Ansicht beantwortet die Frage aus dem Alltag: *„Ich suche
+X — was hängt daran?"*
+
+Oben ein **Suchfeld** über alle Werke, Modelle und Regelwerke. Der Treffer bringt zweierlei:
+
+- **Die Herkunft** — alle Wege von oben: *Konzern › Werk › Bereich › Hauptprozess ↳ Unterprozess*.
+  Ein **geteilter** Prozess hat mehrere; liegen sie in verschiedenen Werken, steht daneben, wie viele
+  Gesellschaften eine Änderung berührt.
+- **Den Baum ab diesem Prozess** — diesmal **mit** den Verweisen: Unterprozesse, die Kette,
+  Querbezüge, Modelle und **Regelwerke**.
+
+Aus der Landkarte führt der Knopf **„🔎 Abhängigkeiten"** im Kachel-Dialog direkt dorthin.
+
+> In der **Übersicht** bleiben die Verweise bewusst draußen. Dort stünde sonst jeder Unterprozess
+> zweimal — einmal unter seinem Bereich, einmal unter seinem Hauptprozess.
+
 **🌳 Übersicht — die Mindmap als Baum.** Reiter „Prozesse" → **🕸 Verknüpfungen**. Die Wurzel steht
 links, die Äste laufen nach rechts: **Werk → Band → Prozess → Modell → Regelwerk**. Jeder Ast der
 ersten Ebene hat seine eigene Farbe, alles darunter erbt sie — so sieht man die Zugehörigkeit, ohne
