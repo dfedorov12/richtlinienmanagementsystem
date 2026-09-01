@@ -1760,3 +1760,60 @@ Zeichen. Ein einzelner Buchstabe wäre die halbe Landschaft.
 
 Aus der Landkarte führt `lkAbhaengigkeiten()` direkt hinein: Wunsch setzen, dann den Reiter
 wechseln. Andersherum wäre der Graph beim Zeichnen noch nicht gebaut.
+
+---
+
+## Durchgang und Aufräumen (Stand 2026-09-01)
+
+Nach mehreren Ausbaustufen einmal alles durchgesehen. Gefunden wurde weniger, als ich erwartet
+hatte – und anderes, als ich erwartet hatte.
+
+### Was ich zuerst vermutete: Tempo. Falsch.
+
+Die Coswiger Karte hat 103 Kacheln, und jede fragt beim Zeichnen über `lkIstTeilprozess()` →
+`lkHauptprozesseVon()` → `lkVerweiseAuf()` die Gegenrichtung ab – das läuft über alle Kacheln aller
+Werke. Nach Papier ist das quadratisch.
+
+Gemessen: **3,7 ms** für einen vollständigen Aufbau, **8 ms** voll aufgeklappt. Da ist nichts zu
+holen. Ein Index hätte Code hinzugefügt und nichts gebracht; die Optimierung ist unterblieben.
+
+### Vier Bauer für eine Kennung, zwei davon für dieselbe Sache
+
+`_lkNeueId()` und `lkFreieKachelId()` machten beide aus einem Namen die freie Kennung einer neuen
+Kachel – die eine mit Bindestrichen und 30 Zeichen, die andere ohne und mit 20. Je nachdem, welcher
+Weg eine Kachel anlegte, sah ihre Kennung anders aus. Dazu zwei weitere Fassungen für Bereiche und
+für eigene Vorlagen.
+
+Jetzt: `lkSchluesselAus()` (entumlauten, klein, Bindestriche) und `lkFreierSchluessel()`
+(durchnummerieren). Die drei übrigen Funktionen sind Einzeiler darauf. Bestehende Kennungen bleiben,
+wie sie sind – erzeugt wird nur Neues.
+
+### Ein Ziel ohne Werk gehört zu der Karte, in der es steht
+
+`lkVerweiseAuf()` war schon korrigiert, `lkVerweiseVon()` nicht: Dort entschied weiter die gerade
+offene Karte, dieselbe Kachel bedeutete also je nach Ansicht etwas anderes. `lkZielTeile()` und
+`lkKachelVonZiel()` nehmen jetzt ein Standardwerk entgegen, `lkVerweiseVon(k, werk)` gibt es weiter,
+und `vkGraphBauen()` – der einzige Aufrufer, der über alle Werke läuft – kennt es ohnehin.
+
+### Kleinigkeiten
+
+- `lkMehrfachVerwendet()` gab es, benutzt wurde sie nirgends – der Vergleich stand dreimal
+  ausgeschrieben daneben. Eine Funktion, die nur der Test aufruft, ist Ballast; jetzt ist sie es
+  nicht mehr.
+- `const schreiben = true` im Vorlagen-Dialog: eine Bedingung, die keine war. Der Dialog kehrt ohne
+  Schreibrecht schon vorher um.
+- Das Werk an ein Verweisziel zu hängen stand zweimal wortgleich da (`_lkZielMitWerk`).
+- `_vkTrefferHtml()` rief `vkBetroffeneWerke()` je Treffer zweimal auf.
+
+### Ein echter Fehler in der neuen Ansicht
+
+`vkHerkunftWege()` brach bei zu vielen oder zu langen Wegen ab – und legte den **angefangenen** Weg
+zu den Ergebnissen. Der sah dann aus wie ein vollständiger, der bloß nicht beim Konzern beginnt. Ein
+abgeschnittener Weg, der sich nicht als solcher zu erkennen gibt, ist schlimmer als gar keiner. Jetzt
+wird die Verzweigung verworfen und stattdessen vermerkt, dass es weitere gibt – das steht auch so in
+der Ansicht.
+
+Und der Weg aus der Landkarte stieß den Aufbau des Graphen **zweimal** an: einmal über
+`vkAbhaengigZeigen()`, einmal über den Reiterwechsel. Es ging gut, weil ein Wächter in
+`initVerknuepfungen()` den zweiten Lauf abfing – aber „es geht gut, weil woanders ein Wächter steht"
+ist kein Entwurf. `vkAbhaengigWunsch()` merkt jetzt nur vor, gezeichnet wird beim Reiterwechsel.
