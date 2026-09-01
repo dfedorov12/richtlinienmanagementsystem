@@ -1614,3 +1614,53 @@ in einem anderen, **archivierten** Repo. Den Lauf dafür rot zu färben hieße: 
 niemand grün bekommen kann, steht dauerhaft auf rot, und ab da schaut niemand mehr hin. Der Befund
 wird deshalb als Warnung gemeldet (mit der Anleitung dazu) und zählt nicht als Fehler. Was **dieses**
 Repo ausliefert, wird weiter hart geprüft.
+
+---
+
+## Bereiche bearbeiten, Vorlagen ergänzen, Holding mit Teilprozessen (Stand 2026-09-01)
+
+### Der Schlüssel eines Bereichs ändert sich nie
+
+Jede Kachel liess sich anlegen, umbenennen und verschieben – die Bereiche kamen aus der Vorlage und
+blieben. `lkBandDialog()` macht den Balken zur Schaltfläche: Name, Reihenfolge, Darstellung.
+
+Beim Umbenennen bleibt `b.key` unangetastet. An ihm hängt jede Kachel über `k.band`; ein neuer
+Schlüssel liesse sie alle in ein Band fallen, das es nicht mehr gibt. Ein **neuer** Bereich bekommt
+seinen Schlüssel aus dem Titel (`lkBandSchluessel()`, entumlautet, nie doppelt).
+
+**Löschen verschiebt.** `lkBandLoeschen()` setzt die Kacheln auf den im Dialog gewählten Bereich um
+und entfernt erst dann das Band. Was mit Prozessen geschieht, entscheidet nicht das Programm. Der
+letzte Bereich lässt sich nicht entfernen.
+
+**Die Pfeilform hing am Schlüssel `kern`** – Zufall, kein Entwurf: ein selbst angelegter Bereich
+konnte sie nicht bekommen. `lkBandPfeile()` liest jetzt `band.form`, mit dem alten Schlüssel als
+Vorgabe. Der Renderer fragt `lkBandPfeile(band)` statt `band.key === 'kern'`.
+
+### Vorlage ergänzen statt ersetzen
+
+`lkVorlageAnwenden()` hiess bisher immer „ersetzen". Für die neuen Teilprozesse hätte man alles
+wegwerfen müssen, was an der Konzernkarte gepflegt ist. `_lkVorlageErgaenzen()` legt nur an, was
+fehlt (Abgleich über `k.id`), und hängt einer vorhandenen Kachel nur die Verweise an, die sie noch
+nicht hat – überschrieben wird nichts. Zweimal ergänzt ändert nichts mehr; das steht im Test.
+
+Vorgabe ist **Ergänzen**. Ersetzen wirft weg, und die Vorgabe eines Dialogs sollte nicht die
+verlustreiche Variante sein.
+
+### LK_HOLDING trägt die Teilprozesse
+
+Struktur aus der Holding-Skizze (8 Bereiche, 35 Hauptprozesse), Teilprozesse aus der abgestimmten
+Konzernlandkarte – dort standen sie als Text im Untertitel, mit „·" aneinandergereiht. Ein Text
+lässt sich nicht anklicken, nicht mit einem Modell verknüpfen und nicht zweimal verwenden. Jetzt
+sind es 48 eigene Kacheln, die als Unterprozess an ihrem Hauptprozess hängen.
+
+Fünf gehören zu **zwei** Hauptprozessen und stehen trotzdem nur einmal da: Forecast, M&A,
+Governance-System, Risikomanagement, Best-Practice-Transfer. Genau der Fall, für den die geteilten
+Unterprozesse gebaut wurden.
+
+„Kommunikation & Stakeholder-Management" ist der einzige Hauptprozess, der in der Skizze fehlte; er
+steht jetzt bei der Strategie. Die sieben Kernprozesse der Töchter hängen als `folgt`-Kette am
+operativen Tagesgeschäft.
+
+Erzeugt wurde der Block aus einer Tabelle, nicht abgetippt – und die erste Fassung enthielt prompt
+einen Verweis auf eine abgeschnittene Kennung (`hd-t-risikomanagement-verfahr` statt `…verfahren`).
+Der Generator gibt die Kennung jetzt zurück, statt sie zweimal zu schreiben.

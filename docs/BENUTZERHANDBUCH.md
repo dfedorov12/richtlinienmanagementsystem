@@ -579,7 +579,7 @@ echten Vorgang an und verschickt echte E-Mails.
 | **Konzern / Holding** | Sechs Bereiche einer Führungsholding — Strategie, Finanzen, Risiko & Compliance, Synergien, Kommunikation, Transformation — mit je drei Hauptaufgaben (18 Prozesse) |
 | **Produzierende Gesellschaft** | Führungs-, Kern- und Unterstützungsprozesse mit Vertrieb, Produktion und Auftragsabwicklung (17 Prozesse) |
 | **Konzern-Prozesslandkarte (abgestimmt)** | Die abgestimmte Landkarte des Konzerns: Führung, Kernprozesse, Unterstützungsprozesse mit je sieben Prozessgruppen; die Teilprozesse stehen als Untertitel an der Kachel (21 Prozesse) |
-| **Holdinggesellschaft (Aufbau)** | Der Aufbau einer Holding: Strategie, Finanzierung, Konzern-Controlling, Personalwesen, Beteiligungsverwaltung, Beratung, Überwachung — und das operative Geschäft der Töchter (8 Bereiche, 33 Prozesse) |
+| **Holdinggesellschaft (Aufbau)** | Der Aufbau einer Holding: Strategie, Finanzierung, Konzern-Controlling, Personalwesen, Beteiligungsverwaltung, Beratung, Überwachung — und das operative Geschäft der Töchter. 8 Bereiche, 35 Hauptprozesse und darunter 48 Teilprozesse aus der abgestimmten Konzernlandkarte (83 Kacheln) |
 | **Führungsholding — Gesamtbild** | Aus den drei anderen zusammengeführt: Steuern & Ausrichten · Kapital & Beteiligungen als **Kernprozesse der Holding** · Überwachen & Absichern · Konzernservices · Umsetzung in den Gesellschaften (23 Prozesse) |
 | **SAP End-to-End-Prozesse** | Der Konzern als **Ablauf** statt als Aufbau: Lead to Cash · Source to Pay · Design to Operate · Recruit to Retire als Klammern, darunter die Ketten quer durch Vertrieb, Planung, Gießerei, Einkauf und Buchhaltung (9 Bänder, 52 Prozesse) — **die einzige Vorlage, die schon verknüpft ist** |
 | **Coswig (WGC)** | Die IMS-Prozesslandschaft aus IMS-4.4, Revision 7: 16 Hauptprozesse mit den Gruppen und Teilprozessen der Tabelle, jeder mit seiner Dokumentennummer (103 Kacheln) |
@@ -602,6 +602,30 @@ Bedarfsanforderung. SAP dient als Leitfaden, die Schritte sind die einer Gießer
 Der Geltungsbereich wird passend gesetzt: Konzernprozesse gelten konzernweit, die einer Gesellschaft
 zunächst dort. Modelle und Regelwerke bleiben leer — eine Vorlage bringt Struktur, keine erfundenen
 Verknüpfungen. Ist schon eine Landkarte da, wird sie ersetzt; der Schritt steht danach im Verlauf.
+
+**Bereiche bearbeiten und anlegen.** Ein Klick auf den farbigen **Balken** links öffnet den Bereich:
+Name ändern, Reihenfolge verschieben, Darstellung wählen (Kacheln nebeneinander oder Pfeile
+untereinander wie bei den Kernprozessen). **„+ Bereich"** legt einen neuen an.
+
+Zwei Dinge sind dabei absichtlich so:
+
+- **Der Name ist jederzeit änderbar, ohne dass etwas verlorengeht.** Intern behält ein Bereich
+  seinen Schlüssel — und daran hängt jede Kachel. Ein neuer Schlüssel liesse sie alle aus der Karte
+  fallen.
+- **Ein Bereich mit Inhalt lässt sich entfernen, seine Prozesse werden dabei verschoben, nicht
+  gelöscht.** Wohin, entscheiden Sie im Dialog. Der letzte Bereich bleibt stehen: Sonst hätte kein
+  Prozess mehr Platz.
+
+**Vorlage ergänzen statt ersetzen.** Steht schon eine Landkarte, fragt **„📋 Vorlage"**, was mit ihr
+geschehen soll:
+
+| | Wirkung |
+|---|---|
+| **Ergänzen** (Vorgabe) | Legt nur an, was fehlt. Vorhandene Prozesse behalten Verantwortliche, Modelle, Regelwerke und Geltungsbereich; ihnen werden nur die fehlenden Verweise angehängt |
+| **Ersetzen** | Die Karte wird verworfen und durch die Vorlage ersetzt — alles daran Gepflegte geht verloren |
+
+Ohne den ersten Weg müsste man eine gepflegte Landkarte wegwerfen, bloß um die Unterprozesse einer
+Vorlage zu bekommen. Beide Schritte stehen anschließend im Verlauf.
 
 **Ein Prozess, mehrere Hauptprozesse — und nur einmal gepflegt.** „Bedarfsanforderung" gehört zu
 Source-to-Pay *und* zu Plan-to-Fulfill. Sie zweimal zu pflegen wäre der Anfang vom Auseinanderlaufen:
