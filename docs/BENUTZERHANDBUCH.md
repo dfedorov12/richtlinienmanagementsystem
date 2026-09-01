@@ -603,6 +603,23 @@ Der Geltungsbereich wird passend gesetzt: Konzernprozesse gelten konzernweit, di
 zunächst dort. Modelle und Regelwerke bleiben leer — eine Vorlage bringt Struktur, keine erfundenen
 Verknüpfungen. Ist schon eine Landkarte da, wird sie ersetzt; der Schritt steht danach im Verlauf.
 
+**Eigene Vorlagen sichern — und die Auswahl aufräumen.** Wer eine Landkarte einmal zurechtgelegt
+hat, sichert sie über **„💾 Diese Landkarte als Vorlage sichern"** im Vorlagen-Dialog und setzt sie in
+jedem anderen Werk ein.
+
+Gesichert wird die **Form**: Bereiche, Namen, Untertitel und die Gliederung. **Nicht** mitgenommen
+werden Verantwortliche, Modelle, Regelwerke und Geltungsbereich — eine Person gehört nicht in eine
+Vorlage, und ein Modell liegt im Ordner seines Werks (zwei Werke dürfen nicht auf dieselbe Datei
+zeigen). Verweise auf andere Werke fallen weg; Verweise im eigenen verlieren das Werkkürzel und
+passen so in jede Karte.
+
+Das **✕** je Zeile räumt die Auswahl auf:
+
+| | Wirkung |
+|---|---|
+| **eigene Vorlage** | wird gelöscht. Die damit angelegten Landkarten bleiben unberührt — eine Vorlage ist eine Kopiervorlage, keine Verbindung |
+| **eingebaute Vorlage** | wird nur **ausgeblendet**. Sie steht im Programm und lässt sich unten im Dialog jederzeit zurückholen |
+
 **Untertitel gliedern — aus grauem Text werden Unterprozesse.** Unter dem Namen einer Kachel steht
 oft eine Aufzählung: *„Marktanalyse · Zielmärkte · Kundenentwicklung"* oder *„Mittel verteilen,
 Investitionen entscheiden"*. Als grauer Text ist das Beschriftung, keine Struktur — nicht anklickbar,

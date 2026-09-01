@@ -1695,3 +1695,29 @@ nicht über den Namen). Beides steht im Test.
 Auf die Meldung „Prozesse in grau" hin habe ich zuerst den Standort-Filter untersucht – die einzige
 Stelle, die `lk-aus` setzt. Gemeint war aber der graue **Untertitel**. Die Arbeit am Filter bleibt
 trotzdem richtig (er überlebte den Werkwechsel), war hier aber nicht die Antwort.
+
+---
+
+## Eigene Vorlagen (Stand 2026-09-01)
+
+Neun eingebaute Vorlagen, von denen ein Haus die meisten nie braucht – und kein Weg, eine einmal
+zurechtgelegte Landkarte zu sichern. Beides ist jetzt da.
+
+`_lkDaten.vorlagen` (eigene) und `_lkDaten.vorlagenAus` (ausgeblendete eingebaute) liegen in
+derselben Datei wie die Karten. Keine neue Liste, keine neue Spalte.
+
+**Eine Vorlage ist Form, nicht Inhalt.** `_lkVorlageAusKarte()` nimmt Bänder, Namen, Untertitel und
+die Gliederung mit – nicht Verantwortliche, Modelle, Regelwerke, Geltungsbereich. Eine Person gehört
+nicht in eine Vorlage; ein Modell liegt im Ordner seines Werks, und zwei Werke dürfen nicht auf
+dieselbe Datei zeigen. Verweise ins eigene Werk verlieren das Kürzel (die Vorlage passt so überall
+hin), Verweise auf ein fremdes Werk fallen weg – aus einer Vorlage heraus zeigten sie auf eine
+fremde Karte.
+
+**Eingebaute werden ausgeblendet, nicht gelöscht.** Sie stehen im Code; was verschwände, wäre nur
+die Möglichkeit, sie zurückzuholen. Eigene werden wirklich gelöscht – die damit angelegten Karten
+bleiben unberührt, eine Vorlage ist eine Kopiervorlage und keine Verbindung.
+
+**Die Falle war das Laden.** `lkDatenLaden()` baut `_lkDaten` aus `{version, karten, historie}` neu
+zusammen und wirft alles andere weg; die Datei wird später aus genau diesem Objekt geschrieben. Eine
+Vorlage, die dort nicht ausdrücklich mitgenommen wird, ist beim nächsten Laden still verschwunden –
+und das merkt man erst Tage später. Der Test lädt deshalb einmal neu und schaut nach.
