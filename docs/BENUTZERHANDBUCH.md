@@ -603,6 +603,21 @@ Der Geltungsbereich wird passend gesetzt: Konzernprozesse gelten konzernweit, di
 zunächst dort. Modelle und Regelwerke bleiben leer — eine Vorlage bringt Struktur, keine erfundenen
 Verknüpfungen. Ist schon eine Landkarte da, wird sie ersetzt; der Schritt steht danach im Verlauf.
 
+**Untertitel gliedern — aus grauem Text werden Unterprozesse.** Unter dem Namen einer Kachel steht
+oft eine Aufzählung: *„Marktanalyse · Zielmärkte · Kundenentwicklung"* oder *„Mittel verteilen,
+Investitionen entscheiden"*. Als grauer Text ist das Beschriftung, keine Struktur — nicht anklickbar,
+nicht mit einem Modell verknüpfbar, nicht zweimal verwendbar, nicht aufklappbar.
+
+**„↳ Untertitel gliedern"** im Kachel-Dialog macht daraus echte Unterprozesse. Der Vorschlag kommt
+von der Maschine, die Entscheidung von Ihnen: Der Dialog zeigt eine Zeile je Prozess zum Ändern.
+Automatisch zu zerlegen wäre falsch — *„Mittel verteilen, Investitionen entscheiden"* sind zwei
+Prozesse, *„Lean, Operational Excellence, KVP"* ist einer. Das sieht ein Mensch, ein Trennzeichen
+nicht.
+
+Gibt es einen Prozess des Namens in dieser Landkarte schon, wird er **verwendet statt neu angelegt** —
+einmal gepflegt, mehrfach verwendet. Ein neuer Teilprozess erbt Band und Geltungsbereich seines
+Hauptprozesses; danach ist er eine vollwertige Kachel mit Modellen, Regelwerken und Verantwortlichem.
+
 **Bereiche bearbeiten und anlegen.** Ein Klick auf den farbigen **Balken** links öffnet den Bereich:
 Name ändern, Reihenfolge verschieben, Darstellung wählen (Kacheln nebeneinander oder Pfeile
 untereinander wie bei den Kernprozessen). **„+ Bereich"** legt einen neuen an.

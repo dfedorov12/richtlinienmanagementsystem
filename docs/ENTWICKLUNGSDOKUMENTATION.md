@@ -1664,3 +1664,34 @@ operativen Tagesgeschäft.
 Erzeugt wurde der Block aus einer Tabelle, nicht abgetippt – und die erste Fassung enthielt prompt
 einen Verweis auf eine abgeschnittene Kennung (`hd-t-risikomanagement-verfahr` statt `…verfahren`).
 Der Generator gibt die Kennung jetzt zurück, statt sie zweimal zu schreiben.
+
+---
+
+## Untertitel gliedern (Stand 2026-09-01)
+
+„Kapitalallokation / Mittel verteilen, Investitionen entscheiden" – der graue Text unter dem Namen
+ist in vielen Kacheln eine Aufzählung der Teilprozesse. Als Text ist er Beschriftung, keine
+Struktur: nicht anklickbar, nicht mit einem Modell verknüpfbar, nicht zweimal verwendbar, nicht
+aufklappbar.
+
+`lkGliedernDialog()` schlägt eine Zerlegung vor, `lkGliedernUebernehmen()` führt sie aus.
+
+**Der Vorschlag kommt von der Maschine, die Entscheidung vom Menschen.** Automatisch zu zerlegen
+wäre falsch: „Mittel verteilen, Investitionen entscheiden" sind zwei Prozesse, „Lean, Operational
+Excellence, KVP" ist einer – das sieht ein Mensch, ein Trennzeichen nicht. `lkUnterTeile()` trennt
+deshalb bei vorhandenem „·" **nur** daran (deutliches Zeichen) und erst sonst an Semikolon,
+Zeilenumbruch und Komma; der Dialog zeigt das Ergebnis zum Ändern.
+
+**Gibt es den Namen schon, wird die vorhandene Kachel verwendet** (`lkKachelVonName()`), nicht eine
+zweite angelegt. Genau darum ging es bei den geteilten Unterprozessen. Ein neuer Teilprozess erbt
+Band und Geltungsbereich seines Hauptprozesses – alles andere wäre geraten – und ist eine
+vollwertige Kachel.
+
+Zweimal gegliedert ändert nichts mehr, und ein Prozess wird nicht sein eigener Unterprozess (auch
+nicht über den Namen). Beides steht im Test.
+
+### Nachtrag zur Fehlersuche
+
+Auf die Meldung „Prozesse in grau" hin habe ich zuerst den Standort-Filter untersucht – die einzige
+Stelle, die `lk-aus` setzt. Gemeint war aber der graue **Untertitel**. Die Arbeit am Filter bleibt
+trotzdem richtig (er überlebte den Werkwechsel), war hier aber nicht die Antwort.
