@@ -16,6 +16,7 @@ werden nur eingebettet/gelesen).
 |-------|--------|
 | `index.html` | Boot-Screen, Sidebar + Topbar, alle Views (`data-view`) |
 | `css/style.css` | Design-System (Inter, Primärblau `#1a56db`) |
+| `assets/` | `dihag-zeichen.png` (Tiegel im Ring: Anmeldung, Seitenleiste, Favicon) und `dihag-logo.png` (vollständiges Logo: Bescheinigungen und alle Druckfassungen über `druckKopf()` in `js/util.js`) |
 | `js/auth.js` | MSAL 2.x Login (Single-Tenant), Token-Erwerb |
 | `js/access.js` | Rollen Admin/Genehmiger/Mitarbeiter (`access-config.json`) |
 | `js/sharepoint.js` | Graph-Datenschicht: Listen, ISMS-Dokumente, Vorschau, Mitarbeiter |
