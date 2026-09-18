@@ -96,6 +96,7 @@ Interne Spaltennamen müssen **exakt** so heißen (beim Anlegen ohne Leerzeichen
 | `QuizScore` | Zahl |
 | `QuizVersuche` | Zahl |
 | `AbgeschlossenAm` | Datum und Uhrzeit |
+| `Fortschritt` | Mehrere Zeilen Text — Modul-Fortschritt einer Schulung aus „Wissen“ (`{"s":"<Stand>","m":[…]}`); legt der erste Admin beim Öffnen des Reiters an (`spEnsureAckColumns`) |
 
 > Die App schreibt nur Spalten, die in der Richtlinien-Liste tatsächlich existieren
 > (verhindert 400-Fehler bei fehlenden Spalten). Leere Datumsfelder werden weggelassen.
