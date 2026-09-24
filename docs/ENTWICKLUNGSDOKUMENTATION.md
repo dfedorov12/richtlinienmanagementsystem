@@ -1913,3 +1913,91 @@ von `_wirkFields()`, muss `abweichungAnlegen()` in `compliance/js/rms.js` mitzie
   SoA, Risiken oder das Cockpit lesen dürfen, ohne eigenen Eintrag in der Reitermatrix.
 
 Test: `tests/m365-cockpit.test.mjs` (22 Prüfungen).
+
+## Sicherheitsdurchgang (Stand 2026-09-24)
+
+Die App hält ein Graph-Token mit `Sites.ReadWrite.All`, `Files.ReadWrite.All`, `Mail.Send` und
+`User.Read.All` im Browser (`localStorage`, siehe 7e). Jede Stelle, an der fremder Text als Code
+laufen kann, reicht damit bis in alle SharePoint-Sites der angemeldeten Person und in ihr Postfach.
+Der Durchgang hat vier solche Stellen geschlossen und Sperren eingebaut, damit sie zu bleiben.
+
+### Werte in Inline-Handlern: nur über `jsArg()`
+
+`onclick="f('${esc(x)}')"` war das übliche Muster – und nicht sicher. Der Browser entschlüsselt
+die Entitäten eines Attributs, **bevor** er das JavaScript darin ausführt: aus `&#39;` wird wieder
+`'`. Ein Dateiname wie `Richtlinie');…;('.docx` in der ISMS- oder Governance-Bibliothek, ein
+Ordnername oder der `u`-Parameter eines Freigabe-Links lief so als Code.
+
+- **Regel:** `onclick="f(${jsArg(x)})"` – ohne eigene Anführungszeichen. `jsArg()` (`js/util.js`,
+  Kopie in `ki/app.js`) bildet erst ein JSON-Literal und escapt es dann fürs Attribut; das
+  Ergebnis ist immer ein String, wie vorher `'…'`.
+- Feste Konstanten im Quelltext (`switchView('meine')`) und reine Zahlen dürfen bleiben.
+- Wird Handler-Code erst zusammengesetzt (`knopf(\`f(${jsArg(a)})\`)`, `chip(…, onclick)`), gilt
+  dieselbe Regel beim Zusammensetzen.
+- **Sperre:** Smoketest §5 meldet jedes `'${…}'`, `${esc(` und `${JSON.stringify(` innerhalb eines
+  `on…="…"` und prüft `jsArg()` selbst gegen Ausbruchsversuche.
+- **Tests:** Die Sandkästen bekommen den echten `jsArg()`; Erwartungen lauten `f(&quot;42&quot;)`.
+
+### Mail-Links: ohne Token keine stille Entscheidung
+
+Die Kennungen zählen hoch, einen Link `?richtlinie=42&ansicht=freigaben&aktion=freigeben` oder
+`?konzept=17&aktion=annehmen` kann jede:r bauen. Bisher genügte ein Klick darauf – das Token der
+Runde umging man, indem man es wegließ.
+
+- **Regelwerke:** Mit gültigem Token wie gehabt `einKlickAktion()`. Ohne Token fragt
+  `handleMailAction()` vor „konform" und „freigeben" nach und nennt das Regelwerk beim Namen.
+  Die Ablehnungen fragen ohnehin (Begründung ist Pflicht).
+- **Konzepte** haben jetzt ein eigenes Einmal-Token (Art `konzept`), erzeugt beim Einreichen in
+  `saveKonzept()` und `konzeptSubmitGF()`. GF-Mail (`_konzeptMailHtml()`) und Erinnerungs-Cron
+  (`konzeptLink(id, aktion, token)`) hängen es an. `handleKonzeptMailAction(id, aktion, token)`
+  entscheidet nur damit ohne Rückfrage; `konzeptDecide()` löscht das Token mit der Entscheidung.
+- **Adressat:** `?u=` zählt nur, wenn er wie eine Mailadresse aussieht (`linkAdresse()` in
+  `js/auth.js`, dieselbe Prüfung wie `getLoginHint()`).
+- Rückkehr vom Login (`response.state`) nur auf einen Pfad dieser Seite – `//host` und `/\host`
+  sind für den Browser fremde Adressen.
+- Test: `tests/mail-links-token.test.mjs`.
+
+### Erinnerungs-Cron: das Secret bestimmt den Absender
+
+`mailSender` aus `access-config.json` gewann vor dem Secret `MAIL_SENDER`. Wer die Datei schreiben
+kann, bestimmte damit, als welches Postfach der Cron mit dem App-Recht `Mail.Send` sendet – ohne
+Application Access Policy jedes im Tenant. Jetzt entscheidet `absenderWaehlen()` in
+`scripts/erinnerungen.mjs`: Das Secret gewinnt, ein abweichender Eintrag steht im Log. Die
+Einstellung gilt nur ohne Secret (lokaler Lauf). Die erlaubte Empfänger-Domain folgt dem Absender.
+
+### Content-Security-Policy, MSAL aus `vendor/`
+
+Beide Seiten tragen eine CSP als `<meta>` (GitHub Pages erlaubt keine eigenen Header), vor dem
+ersten Skript. Sie verhindert keinen Inline-Code (`'unsafe-inline'`, solange es Inline-Handler
+gibt), aber sie nimmt ihm die Wege nach draußen:
+
+| Direktive | Erlaubt | Wofür |
+|---|---|---|
+| `script-src` | `'self' 'unsafe-inline'` | eigene Dateien, Inline-Handler, das Inline-Skript in `ki/index.html` |
+| `connect-src` | `'self'`, `graph.microsoft.com`, `login.microsoftonline.com`, `*.sharepoint.com` | Graph, MSAL, SharePoint-REST (KI), Download-/Upload-Adressen |
+| `frame-src` | `'self'`, `login.microsoftonline.com`, `*.sharepoint.com`, `*.officeapps.live.com`, `*.office.com`, `www.youtube-nocookie.com`, `player.vimeo.com` | stille Anmeldung, Dokumentvorschau, Lernvideos |
+| `img-src` | `'self' data: blob:` | Logos, Icons; kein Bild-Beacon nach draußen |
+| `style-src` / `font-src` | `'self'`, Google Fonts, `data:` | Exo, bpmn-Schrift |
+| `object-src` / `base-uri` / `form-action` | `'none'` / `'self'` / `'self'` | |
+
+**Neues Ziel?** Wer eine neue Adresse anspricht (fetch, iframe, Bild), trägt sie in **beiden**
+`index.html` ein. Ein Verstoß zeigt sich in der Browser-Konsole als „Refused to …". Smoketest §5
+lässt `connect-src`/`img-src` ohne Grenze und fremde `script-src` nicht durch.
+
+**MSAL** kommt nicht mehr vom CDN, sondern aus `vendor/msal-browser/2.38.2/msal-browser.min.js`
+(npm `@azure/msal-browser@2.38.2`, `lib/msal-browser.min.js`; sha512 des Pakets gegen das
+npm-Register geprüft). Damit hängt die Anmeldung an keiner fremden Skriptquelle. Aktualisieren:
+`npm pack @azure/msal-browser@<version>`, die Datei in einen neuen Versionsordner legen, beide
+`index.html` umstellen.
+
+Geprüft im echten Chromium (ohne Anmeldung): Beide Seiten laden ohne CSP-Verstoß, MSAL erreicht
+`login.microsoftonline.com`, bpmn-js zeichnet, Druckfenster mit Logo und Inline-Knopf laufen;
+`fetch`, Bild und Skript an eine fremde Adresse werden blockiert.
+
+### Kleineres
+
+- **Lernvideos:** `embed.aspx` wird nur von `https://*.sharepoint.com` eingebettet, sonst Link.
+  `VIDEO_INTERN` prüft den Host, nicht ein Stück der Adresse.
+- **KI-Mail:** Der Knopf-Link in `mailTemplate()` ist escapt.
+- **GitHub Actions** auf Commits festgelegt (`actions/checkout`, `actions/setup-node`, je v4.4.0);
+  Tests und Deploy-Smoke laufen mit `permissions: contents: read`. Smoketest §5 prüft das.
