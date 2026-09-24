@@ -1217,9 +1217,18 @@ ausformuliert.
 unverändert heraus. `downloadProcessXml()` schreibt vorher die Richtlinien aus dem Auswahlfeld
 des Editors ins Modell; aus der Ansicht aufgerufen hätte es die Verknüpfungen geleert.
 
-Abgesichert in `tests/prozessansicht.test.mjs` (62 Prüfungen: Farben, Schrittliste mit Schleife
-und Unerreichbarem, Kennungen an Befunden, Rendering von Tabelle, Schritten, Stellschrauben,
-Kopf und Notfall, Verdrahtung, Sie-Form).
+**Lesbarkeit der Befunde.** Ab drei Befunden derselben Regel zeigt die Tabelle eine Zeile mit
+der Regel und den Stellen als Chips (jeder Befund trägt dafür `name`). R5 hält zwei
+großgeschriebene Wörter nicht mehr für eine Person, wenn eines davon ein System oder eine Stelle
+ist (`PS_KEINE_PERSON`: „Power Automate", „Exchange Online"). R8 prüft das Verb ohne einen
+Klammerzusatz am Ende. Zahlen-Entitäten, wie bpmn-js sie schreibt (`&#38;`, `&#60;`), werden in
+Namen, Befunden und Einleitung zu Zeichen. Die Fläche richtet ihre Höhe nach der Form des Modells
+(`_procBoxHoehe()`, 320 px bis 70 % des Fensters).
+
+Abgesichert in `tests/prozessansicht.test.mjs` (70 Prüfungen: Farben, Schrittliste mit Schleife
+und Unerreichbarem, Kennungen und Namen an Befunden, weniger Fehlalarme bei R5 und R8, Entitäten,
+Rendering von Tabelle mit Bündeln, Schritten, Stellschrauben, Kopf und Notfall, Verdrahtung,
+Sie-Form).
 
 ---
 
