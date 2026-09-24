@@ -1225,7 +1225,7 @@ Klammerzusatz am Ende. Zahlen-Entitäten, wie bpmn-js sie schreibt (`&#38;`, `&#
 Namen, Befunden und Einleitung zu Zeichen. Die Fläche richtet ihre Höhe nach der Form des Modells
 (`_procBoxHoehe()`, 320 px bis 70 % des Fensters).
 
-Abgesichert in `tests/prozessansicht.test.mjs` (70 Prüfungen: Farben, Schrittliste mit Schleife
+Abgesichert in `tests/prozessansicht.test.mjs` (72 Prüfungen: Farben, Schrittliste mit Schleife
 und Unerreichbarem, Kennungen und Namen an Befunden, weniger Fehlalarme bei R5 und R8, Entitäten,
 Rendering von Tabelle mit Bündeln, Schritten, Stellschrauben, Kopf und Notfall, Verdrahtung,
 Sie-Form).
