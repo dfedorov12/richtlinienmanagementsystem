@@ -1984,11 +1984,19 @@ gibt), aber sie nimmt ihm die Wege nach draußen:
 `index.html` ein. Ein Verstoß zeigt sich in der Browser-Konsole als „Refused to …". Smoketest §5
 lässt `connect-src`/`img-src` ohne Grenze und fremde `script-src` nicht durch.
 
-**MSAL** kommt nicht mehr vom CDN, sondern aus `vendor/msal-browser/2.38.2/msal-browser.min.js`
-(npm `@azure/msal-browser@2.38.2`, `lib/msal-browser.min.js`; sha512 des Pakets gegen das
-npm-Register geprüft). Damit hängt die Anmeldung an keiner fremden Skriptquelle. Aktualisieren:
+**MSAL** kommt nicht mehr vom CDN, sondern aus `vendor/msal-browser/4.30.0/msal-browser.min.js`
+(npm `@azure/msal-browser@4.30.0`, LTS-Linie, `lib/msal-browser.min.js`; sha512 des Pakets gegen
+das npm-Register geprüft). Damit hängt die Anmeldung an keiner fremden Skriptquelle. Aktualisieren:
 `npm pack @azure/msal-browser@<version>`, die Datei in einen neuen Versionsordner legen, beide
 `index.html` umstellen.
+
+**Von 2.38.2 auf 4.30.0:** `authInit()` ruft `await _msal.initialize()` vor allem anderen
+(Pflicht seit v3). `storeAuthStateInCookie` (nur für IE) ist entfallen. Verhalten: Seit v4 liegt der
+Cache in `localStorage` verschlüsselt, der Schlüssel in einem Sitzungs-Cookie – zwischen Tabs
+(Outlook-Links) bleibt man angemeldet, nach dem Schließen des Browsers nicht mehr; die stille
+Anmeldung (SSO) fängt das in der Regel ohne Rückfrage ab. **v5** verlangt eine eigene Rückkehrseite
+(„Redirect-Bridge") und eine neue Redirect-URI in der Entra-App-Registrierung – das lohnt sich
+zusammen mit einem Clickjacking-Schutz, weil beide dieselbe eigene Rückkehrseite brauchen.
 
 Geprüft im echten Chromium (ohne Anmeldung): Beide Seiten laden ohne CSP-Verstoß, MSAL erreicht
 `login.microsoftonline.com`, bpmn-js zeichnet, Druckfenster mit Logo und Inline-Knopf laufen;
