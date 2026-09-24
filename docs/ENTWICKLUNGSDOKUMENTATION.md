@@ -2001,3 +2001,26 @@ Geprüft im echten Chromium (ohne Anmeldung): Beide Seiten laden ohne CSP-Versto
 - **KI-Mail:** Der Knopf-Link in `mailTemplate()` ist escapt.
 - **GitHub Actions** auf Commits festgelegt (`actions/checkout`, `actions/setup-node`, je v4.4.0);
   Tests und Deploy-Smoke laufen mit `permissions: contents: read`. Smoketest §5 prüft das.
+
+### Durchsicht aller HTML-Templates (Stand 2026-09-24)
+
+Geprüft wurden alle Template-Strings mit HTML in `js/` und `ki/app.js` (rund 1.500 Einsetzungen)
+mit dem TypeScript-Parser: Jede Einsetzung wurde bis zu ihrer Belegung verfolgt und bei
+Funktionsparametern bis zu allen Aufrufern. Übrig blieben Zahlen, Konstanten aus dem Code, per
+`esc()` escapte Werte und HTML aus eigenen Templates. Dazu kamen die per `+` zusammengesetzten
+Strings (nur der Wissen-Renderer `wiTextHtml()`, der zuerst escapt) und die Badge-Helfer.
+
+Gefunden und behoben:
+
+- `ki/app.js` `fmtDate()` gab bei einem ungültigen Datum den Rohtext zurück; jetzt `esc(s)` wie
+  im RMS. Dazu „Auto-Renewal" in der Lizenztabelle escapt.
+- `js/assets.js`: Das Symbol eigener Asset-Kategorien (Einstellungen) kam roh ins HTML.
+- **Links:** `href="${esc(url)}"` schützt das Attribut, aber nicht vor `javascript:…`, und die
+  CSP erlaubt solche Adressen wegen `'unsafe-inline'`. `DokumentUrl` ist ein freies Textfeld,
+  Ticket-, Asset- und Wissen-Links ebenso. Jetzt `href="${esc(sichereUrl(url))}"` an allen
+  52 Stellen: `sichereUrl()` (`js/util.js`, Kopie in `ki/app.js`) lässt http(s), mailto, die
+  Office-Protokolle und relative Adressen durch, sonst `#`. Smoketest §5 lässt keinen Link ohne
+  `sichereUrl()` mehr durch.
+
+Farben in `style="…"` sind sicher: Eigene Bereichsfarben der Landkarte gelten nur als `#rrggbb`
+(`lkFarbeGueltig()`), alle übrigen kommen aus Konstanten. Test: `tests/html-escaping.test.mjs`.
