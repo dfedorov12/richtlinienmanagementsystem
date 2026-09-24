@@ -376,6 +376,10 @@ hätte zeigen können.
   unangetastet. Bei „gilt immer" wird nur der Status gesetzt, keine Scheinentscheidung.
 - Gespeichert wird versioniert (SoA-Version, wer, wann) in `soa-config.json`; Exporte:
   **🖨 SoA-Report** (das klassische Audit-Dokument) und **⬇ CSV**.
+- **M365-Nachweise:** Unter der Bezeichnung eines Controls steht in Blau der jüngste Nachweis aus
+  Microsoft 365, den das **Compliance-Cockpit** gesichert hat (zum Beispiel die aktiven Richtlinien
+  für bedingten Zugriff bei A.8.5). „im Cockpit ↗“ öffnet dort genau dieses Control mit Verlauf und
+  Live-Wert. Gepflegt werden die Nachweise im Cockpit, Anwendbarkeit und Status weiter hier.
 
 > **Normbezug:** ISO 27001 Klausel 6.1.3 d) (Erklärung zur Anwendbarkeit – Pflichtdokument), 4.3
 > (Anwendungsbereich), Annex A; NIS2 Art. 21(2).

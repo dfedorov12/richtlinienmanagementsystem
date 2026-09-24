@@ -1819,3 +1819,40 @@ Und der Weg aus der Landkarte stieß den Aufbau des Graphen **zweimal** an: einm
 `vkAbhaengigZeigen()`, einmal über den Reiterwechsel. Es ging gut, weil ein Wächter in
 `initVerknuepfungen()` den zweiten Lauf abfing – aber „es geht gut, weil woanders ein Wächter steht"
 ist kein Entwurf. `vkAbhaengigWunsch()` merkt jetzt nur vor, gezeichnet wird beim Reiterwechsel.
+
+## Anbindung an das Compliance-Cockpit (Stand 2026-09-24)
+
+Das Compliance-Cockpit (`dfedorov12/compliance`, dfedorov12.github.io/compliance) hatte eigene Listen
+für Controls, Risiken, Vorfälle und Aufgaben aufgebaut. Das RMS bildet diese Themen vollständiger ab,
+und zwei Risikoregister oder zwei SoAs wären im Audit ein eigener Befund. Deshalb gilt jetzt: **Das RMS
+ist führend** für SoA, Risiken, Vorfälle und Maßnahmen. Das Cockpit ist der Microsoft-365- und
+Datenschutz-Teil (Purview live, VVT, TOM, AVV, Betroffenenanfragen) und liest die RMS-Daten mit.
+
+### Was das Cockpit im RMS anfasst
+
+| Richtung | Was | Wo |
+|---|---|---|
+| liest | SoA | `soa-config.json` im Konfig-Ordner der App-Site |
+| liest | Risiken, Register „Wirksamkeit“ | Listen auf `/sites/ISMS` |
+| schreibt | Abweichung mit Korrekturmaßnahme aus einer M365-Warnung | Liste „Wirksamkeit“, Format wie `_wirkFields()`, `Quelle = Microsoft 365 (Compliance-Cockpit)`, `HerkunftId = m365:<Alert-ID>` |
+
+Geschrieben werden nur Spalten, die es in der Liste gibt, wie im RMS selbst. Ändert sich das Format
+von `_wirkFields()`, muss `abweichungAnlegen()` in `compliance/js/rms.js` mitziehen.
+
+### Was das RMS dafür bekommen hat
+
+- **Direktlinks auf Einträge** (`_ansichtZielOeffnen()` in `js/app.js`): `?ansicht=risiken&risiko=ID`,
+  `?ansicht=wirksamkeit&eintrag=ID`, `?ansicht=abdeckung&modus=soa&control=A.8.12`. Weil Module und
+  Daten erst mit dem Reiter laden, wartet die Funktion kurz auf `_risks` bzw. `_wirk`. Alle Zugriffe
+  über Modulgrenzen sind mit `typeof` abgesichert; ein veralteter Link endet mit Hinweis statt mit
+  einem leeren Editor.
+- **M365-Nachweise in der SoA** (`spGetM365Nachweise()` in `js/sharepoint.js`, `_soaM365Zeile()` in
+  `js/soa.js`): liest die Liste `Compliance_M365Nachweise` auf der App-Site und zeigt je Control den
+  jüngsten Eintrag (nach `Zeit`). Fehlt die Liste, bleibt die SoA wie vorher. Geladen wird nebenher,
+  die SoA wartet nicht darauf.
+- **Navigation:** Link „Compliance-Cockpit“ in der Gruppe DIHAG-Apps, ID `nav-m365-cockpit`. Die
+  naheliegende ID `nav-compliance` ist bereits der Reiter „Compliance“ (Kenntnisnahme-Quote); sie
+  doppelt zu vergeben hätte dessen Sichtbarkeit überschrieben. Sichtbar ist der Link für alle, die
+  SoA, Risiken oder das Cockpit lesen dürfen, ohne eigenen Eintrag in der Reitermatrix.
+
+Test: `tests/m365-cockpit.test.mjs` (22 Prüfungen).
