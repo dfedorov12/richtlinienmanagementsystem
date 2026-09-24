@@ -1175,6 +1175,54 @@ Ordneranlage mit 409, Verschieben mit Kennungserhalt, Gruppierung, Aufräum-Rege
 
 ---
 
+## Prozessansicht: lesen statt bauen (Stand 2026-09-24)
+
+Vorbild ist die Prozessseite der E-Rechnung (`e-rechnung/prozess.html`): Kopf mit Aktionen,
+farbiges BPMN-Diagramm, darunter links „Schritt für Schritt", rechts eine Tabelle mit farbig
+eingestuften Befunden. Bis hierher öffnete jeder Klick auf ein Modell den Modeler, und die
+Prüfung stand als rote Textliste ohne Bezug zum Diagramm rechts daneben.
+
+**Einstieg.** `openProcessAnsicht(itemId)` in `js/prozesse.js` ist jetzt das Ziel der Modellkarte,
+des Knopfs „Öffnen" im Kachel-Dialog der Landkarte und der Links in den Verknüpfungen.
+„✎ Bearbeiten" führt in `openProcessEditor()`, „👁 Ansicht" (`procZurAnsicht()`) zurück.
+Neu angelegte Modelle öffnen weiter direkt im Editor. `_procAnsicht` sagt, welcher der beiden
+Modi offen ist; Unterprozess und „↰ Zurück" bleiben im jeweiligen Modus.
+
+**Gezeichnet wird mit dem Modeler, gesperrt.** Eine zweite Bibliothek (Viewer) hätte ein zweites
+`window.BpmnJS` bedeutet. `_procLesemodus()` bricht Verschieben, Verbinden, Größe ändern und
+Umbenennen über Ereignisse mit hoher Priorität ab (Rückgabe `false`), Palette und Kontextmenü
+blendet das CSS unter `#proc-ansicht` aus. Die Marker für ⊞ und ↦ laufen unverändert.
+
+**Farben.** `PROZESS_ARTEN` und `prozessArt(typ, name)` in `js/prozessschema.js` ordnen jedem
+Baustein Füllung und Rand zu, mit denselben Farbwerten wie die Legende von `prozess.html` der
+E-Rechnung. Ein Ende, dessen Name nach Ablehnung klingt (`PS_ABBRUCH_RE`), wird rot.
+`_procFarbStil()` baut daraus einmal Stilregeln, `_procFaerben()` setzt Marker (`pa-art-…`) an
+die Elemente. Im Modell selbst ändert sich nichts. Für den Bild-Export schreibt
+`_procSvgFaerben()` die Farben direkt an die Formen, weil eine SVG-Datei die Stilregeln der
+Seite nicht mitnimmt.
+
+**Schritte.** `prozessAblauf(xml)` liest das Modell vom Auslöser aus, Hauptweg zuerst (ein
+unbeschrifteter oder mit „ja" beschrifteter Ausgang kommt vor den anderen), und hängt
+Unerreichbares markiert an. Jeder Fluss, der die Bahn wechselt, ist eine Übergabe; die Kennzahlen
+nennen Übergaben, Entscheidungen und den Anteil der Automatik.
+
+**Befunde.** `prozessSchemaPruefen()` gibt an jedem Befund die Kennung des Elements mit (`id`,
+bei einem unbeschrifteten Ausgang der Fluss, bei R5 die Bahn, bei R9 leer). `_procBefundeHtml()`
+rendert die Tabelle für Ansicht und Editor, `_procBefundeMarkieren()` setzt Rahmen und Plakette,
+`procStelleZeigen(id)` holt die Stelle ins Bild. Im Editor prüft `_procNachpruefenBald()` nach
+jeder Änderung still nach. Die Befundtexte, Regeln und Bausteine sind dabei ohne Gedankenstrich
+ausformuliert.
+
+**Download.** Der BPMN-Download der Ansicht (`_procAnsichtDatei()`) gibt die geladene Datei
+unverändert heraus. `downloadProcessXml()` schreibt vorher die Richtlinien aus dem Auswahlfeld
+des Editors ins Modell; aus der Ansicht aufgerufen hätte es die Verknüpfungen geleert.
+
+Abgesichert in `tests/prozessansicht.test.mjs` (62 Prüfungen: Farben, Schrittliste mit Schleife
+und Unerreichbarem, Kennungen an Befunden, Rendering von Tabelle, Schritten, Stellschrauben,
+Kopf und Notfall, Verdrahtung, Sie-Form).
+
+---
+
 ## Verantwortliche, Matrix, Bild, Link, Abgleich (Stand 2026-08-25)
 
 Sechs Punkte aus einer Verbesserungsrunde – zusammengefasst, weil sie dieselbe Stelle betreffen.
