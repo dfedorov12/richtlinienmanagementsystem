@@ -99,7 +99,7 @@ Das Verhalten steuerst du direkt in der App: **Einstellungen → „Erinnerungen
 | Einstellung | Default | Zweck |
 |---|---|---|
 | **Erinnerungen aktiv** | Ja | Versand pausieren/aktivieren |
-| **Absender-Postfach** (`mailSender`) | – | Absender; leer → Fallback auf Secret `MAIL_SENDER` |
+| **Absender-Postfach** (`mailSender`) | – | Nur Rückfall ohne Secret. Ist `MAIL_SENDER` gesetzt (im Betrieb immer), gilt das Secret; ein abweichender Eintrag wird im Log genannt und ignoriert |
 | **Erste Erinnerung nach (Tagen)** | 7 | erste Erinnerung |
 | **Danach alle (Tagen)** | 3 | Folge-Takt |
 | **Eskalation ab (Tagen)** | 14 | ab wann zusätzlich an die Eskalations-Mail |
