@@ -1984,23 +1984,34 @@ gibt), aber sie nimmt ihm die Wege nach draußen:
 `index.html` ein. Ein Verstoß zeigt sich in der Browser-Konsole als „Refused to …". Smoketest §5
 lässt `connect-src`/`img-src` ohne Grenze und fremde `script-src` nicht durch.
 
-**MSAL** kommt nicht mehr vom CDN, sondern aus `vendor/msal-browser/4.30.0/msal-browser.min.js`
-(npm `@azure/msal-browser@4.30.0`, LTS-Linie, `lib/msal-browser.min.js`; sha512 des Pakets gegen
-das npm-Register geprüft). Damit hängt die Anmeldung an keiner fremden Skriptquelle. Aktualisieren:
-`npm pack @azure/msal-browser@<version>`, die Datei in einen neuen Versionsordner legen, beide
-`index.html` umstellen.
+**MSAL 5** kommt aus `vendor/msal-browser/5.23.0/` (npm `@azure/msal-browser@5.23.0`, `lib/msal-browser.min.js`
+und `lib/redirect-bridge/msal-redirect-bridge.min.js`; sha512 des Pakets gegen das npm-Register geprüft).
+Aktualisieren: `npm pack @azure/msal-browser@<version>`, beide Dateien in einen neuen Versionsordner,
+`index.html`, `ki/index.html` und `redirect.html` umstellen, danach `e2e/anmeldung-msal.mjs` laufen lassen.
 
-**Von 2.38.2 auf 4.30.0:** `authInit()` ruft `await _msal.initialize()` vor allem anderen
-(Pflicht seit v3). `storeAuthStateInCookie` (nur für IE) ist entfallen. Verhalten: Seit v4 liegt der
-Cache in `localStorage` verschlüsselt, der Schlüssel in einem Sitzungs-Cookie – zwischen Tabs
-(Outlook-Links) bleibt man angemeldet, nach dem Schließen des Browsers nicht mehr; die stille
-Anmeldung (SSO) fängt das in der Regel ohne Rückfrage ab. **v5** verlangt eine eigene Rückkehrseite
-(„Redirect-Bridge") und eine neue Redirect-URI in der Entra-App-Registrierung – das lohnt sich
-zusammen mit einem Clickjacking-Schutz, weil beide dieselbe eigene Rückkehrseite brauchen.
+**Rückkehrseite `redirect.html` („Redirect-Bridge").** Microsoft leitet nach jeder Anmeldung dorthin;
+`js/redirect.js` reicht die Antwort an die Seite weiter, die die Anmeldung begonnen hat (Popup und
+unsichtbares iframe per BroadcastChannel, Weiterleitung per sessionStorage und zurück auf dieselbe
+Adresse – Deep-Links und `/ki/` bleiben erhalten). In Entra steht **`https://rms.dihag.de/redirect.html`**
+als SPA-Redirect-URI; die Wurzel bleibt für das Abmelden (`postLogoutRedirectUri = _AUTH.appBase`).
+Die Seite hat einen festen Titel (sonst stünde die Adresse samt Anmeldecode im Tab) und eine eigene
+strenge CSP. Sie darf eingebettet werden – MSAL lädt sie im unsichtbaren iframe.
 
-Geprüft im echten Chromium (ohne Anmeldung): Beide Seiten laden ohne CSP-Verstoß, MSAL erreicht
-`login.microsoftonline.com`, bpmn-js zeichnet, Druckfenster mit Logo und Inline-Knopf laufen;
-`fetch`, Bild und Skript an eine fremde Adresse werden blockiert.
+**Clickjacking-Schutz.** `index.html` und `ki/index.html` sind unsichtbar (`<style id="rahmenschutz">`),
+bis `js/rahmenschutz.js` bestätigt, dass die Seite nicht in einem fremden Rahmen steckt. Header wie
+`frame-ancestors`/`X-Frame-Options` erlaubt GitHub Pages nicht, im `<meta>`-CSP wirkt `frame-ancestors`
+nicht. Möglich erst mit MSAL 5: iframes und Popups der Anmeldung laden `redirect.html`, nicht die App.
+
+Versionsverlauf: 2.38.2 → 4.30.0 (`initialize()` Pflicht, verschlüsselter `localStorage`-Cache, Anmeldung
+endet mit dem Browser) → 5.23.0 (Redirect-Bridge). Erst im Compliance-Cockpit erprobt.
+
+**Test:** `e2e/anmeldung-msal.mjs` simuliert die Microsoft-Anmeldung in Chromium (Authorize-, Token-
+und Graph-Endpunkte abgefangen) und spielt Weiterleitung mit Deep-Link, Mail-Link mit `?u=` (stilles
+iframe), `acquireTokenRedirect`, das KI-Dashboard und den Clickjacking-Fall durch.
+
+Geprüft im echten Chromium (ohne Anmeldung): Beide Seiten laden ohne CSP-Verstoß, bpmn-js zeichnet,
+Druckfenster mit Logo und Inline-Knopf laufen; `fetch`, Bild und Skript an eine fremde Adresse werden
+blockiert.
 
 ### Kleineres
 
