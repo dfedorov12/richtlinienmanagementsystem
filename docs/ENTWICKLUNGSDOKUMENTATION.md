@@ -1879,7 +1879,7 @@ ist kein Entwurf. `vkAbhaengigWunsch()` merkt jetzt nur vor, gezeichnet wird bei
 
 ## Anbindung an das Compliance-Cockpit (Stand 2026-09-24)
 
-Das Compliance-Cockpit (`dfedorov12/compliance`, dfedorov12.github.io/compliance) hatte eigene Listen
+Das Compliance-Cockpit (`dfedorov12/compliance`, compliance.dihag.de) hatte eigene Listen
 für Controls, Risiken, Vorfälle und Aufgaben aufgebaut. Das RMS bildet diese Themen vollständiger ab,
 und zwei Risikoregister oder zwei SoAs wären im Audit ein eigener Befund. Deshalb gilt jetzt: **Das RMS
 ist führend** für SoA, Risiken, Vorfälle und Maßnahmen. Das Cockpit ist der Microsoft-365- und
