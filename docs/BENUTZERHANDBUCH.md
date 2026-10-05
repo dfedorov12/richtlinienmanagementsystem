@@ -880,6 +880,14 @@ ersten eigenen Prozess. **Stufe 2** brauchen Sie erst, wenn Sie selbst zeichnen 
 Ablauf abbilden. Stufe 1 steht auch im Modeler hinter dem Knopf **„❓ Hilfe"**; sie öffnet sich als
 Dialog, das Diagramm bleibt dahinter offen.
 
+**Für Kolleginnen und Kollegen ohne RMS** gibt es beide Stufen als Word-Datei: Knopf
+**„📄 Word-Anleitung zum Weitergeben"** in diesem Abschnitt der Dokumentation oder im Hilfe-Dialog
+des Modelers. Die Datei kommt ohne die Klickwege im RMS aus. Sie zeigt die Zeichen als Bild, beide
+Beispiele als Diagramm (gezeichnet vom echten Generator, in den Farben der Ansicht), einen
+Spickzettel und eine Vorlage zum Ausfüllen. Als Ansprechpartner steht darin, wer sie erzeugt hat,
+die ausgefüllte Datei kommt also dorthin zurück. Die Zeilen aus der Vorlage fügen Sie dann wie
+unten beschrieben über „✨ Aus Richtlinie" ein.
+
 ### Stufe 1: In fünf Minuten zum ersten Prozess
 
 **Die sechs Zeichen**
@@ -939,12 +947,12 @@ das Hausschema findet an diesem Beispiel nichts.
 |---|---|
 | Element anklicken | Daneben erscheinen kleine Symbole. Damit hängen Sie den nächsten Schritt direkt an oder verbinden zwei Elemente. |
 | Doppelklick oder E | Beschriftung ändern. |
-| 🔧 oder R | Die Art ändern: aus einem leeren Kasten 👤 (*User task*), ⚙ (*Service task*) oder ✋ (*Manual task*) machen. |
+| 🔧 oder R | Die Art ändern: aus einem leeren Kasten 👤 „Aufgabe (Mensch)", ⚙ „Automatik (System)" oder ✋ „Handgriff (ohne System)" machen. |
 | 🗑 oder Entf | Löschen. |
 | Strg+Z | Rückgängig. Strg+Y stellt wieder her. |
 
-Die Erklärtexte im Modeler sind englisch: *Append* heißt anhängen, *Change element* Art ändern,
-*Delete* löschen, *Gateway* Entscheidung, *Lane* Bahn.
+Der Modeler spricht Deutsch und nennt die Bausteine wie das Hausschema. Bleiben Sie mit der Maus
+kurz über einem Symbol stehen, dann sagt er, was es tut.
 
 **Fertig ist ein Prozess, wenn** es genau einen Auslöser gibt, jedes Ergebnis einen Namen hat,
 jeder Kasten 👤, ⚙ oder ✋ trägt, jeder Kasten in einer Bahn liegt und jede Bahn nach einer Rolle
@@ -958,9 +966,9 @@ ein Verstoß, ein gestrichelter ein Hinweis.
 
 | Baustein | Wofür | Im Text | Im Modeler |
 |---|---|---|---|
-| ✋ Handgriff | Arbeit außerhalb jeder Anwendung: Werkstatt, Papier, Telefon. | `… (manuell)` | 🔧 und *Manual task* |
-| ⏱ Warten | Der Prozess ruht, bis eine Frist abläuft oder eine Nachricht kommt. | `Warten: …` | Palette *Create intermediate/boundary event*, dann 🔧 und *Timer* bzw. *Message intermediate catch event* |
-| ✛ Aufteilung | Zwei Wege laufen gleichzeitig und treffen sich wieder. | geht nur im Modeler | Raute setzen, dann 🔧 und *Parallel gateway* |
+| ✋ Handgriff | Arbeit außerhalb jeder Anwendung: Werkstatt, Papier, Telefon. | `… (manuell)` | 🔧 und „Handgriff (ohne System)" |
+| ⏱ Warten | Der Prozess ruht, bis eine Frist abläuft oder eine Nachricht kommt. | `Warten: …` | Palette „Zwischenereignis setzen, etwa Warten", dann 🔧 und „Frist abwarten" oder „Nachricht abwarten" |
+| ✛ Aufteilung | Zwei Wege laufen gleichzeitig und treffen sich wieder. | geht nur im Modeler | Raute setzen, dann 🔧 und „Aufteilung (beides)" |
 | ⊞ Unterprozess | Ein eigener Prozess, der hier im Ganzen läuft. Einmal modelliert, überall eingebunden. | `… (Unterprozess)` | Aufgabe anklicken, rechts unter „Unterprozess – ein Modell einbinden" das Modell wählen |
 
 ```
@@ -980,12 +988,12 @@ Erzeugen meldet die Prüfung genau einen Befund, **R10**: Die ⊞ „Ursache ana
 welches Modell sie einbindet. Gibt es den Prozess noch nicht, legt **„+ … als neues Modell anlegen"**
 ihn an.
 
-**Die Palette links:** *Create start event* ist ○, *Create end event* ◎, *Create gateway* ◇ (mit 🔧
-wird daraus ✛), *Create task* ein leerer Kasten, der gleich mit 🔧 zu 👤, ⚙ oder ✋ wird.
-*Create pool/participant* ist der Rahmen, in dem die Bahnen liegen: Pool anklicken, dann *Add lane
-above*, *Add lane below* oder *Divide into two lanes*. *Sub-process*, *data object*, *data store* und
-*group* kennt das Hausschema nicht. Statt eines Unterprozesses im Bild wird ein Modell als ⊞
-eingebunden, statt eines Datenobjekts hängt das Dokument per 📎 am Schritt.
+**Die Palette links:** „Auslöser setzen" ist ○, „Ergebnis setzen" ◎, „Entscheidung setzen" ◇ (mit
+🔧 wird daraus ✛), „Aufgabe setzen" ein leerer Kasten, der gleich mit 🔧 zu 👤, ⚙ oder ✋ wird.
+„Pool setzen" legt den Rahmen an, in dem die Bahnen liegen: Pool anklicken, dann „Bahn darüber
+einfügen", „Bahn darunter einfügen" oder „In zwei Bahnen teilen". Teilprozess, Datenobjekt,
+Datenspeicher und Gruppe kennt das Hausschema nicht. Statt eines Teilprozesses im Bild wird ein
+Modell als ⊞ eingebunden, statt eines Datenobjekts hängt das Dokument per 📎 am Schritt.
 
 **Muster, die immer wieder vorkommen**
 
@@ -1006,7 +1014,7 @@ eingebunden, statt eines Datenobjekts hängt das Dokument per 📎 am Schritt.
 |---|---|---|
 | R1 | Mehr als ein Auslöser. Das sind zwei Prozesse. | In zwei Modelle aufteilen, bei Bedarf per ⊞ verbinden. |
 | R2 | Ein Ergebnis ohne Namen. | Den Zustand eintragen: „Antrag genehmigt". |
-| R3 | Ein leerer Kasten. | 🔧 oder R, dann *User task*, *Service task* oder *Manual task*. |
+| R3 | Ein leerer Kasten. | 🔧 oder R, dann „Aufgabe (Mensch)", „Automatik (System)" oder „Handgriff (ohne System)". |
 | R4 | Ein Element liegt in keiner Bahn. | In die zuständige Bahn ziehen. |
 | R5 | Eine Bahn heißt wie eine Person. | Die Rolle eintragen. Personen wechseln, Rollen bleiben. |
 | R6 | Ein Ausgang einer Raute ist nicht beschriftet. | Den Pfeil doppelklicken, die Bedingung eintragen. |
