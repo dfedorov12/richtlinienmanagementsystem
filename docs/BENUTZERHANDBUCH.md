@@ -817,6 +817,15 @@ sortiert alle ein, die eindeutig zu einem Werk gehören — maßgeblich ist die 
 zeigt. Modelle, auf die Kacheln aus zwei Werken zeigen, bleiben liegen: Diese Entscheidung kann die
 App nicht treffen.
 
+**Pfeile aus älteren Modellen.** Bis Oktober 2026 zog „✨ Aus Richtlinie" zwei Arten von Pfeilen
+falsch: Ein Ja-Pfeil, dessen nächster Schritt eine Bahn tiefer lag, lief durch den Nein-Zweig ins
+Leere, und ein Pfeil in eine höhere Bahn lief durch den eigenen Kasten. Ansicht und Editor zeigen
+solche Pfeile schon richtig, im Editor übernimmt **Speichern** die Korrektur. **„↪ Pfeile prüfen"**
+in der Modell-Liste liest alle Modelle, nennt die betroffenen und korrigiert sie nach Rückfrage in
+der Datei. Neu gezogen werden nur Pfeile, die ins Leere oder durch den eigenen Kasten laufen; was von
+Hand gezogen ist, bleibt. SharePoint legt je Modell eine neue Version an, die alte bleibt im
+Versionsverlauf.
+
 **Suche über alle Werke.** Das Suchfeld oben findet einen Prozess in **jeder** Landkarte, nicht nur
 in der geöffneten. Ein Klick auf den Treffer wechselt die Karte und öffnet die Kachel.
 
