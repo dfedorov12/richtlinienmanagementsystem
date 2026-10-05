@@ -533,6 +533,9 @@ wird nicht einfach gelöscht: Die App fragt, wohin die Regelungen umziehen solle
 
 ## 13b. Prozesslandkarte  ·  *Reiter „Prozesse" → 🗺 Landkarte*
 
+> Neu bei BPMN? Erst Kapitel **13c. BPMN einfach erklärt** lesen. Stufe 1 dort reicht für den
+> ersten eigenen Prozess.
+
 Die Prozesslandschaft – **Führungsprozesse** oben, **Kernprozesse** als Pfeile in die
 Ergebnisse (Aufträge, Produkte, Einnahmen), **Unterstützungsprozesse** unten. Anders als ein Bild
 in einer Präsentation ist jede Kachel anklickbar.
@@ -866,6 +869,159 @@ beim Öffnen alle Modelle einmal ein – deshalb der kurze Ladehinweis – und *
 
 > **Normbezug:** ISO 27001 Klausel 4.4 (Managementsystem und seine Prozesse), 8.1 (Planung und
 > Steuerung); ISO 9001 Klausel 4.4 (prozessorientierter Ansatz).
+
+---
+
+## 13c. BPMN einfach erklärt  ·  *Für alle*
+
+BPMN ist eine Zeichensprache für Abläufe. Ein BPMN-Diagramm liest jede und jeder gleich: wo es
+losgeht, wer was tut, wo entschieden wird und wie die Sache ausgeht. **Stufe 1** reicht für den
+ersten eigenen Prozess. **Stufe 2** brauchen Sie erst, wenn Sie selbst zeichnen oder einen größeren
+Ablauf abbilden. Stufe 1 steht auch im Modeler hinter dem Knopf **„❓ Hilfe"**; sie öffnet sich als
+Dialog, das Diagramm bleibt dahinter offen.
+
+### Stufe 1: In fünf Minuten zum ersten Prozess
+
+**Die sechs Zeichen**
+
+| Zeichen | Bedeutung | Beispiel |
+|---|---|---|
+| ○ Auslöser | Womit es losgeht. Ein Ereignis, kein Tun. Dünner Kreis. | „Antrag geht ein" |
+| 👤 Aufgabe | Ein Mensch tut etwas. | „Antrag prüfen" |
+| ⚙ Automatik | Das System tut etwas von selbst: Mail, Workflow, Schnittstelle. | „Bestätigung versenden" |
+| ◇ Entscheidung | Eine Frage. Genau ein Weg geht weiter. Raute. | „Betrag über 5.000 €?" |
+| ◎ Ergebnis | Wie die Sache ausgeht. Mehrere Ergebnisse sind normal. Dicker Kreis. | „Antrag genehmigt" |
+| ▭ Bahn | Wer zuständig ist. Immer eine Rolle, nie ein Name. | „Einkauf" |
+
+**So liest man ein Diagramm:** Von links nach rechts läuft die Zeit, von oben nach unten stehen die
+Zuständigen. Die Pfeile geben die Reihenfolge vor. Wo ein Pfeil die Bahn wechselt, wird Arbeit
+übergeben, und an genau diesen Stellen bleibt im Alltag am meisten liegen.
+
+**Schreiben statt zeichnen.** Zeichnen müssen Sie nicht. Schreiben Sie den Ablauf Zeile für Zeile
+auf, das RMS baut daraus das Diagramm mit Bahnen und den richtigen Zeichen. Vier Regeln genügen:
+
+1. Eine Zeile ist ein Schritt. Vorne steht die Rolle, dann ein Doppelpunkt, dann die Tätigkeit:
+   `Einkauf: Angebote einholen`.
+2. Die Tätigkeit endet auf einem Verb: „Antrag prüfen", nicht „Antragsprüfung".
+3. Eine Entscheidung ist eine Frage mit Fragezeichen. Was im Nein-Fall zu tun ist, steht dahinter
+   nach `| nein:`.
+4. Die erste Zeile beginnt mit `Start:`, die letzte mit `Ende:`.
+
+```
+Start: Urlaubsantrag gestellt
+Mitarbeitende: Antrag im Portal erfassen
+Führungskraft: Urlaub genehmigen? | nein: Ablehnung mitteilen
+Personal: Urlaub im Zeitkonto eintragen
+Ende: Urlaub genehmigt
+```
+
+Daraus entsteht ein Diagramm mit drei Bahnen, einer Entscheidung und zwei Ergebnissen. Lautet die
+Antwort nein, wird die Ablehnung mitgeteilt und der Vorgang endet mit „Beendet". Die Prüfung gegen
+das Hausschema findet an diesem Beispiel nichts.
+
+**So kommt der Text ins RMS:**
+
+1. Reiter **„Prozesse"** öffnen und oben die Ansicht **„📋 Modelle"** wählen.
+2. **„✨ Aus Richtlinie"** klicken, das Regelwerk wählen, das der Ablauf umsetzt, und
+   **„Text auslesen →"**.
+3. Im Textfeld steht nun der Text des Regelwerks (oder nichts, wenn kein Word-Dokument verknüpft
+   ist). Ersetzen Sie ihn durch Ihre Zeilen.
+4. **„BPMN-Entwurf erzeugen →"**. Der Modeler öffnet sich mit dem fertigen Diagramm, das Regelwerk
+   ist schon verknüpft.
+5. Rechts den **Prozessnamen** prüfen, unter **Ablage** das Werk wählen und oben **„💾 Speichern"**.
+
+> Das Regelwerk wählen Sie nicht aus Förmlichkeit. Ein Ablauf ohne Regelwerk ist Gewohnheit, keine
+> Vorgabe (Regel R9), und auf diesem Weg ist die Verknüpfung gleich erledigt.
+
+**Kleine Korrekturen im Modeler**
+
+| Handgriff | Wirkung |
+|---|---|
+| Element anklicken | Daneben erscheinen kleine Symbole. Damit hängen Sie den nächsten Schritt direkt an oder verbinden zwei Elemente. |
+| Doppelklick oder E | Beschriftung ändern. |
+| 🔧 oder R | Die Art ändern: aus einem leeren Kasten 👤 (*User task*), ⚙ (*Service task*) oder ✋ (*Manual task*) machen. |
+| 🗑 oder Entf | Löschen. |
+| Strg+Z | Rückgängig. Strg+Y stellt wieder her. |
+
+Die Erklärtexte im Modeler sind englisch: *Append* heißt anhängen, *Change element* Art ändern,
+*Delete* löschen, *Gateway* Entscheidung, *Lane* Bahn.
+
+**Fertig ist ein Prozess, wenn** es genau einen Auslöser gibt, jedes Ergebnis einen Namen hat,
+jeder Kasten 👤, ⚙ oder ✋ trägt, jeder Kasten in einer Bahn liegt und jede Bahn nach einer Rolle
+heißt, jede Raute eine Frage ist und ihre Ausgänge beschriftet sind und ein Regelwerk verknüpft ist.
+Genau das prüft **„🔍 Schema"** oben im Modeler, und still nach jeder Änderung. Ein roter Rahmen ist
+ein Verstoß, ein gestrichelter ein Hinweis.
+
+### Stufe 2: Selbst zeichnen und größere Abläufe
+
+**Die vier weiteren Bausteine**
+
+| Baustein | Wofür | Im Text | Im Modeler |
+|---|---|---|---|
+| ✋ Handgriff | Arbeit außerhalb jeder Anwendung: Werkstatt, Papier, Telefon. | `… (manuell)` | 🔧 und *Manual task* |
+| ⏱ Warten | Der Prozess ruht, bis eine Frist abläuft oder eine Nachricht kommt. | `Warten: …` | Palette *Create intermediate/boundary event*, dann 🔧 und *Timer* bzw. *Message intermediate catch event* |
+| ✛ Aufteilung | Zwei Wege laufen gleichzeitig und treffen sich wieder. | geht nur im Modeler | Raute setzen, dann 🔧 und *Parallel gateway* |
+| ⊞ Unterprozess | Ein eigener Prozess, der hier im Ganzen läuft. Einmal modelliert, überall eingebunden. | `… (Unterprozess)` | Aufgabe anklicken, rechts unter „Unterprozess – ein Modell einbinden" das Modell wählen |
+
+```
+Start: Reklamation geht ein
+Vertrieb: Reklamation erfassen
+System: Eingang bestätigen (automatisch)
+Qualität: Muster prüfen (manuell)
+Qualität: Mangel berechtigt? | nein: Kunden informieren
+Qualität: Ursache analysieren (Unterprozess)
+Warten: Stellungnahme des Lieferanten
+Vertrieb: Gutschrift erstellen
+Ende: Reklamation erledigt
+```
+
+Bahnen namens **System**, **Automatik**, **Workflow** oder **Cron** gelten ohnehin als ⚙. Nach dem
+Erzeugen meldet die Prüfung genau einen Befund, **R10**: Die ⊞ „Ursache analysieren" weiß noch nicht,
+welches Modell sie einbindet. Gibt es den Prozess noch nicht, legt **„+ … als neues Modell anlegen"**
+ihn an.
+
+**Die Palette links:** *Create start event* ist ○, *Create end event* ◎, *Create gateway* ◇ (mit 🔧
+wird daraus ✛), *Create task* ein leerer Kasten, der gleich mit 🔧 zu 👤, ⚙ oder ✋ wird.
+*Create pool/participant* ist der Rahmen, in dem die Bahnen liegen: Pool anklicken, dann *Add lane
+above*, *Add lane below* oder *Divide into two lanes*. *Sub-process*, *data object*, *data store* und
+*group* kennt das Hausschema nicht. Statt eines Unterprozesses im Bild wird ein Modell als ⊞
+eingebunden, statt eines Datenobjekts hängt das Dokument per 📎 am Schritt.
+
+**Muster, die immer wieder vorkommen**
+
+| Muster | So geht es |
+|---|---|
+| Nachbessern | Vom Nein-Zweig einen Pfeil zurück zu dem Schritt ziehen, der wiederholt wird, und das Ergebnis „Nachbessern" löschen. So wird aus „abgelehnt" eine Schleife. |
+| Mehrere Ergebnisse | Jedes Ende heißt nach seinem Zustand: „Antrag genehmigt", „Antrag abgelehnt". |
+| Gleichzeitig | Eine ✛ teilt, eine zweite ✛ führt wieder zusammen. Ohne die zweite endet der Prozess doppelt. |
+| Ausgänge beschriften | Jeder Pfeil aus einer Raute bekommt per Doppelklick seine Bedingung, meist „ja" und „nein". |
+| Übergabe | Jeder Bahnwechsel ist eine Übergabe. Die Ansicht zählt sie unter „Stellschrauben". |
+| Teil statt Kopie | Läuft derselbe Ablauf in zwei Prozessen, wird er einmal modelliert und in beiden als ⊞ eingebunden. |
+| Weiter in einem anderen Prozess | Element anklicken, rechts unter „Übergang zu einem anderen Prozess" das Ziel wählen. Nach einer ⊞ geht es hier weiter, nach ↦ dort. |
+| Formular am Schritt | Schritt anklicken, rechts unter „Dokumente an diesem Schritt" hochladen oder verlinken. |
+
+**Wenn die Prüfung etwas meldet**
+
+| Regel | Was gemeint ist | So beheben |
+|---|---|---|
+| R1 | Mehr als ein Auslöser. Das sind zwei Prozesse. | In zwei Modelle aufteilen, bei Bedarf per ⊞ verbinden. |
+| R2 | Ein Ergebnis ohne Namen. | Den Zustand eintragen: „Antrag genehmigt". |
+| R3 | Ein leerer Kasten. | 🔧 oder R, dann *User task*, *Service task* oder *Manual task*. |
+| R4 | Ein Element liegt in keiner Bahn. | In die zuständige Bahn ziehen. |
+| R5 | Eine Bahn heißt wie eine Person. | Die Rolle eintragen. Personen wechseln, Rollen bleiben. |
+| R6 | Ein Ausgang einer Raute ist nicht beschriftet. | Den Pfeil doppelklicken, die Bedingung eintragen. |
+| R7 | Ein Element hängt lose. | Verbinden oder löschen. |
+| R8 | Keine Tätigkeit auf Verb, oder eine Raute ohne Frage. | „Rechnung prüfen" statt „Rechnungsprüfung", „Freigegeben?" mit Fragezeichen. |
+| R9 | Kein Regelwerk verknüpft. | Rechts unter „Verknüpfte Richtlinien" ankreuzen. |
+| R10 | Eine ⊞ bindet nichts ein. | Rechts unter „Unterprozess – ein Modell einbinden" das Modell wählen. |
+
+**Tastenkürzel:** Strg+Z rückgängig, Strg+Y wiederherstellen, Entf löschen, E beschriften, R Art
+ändern, Strg+C und Strg+V kopieren und einfügen, Strg+A alles markieren, Strg+F suchen, H, L, S, C
+für die Werkzeuge (Hand, Lasso, Platz schaffen, Verbinden), Mausrad schiebt die Fläche, mit Strg
+zoomt es. Die Kürzel wirken, solange kein Eingabefeld den Cursor hat und kein Dialog offen ist.
+
+> **Normbezug:** OMG BPMN 2.0 (ISO/IEC 19510); ISO 9001 Abschnitt 4.4 und ISO 27001 Klausel 4.4
+> verlangen, dass Prozesse und ihre Wechselwirkungen bestimmt und beschrieben sind.
 
 ---
 
