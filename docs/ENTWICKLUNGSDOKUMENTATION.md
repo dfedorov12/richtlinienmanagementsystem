@@ -2043,3 +2043,76 @@ Gefunden und behoben:
 
 Farben in `style="…"` sind sicher: Eigene Bereichsfarben der Landkarte gelten nur als `#rrggbb`
 (`lkFarbeGueltig()`), alle übrigen kommen aus Konstanten. Test: `tests/html-escaping.test.mjs`.
+
+## Die Prozesse des RMS als Modelle (Stand 2026-10-23)
+
+Bis hierher legte „📋 Standard-Prozesse" 13 flache Schrittlisten an (`RMS_PROCESS_SEEDS` in
+`js/prozesse.js`): ohne Bahnen, ohne Gliederung, und Ausnahmen, Vorfälle, Notfall, Ziele,
+Maßnahmen, Kennzahlen, Assets, Wirksamkeit, Prozessmanagement und der Betrieb des RMS fehlten
+ganz. ISO 27001 Klausel 4.4 verlangt die Prozesse des Managementsystems samt ihren
+Wechselwirkungen, und ein Auditor fragt genau danach.
+
+### Der Katalog: `js/rmsprozesse.js`
+
+`RMS_PROZESSE` beschreibt 61 Modelle: 13 Hauptprozesse, darunter ihre Unter- und
+Nebenprozesse. Je Eintrag Name (endet auf „(RMS)"), feste Prozess-Kennung (`Process_RMS_…`),
+Beschreibung, Normbezug, zugeordnete Unter- (`unter`) und Nebenprozesse (`neben`) und der
+Ablauf in der Schreibweise des Hausschemas. Ein Schritt „… (Unterprozess)" bindet das Modell
+gleichen Namens als ⊞ ein. Die Gliederung entsteht daraus: Oben bleibt, wen niemand einbindet
+oder nennt (`rmsHauptprozesse()`).
+
+`rmsModellXml(p, ids)` baut das Modell mit `prozessXmlBauen` und setzt an jede ⊞ die
+Dokumentation `Unterprozess: …` mit `[[rms:modell=<Datei-Kennung>]]` und `calledElement` mit
+der Prozess-Kennung des Ziels, genau so, wie der Modeler es beim Einbinden tut. Die Prozess-
+Dokumentation trägt Beschreibung, Normbezug und die Gliederung als Klartext und Marker
+(`[[rms:unter=…]]`, `[[rms:neben=…]]`); `_procLead()` zeigt die Beschreibung in der Ansicht
+und in der Prozessbeschreibung der Freigabe als Satz unter dem Titel.
+
+`seedStandardProcesses()` liest die Modelle frisch, legt in der Ablage `KONZERN` von unten nach
+oben an (`rmsReihenfolge()`: ein Modell nach allem, worauf es zeigt, denn es braucht deren
+Datei-Kennung) und fragt bei vorhandenen, ob sie aktualisiert oder übersprungen werden. Der
+Abschnitt „Die Prozesse des RMS" der Dokumentation baut seine Liste aus denselben Daten.
+
+### Der Generator kann Schleifen
+
+Der Freigabe-Workflow ist eine Schleife: nicht konform, überarbeiten, zurück in die Prüfung.
+Der Generator kannte nur Nein-Zweige, die enden, und zwar in „Beendet" oder „Nachbessern".
+Neu in `prozessZeileLesen()` und `prozessXmlBauen()`:
+
+| Schreibweise | Wirkung |
+|---|---|
+| `Frage? \| nein: Text \| Ende: Ergebnis` | Ergebnis des Zweigs mit Namen; „abgelehnt" & Co. färben es rot |
+| `Frage? \| nein: Text \| zurück: Schritt` | Der Zweig führt zu einem früheren Schritt zurück |
+| `Frage? \| nein \| weiter: Schritt` | Ohne eigenen Schritt zu einem späteren; dort treffen sich die Wege |
+| `Frage? \| nein \| Ende: Ergebnis` | Die Raute führt direkt in ein Ergebnis unter ihr |
+| `Zurück: Schritt` | Der Hauptweg endet mit einem Sprung zu einem früheren Schritt |
+| `\| nein: Text (automatisch)` | Der Schritt im Zweig trägt seinen Typ; in einer Automatik-Bahn ist ein benannter Schritt ⚙ |
+
+Ein Sprungziel wird über den Namen gefunden. Fehlt es, endet der Zweig wie bisher; ein Pfeil
+ins Leere wäre schlechter als ein Ende. Ein Strich in gewöhnlichem Text bleibt stehen, gelesen
+wird nur, was ein bekanntes Wort trägt.
+
+Gezeichnet wird ein Sprung unten an der Bahn seiner Quelle entlang (`_psRueckWeg()`): In jeder
+Spalte steht nur ein Knoten, der senkrechte Teil unter oder über dem Ziel trifft deshalb nichts.
+In eine Aufgabe geht er außen hinein (bei 12 bzw. 88 Prozent ihrer Breite), in Rauten und
+Ereignisse von links; mehrere Sprünge auf dasselbe Ziel und mehrere in derselben Bahn bekommen
+eigene Spuren.
+
+### Nebenbei behoben: Pfeile im Generator
+
+Die Prüfung der 61 Modelle hat drei alte Fehler der Lage gefunden, die jedes erzeugte Modell
+treffen konnten:
+
+- Zwei Entscheidungen hintereinander in einer Bahn: Das Ergebnis des ersten Nein-Zweigs lag auf
+  dem Schritt des zweiten. Jetzt merkt sich `untenBis` je Bahn, wie weit die untere Reihe belegt
+  ist, und die nächste Raute rückt.
+- Wechselt ein Ablauf kurz in eine andere Bahn und kommt zurück, lagen Hin- und Rückpfeil auf
+  derselben senkrechten Linie. In eine Aufgabe geht es jetzt bei 30 Prozent ihrer Breite hinein
+  und bei 70 Prozent hinaus, ein Ereignis wird rechts verlassen.
+- Von einer Raute in eine Raute einer anderen Bahn lief der Pfeil von unten durch den Nein-Zweig
+  des Ziels. Rauten und Ereignisse werden jetzt von links angefahren, von unten kommend links am
+  Zweig vorbei.
+
+`tests/standard-prozesse.test.mjs` baut alle 61 Modelle und rechnet sie gegen Hausschema,
+Überschneidungen, Pfeile durch Kästen und Pfeile auf Pfeilen; dazu das Anlegen mit
+nachgestelltem SharePoint. `tests/prozessschema.test.mjs` §10 prüft die neue Schreibweise.
